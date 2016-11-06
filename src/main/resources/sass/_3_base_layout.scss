@@ -1,0 +1,32 @@
+// **********************************************
+// BASE: Layout
+// Filename: _3_base_layout.scss
+// **********************************************
+
+/* new clearfix */
+.clearfix:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+/* 1920 x 1080 */
+html, body {
+    @include x-rem(font-size, 16px);
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+}
+
+body {
+    background: $color-grey-darkest;
+    max-width: 1910px;
+    min-width: 600px;
+    width: 100%;
+}
+
+main {
+    padding: 0 10px;
+}

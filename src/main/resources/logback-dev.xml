@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <contextName>col</contextName>
+
+    <!-- ***************
+    * CONSOLE LOG
+    **************** -->
+    <appender name="APP_CONSOLE_LOGGER" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %X{correlationId} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- *******************
+    * LOGGER CONFIGURATION
+    ******************** -->
+    <!-- Own modules -->
+    <logger name="com.ymdwiseguy" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="APP_CONSOLE_LOGGER" />
+    </root>
+
+</configuration>

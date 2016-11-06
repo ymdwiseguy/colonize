@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://www.owasp.org/index.php/OWASP_Dependency_Check_Suppression"
+    xsi:schemaLocation="https://www.owasp.org/index.php/OWASP_Dependency_Check_Suppression suppression.xsd">
+    <suppress>
+        <!-- Tomcat -->
+        <gav regex="true">org\.apache\.tomcat\.embed:.*</gav>
+        <cve>CVE-2002-0493</cve>
+        <cve>CVE-2007-5461</cve>
+        <cve>CVE-2009-2696</cve>
+        <cve>CVE-2013-2185</cve>
+        <cve>CVE-2016-3092</cve>
+        <cve>CVE-2016-5388</cve>
+        <cve>CVE-2016-5425</cve>
+        <cve>CVE-2016-6325</cve>
+    </suppress>
+    <suppress>
+        <gav regex="true">org\.springframework\.boot:.*</gav>
+        <cve>CVE-2016-6652</cve>
+    </suppress>
+    <suppress>
+        <gav regex="true">com\.fasterxml\.jackson\.core:.*</gav>
+        <cve>CVE-2016-3720</cve>
+    </suppress>
+    <suppress>
+        <gav regex="true">javax\.transaction:.*</gav>
+        <cve>CVE-2013-2566</cve>
+        <cve>CVE-2015-2808</cve>
+    </suppress>
+</suppressions>

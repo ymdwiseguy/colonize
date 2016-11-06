@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <contextName>col</contextName>
+
+    <!-- ***************************
+    * APPLICATION LOG - ALL LEVELS
+    **************************** -->
+    <appender name="APP_LOG" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Do not log errors -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <!-- Do not log audit and business logs -->
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>BUSINESS</marker>
+                <marker>AUDIT</marker>
+            </evaluator>
+            <OnMatch>DENY</OnMatch>
+            <OnMismatch>NEUTRAL</OnMismatch>
+        </filter>
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "@timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}",
+                        "loglevel": "%level",
+                        "msg": "%message",
+                        "logger_name": "%logger",
+                        "thread": "%thread",
+                        "service": "col",
+                        "application_type": "service",
+                        "log_type": "application",
+                        "correlationId": "%X{correlationId}"
+                        }
+                    </pattern>
+                </pattern>
+                <mdc/>
+                <provider class="com.ymdwiseguy.col.crosscutting.logging.HostnameJsonProvider" />
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- ****************************
+    * APPLICATION LOG - ONLY ERRORS
+    ***************************** -->
+    <appender name="APP_ERROR_LOG" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Only log error logs -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>NEUTRAL</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- Do not log audit and business logs -->
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>BUSINESS</marker>
+                <marker>AUDIT</marker>
+            </evaluator>
+            <OnMatch>DENY</OnMatch>
+            <OnMismatch>NEUTRAL</OnMismatch>
+        </filter>
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "@timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}",
+                        "loglevel": "%level",
+                        "msg": "%message",
+                        "logger_name": "%logger",
+                        "thread": "%thread",
+                        "service": "col",
+                        "application_type": "service",
+                        "log_type": "error",
+                        "correlationId": "%X{correlationId}",
+                        "stack_trace": "%ex"
+                        }
+                    </pattern>
+                </pattern>
+                <mdc/>
+                <provider class="com.ymdwiseguy.col.crosscutting.logging.HostnameJsonProvider" />
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- *************
+    * BUSINESS LOG
+    ************** -->
+    <appender name="BUSINESS_LOG" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Only log business logs -->
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>BUSINESS</marker>
+            </evaluator>
+            <OnMatch>ACCEPT</OnMatch>
+            <OnMismatch>DENY</OnMismatch>
+        </filter>
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "@timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}",
+                        "loglevel": "%level",
+                        "msg": "%message",
+                        "logger_name": "%logger",
+                        "thread": "%thread",
+                        "service": "col",
+                        "application_type": "service",
+                        "log_type": "business",
+                        "correlationId": "%X{correlationId}"
+                        }
+                    </pattern>
+                </pattern>
+                <mdc/>
+                <provider class="com.ymdwiseguy.col.crosscutting.logging.HostnameJsonProvider" />
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- *************
+   * AUDIT LOG
+   ************** -->
+    <appender name="AUDIT_LOG" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Only log audit logs -->
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>AUDIT</marker>
+            </evaluator>
+            <OnMatch>ACCEPT</OnMatch>
+            <OnMismatch>DENY</OnMismatch>
+        </filter>
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "@timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}",
+                        "loglevel": "%level",
+                        "msg": "%message",
+                        "logger_name": "%logger",
+                        "thread": "%thread",
+                        "service": "col",
+                        "application_type": "service",
+                        "log_type": "audit",
+                        "correlationId": "%X{correlationId}"
+                        }
+                    </pattern>
+                </pattern>
+                <mdc/>
+                <provider class="com.ymdwiseguy.col.crosscutting.logging.HostnameJsonProvider" />
+            </providers>
+        </encoder>
+    </appender>
+
+    <logger name="ch.qos.logback" level="WARN" />
+
+    <root level="INFO">
+        <appender-ref ref="APP_LOG"/>
+        <appender-ref ref="APP_ERROR_LOG"/>
+        <appender-ref ref="BUSINESS_LOG"/>
+        <appender-ref ref="AUDIT_LOG"/>
+    </root>
+
+</configuration>

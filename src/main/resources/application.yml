@@ -1,0 +1,24 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: "colonization"
+    version: "@project.version@"
+  datasource:
+    continueOnError: false
+    driverClassName: org.h2.Driver
+    initialize: true
+    platform: h2
+    url: jdbc:h2:mem:treedb;DB_CLOSE_ON_EXIT=FALSE
+    password: colonizedb
+    username: colonizedb
+
+health.timeout_seconds: 3
+
+logging:
+  config: classpath:logback.xml
+
+maps:
+  configPath: "maps/"
+  suffix: ".json"

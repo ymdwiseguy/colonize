@@ -1,0 +1,17 @@
+// **********************************************
+// COMPONENTS: Sections
+// Filename: _4_components_sections.scss
+// **********************************************
+
+section {
+    background: $color-white;
+    padding: 10px 0;
+}
+
+section + section {
+    border-top: 1px solid $color-grey-medium2;
+}
+
+section > h2 {
+    margin-top: 5px;
+}

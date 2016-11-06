@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <conversionRule conversionWord="requestQuery"
+                    converterClass="com.ymdwiseguy.col.crosscutting.logging.RequestQueryConverter" />
+    <conversionRule conversionWord="bytesRecived"
+                    converterClass="com.ymdwiseguy.col.crosscutting.logging.BytesReceivedConverter" />
+    <conversionRule conversionWord="baseUri"
+                    converterClass="com.ymdwiseguy.col.crosscutting.logging.BaseUriConverter" />
+
+
+    <appender name="ACCESS_JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.AccessEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "@timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}",
+                        "loglevel": "INFO",
+                        "service": "col",
+                        "application_type": "service",
+                        "log_type": "access",
+                        "remote_address": "%a",
+                        "status": "%s",
+                        "request_method": "%m",
+                        "uri": "%U",
+                        "query_string": "%requestQuery",
+                        "server_name": "%v",
+                        "response_time": "#asLong{%D}",
+                        "bytes_sent": "#asLong{%b}",
+                        "bytes_received": "#asLong{%bytesRecived}",
+                        "user_agent": "%i{User-Agent}",
+                        "accept": "%i{Accept}",
+                        "correlationId": "%reqAttribute{correlation-id}",
+                        "baseUri": "%baseUri"
+                        }
+                    </pattern>
+                </pattern>
+                <provider class="com.ymdwiseguy.col.crosscutting.logging.HostnameJsonProvider" />
+            </providers>
+        </encoder>
+        <file>${service.log.fileprefix}_access.json.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${service.log.fileprefix}_access.json.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender-ref ref="ACCESS_JSON"/>
+
+</configuration>

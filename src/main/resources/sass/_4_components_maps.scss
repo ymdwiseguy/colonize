@@ -1,0 +1,58 @@
+// **********************************************
+// COMPONENTS: Widgets
+// Filename: _4_components_maps.scss
+// **********************************************
+
+.mon-main {
+    padding: 0;
+}
+
+.frame {
+    background:$color-black;
+    height: 800px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.map-main-wrapper {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width:500px;
+    height: 500px;
+    z-index: 1;
+}
+
+.map-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0;
+}
+
+.map-row-tile {
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100px;
+    height: 100px;
+
+    &__ocean-shallow {
+        background-image: url("/assets/img/ocean_dark.svg");
+    }
+
+    &__ocean-normal {
+        background-image: url("/assets/img/ocean_dark.svg");
+    }
+
+    &__ocean-deep {
+        background-image: url("/assets/img/ocean_dark.svg");
+    }
+
+
+
+
+}

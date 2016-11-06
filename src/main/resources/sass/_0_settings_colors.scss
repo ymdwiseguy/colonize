@@ -1,0 +1,71 @@
+// **********************************************
+// SETTNGS: Color palette
+// Filename: _0_settings_colors.scss
+// **********************************************
+
+// @section                 Default Palette
+$color-red: #cc071e;
+$color-red-hover: #a0081a;
+$color-congress-blue: #004a80;
+$color-selective-yellow: #f7c800;
+$color-lima: #6fbd14;
+
+// kind of green
+$color-ceramic: #fcfff7;
+
+// kind of very light red
+$color-rose-white: #fffbfb;
+
+// kind of very light green
+$color-curious-blue: #1d97e2;
+$color-zumthor: #edf6ff;
+
+// kind of very light blue
+$color-cerulean: #0a9ae0;
+
+// kind of blue
+$color-foam: #f1f9fe;
+
+// turquoise
+$color-turquoise: #00b1ae;
+$color-turquoise-light: #99dcdd;
+$color-turquoise-dark: #005058;
+
+// kind of orange
+$color-fire-bush: #e8982a;
+
+// @section                 Shades of Grey
+$color-white: #fff;
+$color-black: #000;
+$color-grey-darkest: #4a4a4a;
+$color-grey-dark: #9b9b9b;
+$color-grey-medium: #ccc;
+$color-grey-medium2: #d8d8d8;
+$color-grey-light: #f5f4f2;
+$color-grey-lightest: #fbfaf9;
+$color-grey-bg: #f2f1ef;
+$color-grey-disabled: #dedede;
+$color-nobel: #b9b7b7;
+$color-iron: #e4e6e7;
+$color-bandicoot: #827f71;
+
+// @ section                Grey from Styleguide
+$color-iron: #e4e6e7;
+
+// @section                 Widget colors
+$color-status-up: $color-lima;
+$color-status-down: $color-red-hover;
+
+$color-node-green: $color-lima;
+$color-node-blue: $color-curious-blue;
+
+
+// sand
+$color-ultralight-sand: #F9F8F5;
+$color-pampas: #f2f0eb;
+
+// beige
+$color-moon-mist: #dbd6c7;
+
+// bottom border/shadow of red buttons
+$color-rosewood: #5c000e;

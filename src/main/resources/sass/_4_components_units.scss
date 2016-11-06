@@ -1,0 +1,71 @@
+// **********************************************
+// COMPONENTS: Units
+// Filename: _4_components_units.scss
+// **********************************************
+
+@keyframes unitblink {
+    0%   {opacity: 1;}
+    45%  {opacity: 1;}
+    60%  {opacity: 0;}
+    75%  {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+@keyframes animate-move-left {
+    from { top:0; left:0; }
+    to { top:0; left: -100px; }
+}
+
+@keyframes animate-move-right {
+    from { top:0; left:0; }
+    to { top:0; left: 100px; }
+}
+
+@keyframes animate-move-up {
+    from { top:0; left:0; }
+    to { top:-100px; left: 0; }
+}
+
+@keyframes animate-move-down {
+    from { top:0; left:0; }
+    to { top:100px; left: 0; }
+}
+
+.unit {
+    background-size: contain;
+    height:100px;
+    left:0;
+    position: absolute;
+    top:0;
+    width:100px;
+    z-index: 5;
+
+    &__karavelle {
+        background-image: url("/assets/img/karavelle.svg");
+    }
+
+    &--active {
+        animation: unitblink 1s;
+    }
+
+    &--move {
+        animation-fill-mode: forwards;
+        animation-duration: 1s;
+        animation-timing-function: ease;
+    }
+    &--move-left {
+        animation-name: animate-move-left;
+    }
+
+    &--move-right {
+        animation-name: animate-move-right;
+    }
+
+    &--move-up {
+        animation-name: animate-move-up;
+    }
+
+    &--move-down {
+        animation-name: animate-move-down;
+    }
+}
