@@ -49,10 +49,10 @@ public class MapConfigurationReader {
         Objects.nonNull(this.filename);
         Objects.nonNull(this.suffix);
         String configFile = path + filename + suffix;
-        return getDashboardDataFromConfigFile(configFile);
+        return getMapDataFromConfigFile(configFile);
     }
 
-    private Optional<String> getDashboardDataFromConfigFile(final String configFile) {
+    private Optional<String> getMapDataFromConfigFile(final String configFile) {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(configFile);
         if(inputStream!=null) {
             StringBuilder dashboardData = new StringBuilder();

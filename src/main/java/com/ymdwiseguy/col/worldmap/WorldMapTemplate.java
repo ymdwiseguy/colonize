@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col;
+package com.ymdwiseguy.col.worldmap;
 
 import com.github.jknack.handlebars.TypeSafeTemplate;
 

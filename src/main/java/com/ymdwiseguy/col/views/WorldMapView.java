@@ -2,10 +2,9 @@ package com.ymdwiseguy.col.views;
 
 import com.github.jknack.handlebars.EscapingStrategy;
 import com.github.jknack.handlebars.Handlebars;
-import com.ymdwiseguy.col.WorldMapTemplate;
+import com.ymdwiseguy.col.worldmap.WorldMapTemplate;
 import org.slf4j.Logger;
 
-import javax.inject.Inject;
 import java.io.IOException;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -16,20 +15,18 @@ public class WorldMapView {
 
     private final Handlebars handlebars;
 
-    @Inject
-    private MapConfigurationReader mapConfigurationReader;
+
 
     public WorldMapView(Handlebars handlebars) {
         this.handlebars = handlebars;
     }
 
-    public String render(String name) {
+    public String render(String mapData) {
         WorldMapTemplate template;
-        mapConfigurationReader.setFilename(name);
-        String worldMapConfig = mapConfigurationReader.read().orElse("[]");
+
         try {
             template = getIndexTemplate();
-            template.setWorldMap(worldMapConfig);
+            template.setWorldMap(mapData);
             return template.apply(null);
         } catch (IOException e) {
             LOGGER.error("could not load template file", e);
