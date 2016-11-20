@@ -19,7 +19,7 @@
     left: 0;
     position: absolute;
     top: 0;
-    width:500px;
+    //width:500px;
     height: 500px;
     z-index: 1;
 }
@@ -40,15 +40,11 @@
     width: 100px;
     height: 100px;
 
-    &__ocean-shallow {
+    &__OCEAN_SHALLOW {
         background-image: url("/assets/img/ocean_dark.svg");
     }
 
-    &__ocean-normal {
-        background-image: url("/assets/img/ocean_dark.svg");
-    }
-
-    &__ocean-deep {
+    &__OCEAN_DEEP {
         background-image: url("/assets/img/ocean_dark.svg");
     }
 
