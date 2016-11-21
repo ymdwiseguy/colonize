@@ -19,21 +19,23 @@
     left: 0;
     position: absolute;
     top: 0;
-    //width:500px;
+    //width:100px;
     height: 500px;
     z-index: 1;
+
+    $class-ext: --width !default;
+    @for $i from 1 through 120 {
+        &#{$class-ext}-#{$i} {
+            width: calc(#{$i} * 100px);
+        }
+    }
 }
 
-.map-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 0;
-}
+.map-tile {
 
-.map-row-tile {
     background-size: cover;
+    display: inline-block;
+    float:left;
     margin: 0;
     padding: 0;
     position: relative;
@@ -47,8 +49,5 @@
     &__OCEAN_DEEP {
         background-image: url("/assets/img/ocean_dark.svg");
     }
-
-
-
 
 }

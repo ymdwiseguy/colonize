@@ -1,23 +1,10 @@
-const Row = React.createClass({
-    render: function () {
-        let tileList = this.props.rowdata.tiles.map((tile, i) => {
-            return <Tile tile={tile} key={i}/>
-        });
-        return (
-            <div className="map-row">
-                {tileList}
-            </div>
-        )
-    }
-});
-
 const Tile = React.createClass({
     render: function () {
-        let className = "map-row-tile map-row-tile__"+this.props.tile.type;
+        let className = "map-tile map-tile__" + this.props.tile.type;
         let units = '';
-        if(this.props.tile.units){
+        if (this.props.tile.units) {
             units = this.props.tile.units.map((unit, i) => {
-                return <Unit unit={unit} key={i} />
+                return <Unit unit={unit} key={i}/>
             });
         }
 
@@ -31,12 +18,14 @@ const Tile = React.createClass({
 
 const Map = React.createClass({
     render: function () {
-        let rowList = this.props.data.rows.map((row, i) => {
-            return <Row rowdata={row} key={i}/>
+        let tileList = this.props.data.tiles.map((tile, i) => {
+            let key = 'tile_' + tile.x_coordinate + '_' + tile.y_coordinate;
+            return <Tile tile={tile} key={key}/>
         });
+        let classname = 'map-main-wrapper map-main-wrapper--width-'+this.props.data.width;
         return (
-            <div className="map-main-wrapper">
-                {rowList}
+            <div className={classname}>
+                {tileList}
             </div>
         )
     }
