@@ -4,48 +4,53 @@
 // **********************************************
 
 @keyframes unitblink {
-    0%   {opacity: 1;}
-    45%  {opacity: 1;}
-    60%  {opacity: 0;}
-    75%  {opacity: 0;}
-    100% {opacity: 0;}
-}
-
-@keyframes animate-move-left {
-    from { top:0; left:0; }
-    to { top:0; left: -100px; }
-}
-
-@keyframes animate-move-right {
-    from { top:0; left:0; }
-    to { top:0; left: 100px; }
-}
-
-@keyframes animate-move-up {
-    from { top:0; left:0; }
-    to { top:-100px; left: 0; }
-}
-
-@keyframes animate-move-down {
-    from { top:0; left:0; }
-    to { top:100px; left: 0; }
+    0% {
+        opacity: 1;
+    }
+    45% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .unit {
     background-size: contain;
-    height:100px;
-    left:0;
+    height: 100px;
+    left: 0;
     position: absolute;
-    top:0;
-    width:100px;
+    top: 0;
+    width: 100px;
     z-index: 5;
 
     &__karavelle {
         background-image: url("/assets/img/karavelle.svg");
     }
 
+    $xposition: __xpos !default;
+    @for $i from 1 through 120 {
+        &#{$xposition}-#{$i} {
+            left: calc((#{$i} - 1) * 100px);
+        }
+    }
+
+    $yposition: __ypos !default;
+    @for $j from 1 through 120 {
+        &#{$yposition}-#{$j} {
+            top: calc((#{$j} - 1) * 100px);
+        }
+    }
+
     &--active {
         animation: unitblink 1s;
+        animation-iteration-count: infinite;
     }
 
     &--move {

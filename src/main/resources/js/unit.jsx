@@ -14,33 +14,33 @@ const Unit = React.createClass({
     },
 
     handleKeyDown: function (event) {
+        let unit = $('#unit_'+this.props.unit.unitId);
         switch (event.keyCode) {
-            case 37:
-                this.setState({move: 'left'});
+            case 37: // left
+                unit.animate({left:'-=100'});
                 break;
-            case 38:
-                this.setState({move: 'up'});
+            case 38: // up
+                unit.animate({top:'-=100'});
                 break;
-            case 39:
-                this.setState({move: 'right'});
+            case 39: // right
+                unit.animate({left:'+=100'});
                 break;
-            case 40:
-                this.setState({move: 'down'});
+            case 40: // down
+                unit.animate({top:'+=100'});
                 break;
         }
     },
 
     render: function () {
-        let className = "unit unit__" + this.props.unit.type;
+        let className = 'unit unit__' + this.props.unit.type + ' unit__xpos-'+this.props.unit.x_position + ' unit__ypos-'+this.props.unit.y_position;
+        let unitId = 'unit_'+this.props.unit.unitId;
+
         if (this.props.unit.active) {
             className += ' unit--active';
         }
-        if (this.state.move.length > 0) {
-            className += ' unit--move unit--move-' + this.state.move;
-        }
 
         return (
-            <div className={className} onKeyDown={this.handleKeyDown}>&nbsp;</div>
+            <div className={className} id={unitId} onKeyDown={this.handleKeyDown}>&nbsp;</div>
         )
     }
 });
