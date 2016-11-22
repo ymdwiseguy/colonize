@@ -1,23 +1,11 @@
-const Tile = React.createClass({
-    render: function () {
-        let className = "map-tile map-tile__" + this.props.tile.type;
-        let units = '';
-        if (this.props.tile.units) {
-            units = this.props.tile.units.map((unit, i) => {
-                return <Unit unit={unit} key={i}/>
-            });
-        }
+import React from 'react';
+import Unit from './unit.jsx';
+import Tile from './tile.jsx';
 
-        return (
-            <div className={className}>
-                {units}
-            </div>
-        )
-    }
-});
 
-const Map = React.createClass({
-    render: function () {
+
+class Map extends React.Component{
+    render () {
         let units = '';
         let tileList = this.props.data.tiles.map((tile, i) => {
             let key = 'tile_' + tile.x_coordinate + '_' + tile.y_coordinate;
@@ -36,5 +24,6 @@ const Map = React.createClass({
             </div>
         )
     }
-});
+}
 
+export default Map;

@@ -1,19 +1,22 @@
-const Unit = React.createClass({
+import React from 'react';
 
-    getInitialState: function () {
+class Unit extends React.Component{
+
+    static getInitialState () {
         return {
             move: ""
         };
-    },
-    componentDidMount: function () {
+    }
+
+    componentDidMount () {
         $(document.body).on('keydown', this.handleKeyDown);
-    },
+    }
 
-    componentWillUnMount: function () {
+    componentWillUnMount () {
         $(document.body).off('keydown', this.handleKeyDown);
-    },
+    }
 
-    handleKeyDown: function (event) {
+    handleKeyDown (event) {
         let unit = $('#unit_'+this.props.unit.unitId);
         switch (event.keyCode) {
             case 37: // left
@@ -29,9 +32,9 @@ const Unit = React.createClass({
                 unit.animate({top:'+=100'});
                 break;
         }
-    },
+    }
 
-    render: function () {
+    render () {
         let className = 'unit unit__' + this.props.unit.type + ' unit__xpos-'+this.props.unit.x_position + ' unit__ypos-'+this.props.unit.y_position;
         let unitId = 'unit_'+this.props.unit.unitId;
 
@@ -43,4 +46,6 @@ const Unit = React.createClass({
             <div className={className} id={unitId} onKeyDown={this.handleKeyDown}>&nbsp;</div>
         )
     }
-});
+}
+
+export default Unit;
