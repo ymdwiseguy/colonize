@@ -1,141 +1,142 @@
 {
-    "worldMapId" : "random_uuid",
+    "worldMapId" : "testSandbox",
     "title" : "test map",
     "width" : 5,
     "height" : 5,
     "units": [
         {
             "unitId" : "12345",
-            "type": "karavelle",
+            "worldMapId" : "testSandbox",
+            "unitType": "KARAVELLE",
             "active": true,
-            "x_position": 3,
-            "y_position": 2
+            "xPosition": 3,
+            "yPosition": 2
         }
     ],
     "tiles": [
         {
-            "x_coordinate": "1",
-            "y_coordinate": "1",
+            "xCoordinate": "1",
+            "yCoordinate": "1",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "2",
-            "y_coordinate": "1",
+            "xCoordinate": "2",
+            "yCoordinate": "1",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "3",
-            "y_coordinate": "1",
+            "xCoordinate": "3",
+            "yCoordinate": "1",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "4",
-            "y_coordinate": "1",
+            "xCoordinate": "4",
+            "yCoordinate": "1",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "5",
-            "y_coordinate": "1",
+            "xCoordinate": "5",
+            "yCoordinate": "1",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "1",
-            "y_coordinate": "2",
+            "xCoordinate": "1",
+            "yCoordinate": "2",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "2",
-            "y_coordinate": "2",
+            "xCoordinate": "2",
+            "yCoordinate": "2",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "3",
-            "y_coordinate": "2",
+            "xCoordinate": "3",
+            "yCoordinate": "2",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "4",
-            "y_coordinate": "2",
+            "xCoordinate": "4",
+            "yCoordinate": "2",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "5",
-            "y_coordinate": "2",
+            "xCoordinate": "5",
+            "yCoordinate": "2",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "1",
-            "y_coordinate": "3",
+            "xCoordinate": "1",
+            "yCoordinate": "3",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "2",
-            "y_coordinate": "3",
+            "xCoordinate": "2",
+            "yCoordinate": "3",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "3",
-            "y_coordinate": "3",
+            "xCoordinate": "3",
+            "yCoordinate": "3",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "4",
-            "y_coordinate": "3",
+            "xCoordinate": "4",
+            "yCoordinate": "3",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "5",
-            "y_coordinate": "3",
+            "xCoordinate": "5",
+            "yCoordinate": "3",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "1",
-            "y_coordinate": "4",
+            "xCoordinate": "1",
+            "yCoordinate": "4",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "2",
-            "y_coordinate": "4",
+            "xCoordinate": "2",
+            "yCoordinate": "4",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "3",
-            "y_coordinate": "4",
+            "xCoordinate": "3",
+            "yCoordinate": "4",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "4",
-            "y_coordinate": "4",
+            "xCoordinate": "4",
+            "yCoordinate": "4",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "5",
-            "y_coordinate": "4",
+            "xCoordinate": "5",
+            "yCoordinate": "4",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "1",
-            "y_coordinate": "5",
+            "xCoordinate": "1",
+            "yCoordinate": "5",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "2",
-            "y_coordinate": "5",
+            "xCoordinate": "2",
+            "yCoordinate": "5",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "3",
-            "y_coordinate": "5",
+            "xCoordinate": "3",
+            "yCoordinate": "5",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "4",
-            "y_coordinate": "5",
+            "xCoordinate": "4",
+            "yCoordinate": "5",
             "type": "OCEAN_DEEP"
         },
         {
-            "x_coordinate": "5",
-            "y_coordinate": "5",
+            "xCoordinate": "5",
+            "yCoordinate": "5",
             "type": "OCEAN_DEEP"
         }
     ]

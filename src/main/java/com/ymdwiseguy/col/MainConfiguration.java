@@ -4,6 +4,7 @@ package com.ymdwiseguy.col;
 import com.github.jknack.handlebars.Handlebars;
 import com.ymdwiseguy.col.views.WorldMapView;
 import com.ymdwiseguy.col.worldmap.TileRepo;
+import com.ymdwiseguy.col.worldmap.UnitRepo;
 import com.ymdwiseguy.col.worldmap.WorldMapRepo;
 import com.ymdwiseguy.col.worldmap.WorldMapService;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -49,8 +50,13 @@ public class MainConfiguration {
     }
 
     @Bean
+    UnitRepo unitRepo() {
+        return new UnitRepo(jdbcTemplate());
+    }
+
+    @Bean
     public WorldMapService WorldMapService(){
-        return new WorldMapService(worldMapRepo(), tileRepo());
+        return new WorldMapService(worldMapRepo(), tileRepo(), unitRepo());
     }
 
     @Bean

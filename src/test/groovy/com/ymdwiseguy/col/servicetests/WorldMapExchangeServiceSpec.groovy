@@ -55,7 +55,7 @@ class WorldMapExchangeServiceSpec extends Specification {
 
         when: "the response is converted"
         GENERATED_MAP = new WorldMap().fromJson(responseEntity.body)
-        GENERATED_MAP_UUID = GENERATED_MAP.getWorldMapID()
+        GENERATED_MAP_UUID = GENERATED_MAP.getWorldMapId()
 
         then: "it has the expected data"
         GENERATED_MAP.getTitle() == "new Map"
@@ -92,14 +92,14 @@ class WorldMapExchangeServiceSpec extends Specification {
 
         and: "the map is returned with a generated uuid"
         WorldMap newWorldMap = new WorldMap().fromJson(newResponse.getBody())
-        newWorldMap.getWorldMapID() != null
+        newWorldMap.getWorldMapId() != null
         WorldMap comparator = new WorldMap().fromJson(getMapJson())
-        comparator.setWorldMapID(newWorldMap.getWorldMapID())
+        comparator.setWorldMapId(newWorldMap.getWorldMapId())
         assertWorldMap(newWorldMap, comparator)
     }
 
     def boolean assertWorldMap(WorldMap worldMap, WorldMap comparator = GENERATED_MAP) {
-        assert worldMap.getWorldMapID() == comparator.getWorldMapID()
+        assert worldMap.getWorldMapId() == comparator.getWorldMapId()
         assert worldMap.getTitle() == comparator.getTitle()
         assert worldMap.getWidth() == comparator.getWidth()
         assert worldMap.getHeight() == comparator.getHeight()

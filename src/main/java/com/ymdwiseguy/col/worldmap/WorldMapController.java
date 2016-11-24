@@ -73,7 +73,7 @@ public class WorldMapController {
 
         try {
             WorldMap worldMap = new WorldMap().fromJson(worldMapJson);
-            if (!mapid.equals(worldMap.getWorldMapID())) {
+            if (!mapid.equals(worldMap.getWorldMapId())) {
                 LOGGER.info("received invalid data for mapid {}", mapid);
                 return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
             }
@@ -102,12 +102,14 @@ public class WorldMapController {
 
     // GET - HTML
     @RequestMapping(value = "/maps/{name}")
-    public String loadMapFromFile(@PathVariable String name) {
+    public ResponseEntity loadMapFromFile(@PathVariable String name) {
 
         mapConfigurationReader.setFilename(name);
         String worldMapData = mapConfigurationReader.read().orElse("[]");
 
-        return worldMapView.render(worldMapData);
+        WorldMap worldMap = worldMapService.saveWorldMapFromJson(worldMapData);
+
+        return new ResponseEntity<>(worldMapView.render(worldMap.toJson()), HttpStatus.CREATED);
     }
 
 

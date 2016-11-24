@@ -80,8 +80,8 @@ public class Tile {
         }
     }
 
-    public WorldMap fromJson(String worldMapData) throws IOException {
-        return mapper.reader().forType(WorldMap.class).readValue(worldMapData);
+    public WorldMap fromJson(String tileData) throws IOException {
+        return mapper.reader().forType(Tile.class).readValue(tileData);
     }
 
 }

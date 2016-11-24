@@ -17,7 +17,7 @@
         opacity: 0;
     }
     100% {
-        opacity: 0;
+        opacity: 1;
     }
 }
 
@@ -27,10 +27,11 @@
     left: 0;
     position: absolute;
     top: 0;
+    transition: all 1s ease-out;
     width: 100px;
     z-index: 5;
 
-    &__karavelle {
+    &__KARAVELLE {
         background-image: url("/assets/img/karavelle.svg");
     }
 
@@ -51,26 +52,5 @@
     &--active {
         animation: unitblink 1s;
         animation-iteration-count: infinite;
-    }
-
-    &--move {
-        animation-fill-mode: forwards;
-        animation-duration: 1s;
-        animation-timing-function: ease;
-    }
-    &--move-left {
-        animation-name: animate-move-left;
-    }
-
-    &--move-right {
-        animation-name: animate-move-right;
-    }
-
-    &--move-up {
-        animation-name: animate-move-up;
-    }
-
-    &--move-down {
-        animation-name: animate-move-down;
     }
 }

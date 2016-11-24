@@ -1,50 +1,61 @@
 import React from 'react';
 
-class Unit extends React.Component{
+class Unit extends React.Component {
 
-    static getInitialState () {
-        return {
+    constructor() {
+        super();
+        this.state = {
             move: ""
         };
     }
 
-    componentDidMount () {
-        $(document.body).on('keydown', this.handleKeyDown);
+    componentDidMount() {
+        this.setState({ unit: this.props.unit });
+        $(document.body).on('keydown', this.handleKeyDown.bind(this));
     }
 
-    componentWillUnMount () {
+    componentWillUnMount() {
         $(document.body).off('keydown', this.handleKeyDown);
     }
 
-    handleKeyDown (event) {
-        let unit = $('#unit_'+this.props.unit.unitId);
+    handleKeyDown(event) {
+
+        var newUnit = this.props.unit;
         switch (event.keyCode) {
             case 37: // left
-                unit.animate({left:'-=100'});
+                newUnit.xPosition -= 1;
                 break;
             case 38: // up
-                unit.animate({top:'-=100'});
+                newUnit.yPosition -= 1;
                 break;
             case 39: // right
-                unit.animate({left:'+=100'});
+                newUnit.xPosition += 1;
                 break;
             case 40: // down
-                unit.animate({top:'+=100'});
+                newUnit.yPosition += 1;
                 break;
         }
+        this.setState({unit: newUnit});
     }
 
-    render () {
-        let className = 'unit unit__' + this.props.unit.type + ' unit__xpos-'+this.props.unit.x_position + ' unit__ypos-'+this.props.unit.y_position;
-        let unitId = 'unit_'+this.props.unit.unitId;
+    render() {
+        if(this.state.unit){
 
-        if (this.props.unit.active) {
-            className += ' unit--active';
+            let className = 'unit unit__' + this.state.unit.unitType + ' unit__xpos-' + this.state.unit.xPosition + ' unit__ypos-' + this.state.unit.yPosition;
+            let unitId = 'unit_' + this.state.unit.unitId;
+
+            if (this.state.unit.active) {
+                className += ' unit--active';
+            }
+
+            return (
+                <div className={className} id={unitId} onKeyDown={this.handleKeyDown}>&nbsp;</div>
+            )
+        }else {
+            return (
+                <div/>
+            )
         }
-
-        return (
-            <div className={className} id={unitId} onKeyDown={this.handleKeyDown}>&nbsp;</div>
-        )
     }
 }
 

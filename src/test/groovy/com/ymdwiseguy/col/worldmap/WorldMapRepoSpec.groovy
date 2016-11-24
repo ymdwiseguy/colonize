@@ -69,7 +69,7 @@ class WorldMapRepoSpec extends Specification {
     def assertWorldMap(Optional<WorldMap> result, WorldMap comparator) {
         assert result.isPresent()
         WorldMap resultWorldMap = result.get()
-        assert resultWorldMap.getWorldMapID() == comparator.getWorldMapID()
+        assert resultWorldMap.getWorldMapId() == comparator.getWorldMapId()
         assert resultWorldMap.getTitle() == comparator.getTitle()
         assert resultWorldMap.getWidth() == comparator.getWidth()
         assert resultWorldMap.getHeight() == comparator.getHeight()

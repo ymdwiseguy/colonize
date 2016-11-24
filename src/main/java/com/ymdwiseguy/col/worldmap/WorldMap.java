@@ -15,37 +15,37 @@ public class WorldMap {
     private static final ObjectMapper mapper = new ObjectMapper();
 
 
-    private String worldMapID;
+    private String worldMapId;
     private String title;
     private List<Tile> tiles;
+    private List<Unit> units;
     private int width = 56;
     private int height = 70;
 
-    public WorldMap(String worldMapID) {
-        setWorldMapID(worldMapID);
+    public WorldMap(String worldMapId) {
+        setWorldMapId(worldMapId);
     }
 
     public WorldMap() {
     }
 
-    public WorldMap(String worldMapID, String title, int width, int height) {
-        setWorldMapID(worldMapID);
+    public WorldMap(String worldMapId, String title, int width, int height) {
+        setWorldMapId(worldMapId);
         setTitle(title);
         setWidth(width);
         setHeight(height);
     }
 
-    public String getWorldMapID() {
-        return worldMapID;
+    public String getWorldMapId() {
+        return worldMapId;
+    }
+
+    public void setWorldMapId(String worldMapId) {
+        this.worldMapId = worldMapId;
     }
 
     public String getTitle() {
         return title;
-    }
-
-
-    public void setWorldMapID(String worldMapID) {
-        this.worldMapID = worldMapID;
     }
 
     public void setTitle(String title) {
@@ -58,6 +58,14 @@ public class WorldMap {
 
     public void setTiles(List<Tile> tiles) {
         this.tiles = tiles;
+    }
+
+    public List<Unit> getUnits() {
+        return units;
+    }
+
+    public void setUnits(List<Unit> units) {
+        this.units = units;
     }
 
     public int getWidth() {

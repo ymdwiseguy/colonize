@@ -104,7 +104,7 @@ public class TileRepo {
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
     public List<Tile> getTiles(String worldMapId) {
-        final String sql = "SELECT * FROM tile WHERE world_map_id=?";
+        final String sql = "SELECT * FROM tile WHERE world_map_id=? ORDER BY y_coordinate, x_coordinate ASC";
 
         RowMapper<Tile> tileRowMapper = (resultSet, rowNum) -> new Tile(
             resultSet.getString("tile_id"),

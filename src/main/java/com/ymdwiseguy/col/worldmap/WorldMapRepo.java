@@ -36,8 +36,8 @@ public class WorldMapRepo {
         } catch (ConstraintViolationException cve) {
             throw cve;
         }
-        LOGGER.info("Created worldMap '{}'", worldMap.getWorldMapID());
-        return worldMap.getWorldMapID();
+        LOGGER.info("Created worldMap '{}'", worldMap.getWorldMapId());
+        return worldMap.getWorldMapId();
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
@@ -63,15 +63,15 @@ public class WorldMapRepo {
     @Transactional(propagation = Propagation.REQUIRED)
     public Optional<WorldMap> updateWorldmap(WorldMap worldMap) {
         final String sql = "UPDATE worldmap SET worldmap_id = ?, title = ?, width = ?, height = ? WHERE worldmap_id = ?";
-        String worldMapId = worldMap.getWorldMapID();
+        String worldMapId = worldMap.getWorldMapId();
         try {
             jdbcTemplate.update(sql, post -> {
                 populateWorldmapStatement(worldMap, post);
                 post.setString(5, worldMapId);
             });
-            LOGGER.info("Updated worldMap '{}'", worldMap.getWorldMapID());
+            LOGGER.info("Updated worldMap '{}'", worldMap.getWorldMapId());
         } catch (ConstraintViolationException cve) {
-            LOGGER.info("WorldMap with id {} was not found in the database.", worldMap.getWorldMapID());
+            LOGGER.info("WorldMap with id {} was not found in the database.", worldMap.getWorldMapId());
             throw cve;
         }
         return getWorldmap(worldMapId);
@@ -85,10 +85,10 @@ public class WorldMapRepo {
     }
 
     private void populateWorldmapStatement(WorldMap worldMap, PreparedStatement post) throws SQLException {
-        if (worldMap.getWorldMapID() == null) {
-            worldMap.setWorldMapID(UUID.randomUUID().toString());
+        if (worldMap.getWorldMapId() == null) {
+            worldMap.setWorldMapId(UUID.randomUUID().toString());
         }
-        post.setString(1, worldMap.getWorldMapID());
+        post.setString(1, worldMap.getWorldMapId());
         post.setString(2, worldMap.getTitle());
         post.setInt(3, worldMap.getWidth());
         post.setInt(4, worldMap.getHeight());

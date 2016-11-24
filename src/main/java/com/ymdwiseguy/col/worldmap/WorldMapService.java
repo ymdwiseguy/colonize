@@ -18,13 +18,14 @@ public class WorldMapService {
     private static final Logger LOGGER = getLogger(WorldMapService.class);
 
     private final WorldMapRepo worldMapRepo;
-
     private final TileRepo tileRepo;
+    private final UnitRepo unitRepo;
 
     @Autowired
-    public WorldMapService(final WorldMapRepo WorldMapRepo, TileRepo tileRepo) {
+    public WorldMapService(final WorldMapRepo WorldMapRepo, TileRepo tileRepo, UnitRepo unitRepo) {
         this.worldMapRepo = WorldMapRepo;
         this.tileRepo = tileRepo;
+        this.unitRepo = unitRepo;
     }
 
 
@@ -32,7 +33,7 @@ public class WorldMapService {
         Optional<WorldMap> worldMapOptional = worldMapRepo.getWorldmap(uuid);
         if (worldMapOptional.isPresent()) {
             WorldMap worldMap = worldMapOptional.get();
-            List<Tile> tiles = tileRepo.getTiles(worldMap.getWorldMapID());
+            List<Tile> tiles = tileRepo.getTiles(worldMap.getWorldMapId());
             worldMap.setTiles(tiles);
             return worldMap;
         }
@@ -42,7 +43,7 @@ public class WorldMapService {
     public WorldMap generateMap(int width, int height) {
         WorldMap generatedMap = new WorldMap();
         String mapId = UUID.randomUUID().toString();
-        generatedMap.setWorldMapID(mapId);
+        generatedMap.setWorldMapId(mapId);
         generatedMap.setTitle("new Map");
         generatedMap.setWidth(width);
         generatedMap.setHeight(height);
@@ -69,22 +70,27 @@ public class WorldMapService {
         return worldMapId;
     }
 
-    public String saveWorldMapFromJson(String worldMapData) {
+    public WorldMap saveWorldMapFromJson(String worldMapData) {
         WorldMap worldMap = null;
         try {
             worldMap = new WorldMap().fromJson(worldMapData);
-            return worldMapRepo.createWorldmap(worldMap);
+            if(worldMap.getWorldMapId() == null){
+                worldMap.setWorldMapId(UUID.randomUUID().toString());
+            }
+            String mapId = worldMapRepo.createWorldmap(worldMap);
+            tileRepo.createTiles(worldMap.getTiles());
+            unitRepo.createUnits(worldMap.getUnits());
         } catch (IOException e) {
             LOGGER.error("unable to convert Json to WorldMap: {}", e);
         }
-        return null;
+        return worldMap;
     }
 
     public WorldMap updateWorldMap(WorldMap worldMap) {
         Optional<WorldMap> worldMapOptional = worldMapRepo.updateWorldmap(worldMap);
         if (worldMapOptional.isPresent()) {
             WorldMap updatedMap = worldMapOptional.get();
-            updatedMap.setTiles(tileRepo.getTiles(updatedMap.getWorldMapID() ));
+            updatedMap.setTiles(tileRepo.getTiles(updatedMap.getWorldMapId() ));
             return updatedMap;
         }
         LOGGER.info("Unable to get Map after update");
