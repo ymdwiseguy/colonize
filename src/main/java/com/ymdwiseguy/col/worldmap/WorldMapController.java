@@ -68,9 +68,7 @@ public class WorldMapController {
     // UPDATE - JSON
     @RequestMapping(value = "/api/maps/{mapid}", method = PUT, produces = "application/hal+json")
     public ResponseEntity updateMap(@RequestBody String worldMapJson, @PathVariable String mapid) {
-
         LOGGER.info(worldMapJson);
-
         try {
             WorldMap worldMap = new WorldMap().fromJson(worldMapJson);
             if (!mapid.equals(worldMap.getWorldMapId())) {
@@ -86,8 +84,13 @@ public class WorldMapController {
             LOGGER.error("unable to save map: {}", e);
             return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
-
+    // UPDATE - JSON - MOVE UNIT
+    @RequestMapping(value = "/api/maps/{mapid}/move/{direction}", method = PUT, produces = "application/hal+json")
+    public ResponseEntity moveUnit(@PathVariable String mapid, @PathVariable UnitDirection direction) {
+        WorldMap worldMap = worldMapService.moveUnit(mapid, direction);
+        return new ResponseEntity<>(worldMap.toJson(), HttpStatus.OK);
     }
 
     // GET - JSON
@@ -103,12 +106,9 @@ public class WorldMapController {
     // GET - HTML
     @RequestMapping(value = "/maps/{name}")
     public ResponseEntity loadMapFromFile(@PathVariable String name) {
-
         mapConfigurationReader.setFilename(name);
         String worldMapData = mapConfigurationReader.read().orElse("[]");
-
         WorldMap worldMap = worldMapService.saveWorldMapFromJson(worldMapData);
-
         return new ResponseEntity<>(worldMapView.render(worldMap.toJson()), HttpStatus.CREATED);
     }
 

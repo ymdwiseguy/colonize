@@ -1,12 +1,9 @@
 {
-    "worldMapId" : "testSandbox",
-    "title" : "test map",
-    "width" : 5,
-    "height" : 5,
+    "title": "test map",
+    "width": 5,
+    "height": 5,
     "units": [
         {
-            "unitId" : "12345",
-            "worldMapId" : "testSandbox",
             "unitType": "KARAVELLE",
             "active": true,
             "xPosition": 3,
