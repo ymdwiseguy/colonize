@@ -29,7 +29,7 @@ public class WorldMapService {
     }
 
 
-    WorldMap getWorldMap(String uuid) {
+    public WorldMap getWorldMap(String uuid) {
         Optional<WorldMap> worldMapOptional = worldMapRepo.getWorldmap(uuid);
         if (worldMapOptional.isPresent()) {
             WorldMap worldMap = worldMapOptional.get();
@@ -84,12 +84,16 @@ public class WorldMapService {
         return worldMap;
     }
 
-    WorldMap updateWorldMap(WorldMap worldMap) {
+    public WorldMap updateWorldMap(WorldMap worldMap) {
         Optional<WorldMap> worldMapOptional = worldMapRepo.updateWorldmap(worldMap);
         if (worldMapOptional.isPresent()) {
+            List<Unit> units = unitRepo.updateUnits(worldMap.getUnits());
+            List<Tile> tiles = tileRepo.updateTiles(worldMap.getTiles());
+
             WorldMap updatedMap = worldMapOptional.get();
-            updatedMap.setTiles(tileRepo.getTiles(updatedMap.getWorldMapId() ));
-            updatedMap.setUnits(unitRepo.getUnits(updatedMap.getWorldMapId() ));
+            updatedMap.setUnits(units);
+            updatedMap.setTiles(tiles);
+
             return updatedMap;
         }
         LOGGER.info("Unable to get Map after update");
@@ -118,16 +122,4 @@ public class WorldMapService {
         return units;
     }
 
-    WorldMap moveUnit(String mapid, UnitDirection direction) {
-        WorldMap worldMap = getWorldMap(mapid);
-        List<Unit> units = worldMap.getUnits();
-        for (Unit unit : units) {
-            if (unit.isActive()){
-                unit.setxPosition(unit.getxPosition() - 1);
-            }
-        }
-        worldMap.setUnits(units);
-        updateWorldMap(worldMap);
-        return worldMap;
-    }
 }

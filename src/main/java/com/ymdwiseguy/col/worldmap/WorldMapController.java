@@ -86,12 +86,6 @@ public class WorldMapController {
         }
     }
 
-    // UPDATE - JSON - MOVE UNIT
-    @RequestMapping(value = "/api/maps/{mapid}/move/{direction}", method = PUT, produces = "application/hal+json")
-    public ResponseEntity moveUnit(@PathVariable String mapid, @PathVariable UnitDirection direction) {
-        WorldMap worldMap = worldMapService.moveUnit(mapid, direction);
-        return new ResponseEntity<>(worldMap.toJson(), HttpStatus.OK);
-    }
 
     // GET - JSON
     @RequestMapping(value = "/api/maps/{mapid}", method = GET)

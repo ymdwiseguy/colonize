@@ -141,6 +141,30 @@ public class TileRepo {
         }
     }
 
+    List<Tile> updateTiles(List<Tile> tiles) {
+        final String sql = "UPDATE tile SET tile_id = ?, world_map_id = ?, x_coordinate = ?, y_coordinate = ?, type = ? WHERE tile_id = ?";
+
+        try {
+            jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    Tile tile = tiles.get(i);
+                    populateTileStatement(tile, ps);
+                    ps.setString(6, tile.getTileId());
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return tiles.size();
+                }
+            });
+        } catch (ConstraintViolationException cve) {
+            LOGGER.error("Error updating tile {}", cve);
+        }
+        LOGGER.info("Created tiles '{}'", tiles.size());
+        return tiles;
+    }
+
     private void populateTileStatement(Tile tile, PreparedStatement post) throws SQLException {
         post.setString(1, tile.getTileId());
         post.setString(2, tile.getWorldMapId());

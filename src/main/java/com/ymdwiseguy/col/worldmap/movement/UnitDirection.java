@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col.worldmap;
+package com.ymdwiseguy.col.worldmap.movement;
 
 enum UnitDirection {
     LEFT,

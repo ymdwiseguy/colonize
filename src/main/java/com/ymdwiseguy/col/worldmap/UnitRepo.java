@@ -152,4 +152,33 @@ public class UnitRepo {
         post.setInt(6, unit.getyPosition());
 
     }
+
+    public List<Unit> updateUnits(List<Unit> units) {
+        final String sql = "UPDATE unit SET unit_id = ?, world_map_id = ?, unit_type = ?, active = ?, x_position = ?, y_position = ? WHERE unit_id = ?";
+
+        try {
+            jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    Unit unit = units.get(i);
+                    ps.setString(1, unit.getUnitId());
+                    ps.setString(2, unit.getWorldMapId());
+                    ps.setString(3, unit.getUnitType().toString());
+                    ps.setBoolean(4, unit.isActive());
+                    ps.setInt(5, unit.getxPosition());
+                    ps.setInt(6, unit.getyPosition());
+                    ps.setString(7, unit.getUnitId());
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return units.size();
+                }
+            });
+        } catch (ConstraintViolationException cve) {
+            LOGGER.error("Error updating unit {}", cve);
+        }
+        LOGGER.info("Created units '{}'", units.size());
+        return units;
+    }
 }
