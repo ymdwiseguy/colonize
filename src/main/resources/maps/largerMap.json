@@ -1,0 +1,2015 @@
+{
+    "title": "new Map",
+    "units": [
+        {
+            "unitType": "KARAVELLE",
+            "active": true,
+            "xPosition": 3,
+            "yPosition": 2
+        }
+    ],
+    "width": 20,
+    "height": 20,
+    "tiles": [
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 1,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 2,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 2,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 2,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 2,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 3,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 3,
+            "type": "LAND_GRASS"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 3,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 3,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 4,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 4,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 4,
+            "type": "OCEAN_SHALLOW"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 4,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 5,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 6,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 7,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 8,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 9,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 10,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 11,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 12,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 13,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 14,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 15,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 16,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 17,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 18,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 19,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 1,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 2,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 3,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 4,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 5,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 6,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 7,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 8,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 9,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 10,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 11,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 12,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 13,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 14,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 15,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 16,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 17,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 18,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 19,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        },
+        {
+            "xCoordinate": 20,
+            "yCoordinate": 20,
+            "type": "OCEAN_DEEP"
+        }
+    ]
+}
