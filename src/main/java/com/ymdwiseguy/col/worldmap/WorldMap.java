@@ -95,4 +95,14 @@ public class WorldMap {
     public WorldMap fromJson(String worldMapData) throws IOException {
         return mapper.reader().forType(WorldMap.class).readValue(worldMapData);
     }
+
+    public Tile getTileByCoordinates(int x, int y) {
+        List<Tile> tiles = this.getTiles();
+        for (Tile tile : tiles) {
+            if(tile.getxCoordinate() == x && tile.getyCoordinate() == y){
+                return tile;
+            }
+        }
+        return null;
+    }
 }
