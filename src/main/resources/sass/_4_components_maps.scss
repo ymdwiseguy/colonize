@@ -7,9 +7,10 @@
     left: 0;
     position: absolute;
     top: 0;
-    //width:100px;
     height: 500px;
     z-index: 1;
+
+    transition: all 100ms ease;
 
     $class-ext: --width !default;
     @for $i from 1 through 120 {

@@ -28,11 +28,44 @@ class Frame extends React.Component {
             cache: false,
             success: function (restData) {
                 this.setState({mapdata: restData});
+                Frame.checkViewPort();
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(url, status, err.toString());
             }.bind(this)
         });
+    }
+
+    static checkViewPort() {
+        let activeUnit = $('.unit--active');
+        let mapFrame = $('.map-outer-wrapper');
+        let mapInner = $('.map-main-wrapper');
+
+        if (activeUnit.length == 1) {
+            let unitWidth = parseInt(activeUnit.css('width'));
+            let unitLeft = parseInt(activeUnit.css('left'));
+            let frameWidth = parseInt(mapFrame.css('width'));
+            let mapLeft = parseInt(mapInner.css('left'));
+            let unitHeight = parseInt(activeUnit.css('height'));
+            let unitTop = parseInt(activeUnit.css('top'));
+            let frameHeight = parseInt(mapFrame.css('height'));
+            let mapTop = parseInt(mapInner.css('top'));
+
+            if (this.unitOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, unitLeft, unitTop, unitWidth, unitHeight)) {
+                mapLeft = frameWidth / 2 - unitLeft - unitWidth / 2;
+                mapTop = frameHeight / 2 - unitTop - unitHeight / 2;
+                mapInner.css({'left': mapLeft, 'top': mapTop});
+            }
+        }
+    }
+
+    static unitOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, unitLeft, unitTop, unitWidth, unitHeight) {
+        let rightOutside = ((frameWidth - (mapLeft + unitLeft)) <= (unitWidth * 2));
+        let leftOuside = (unitLeft <= (unitWidth - mapLeft));
+        let topOuside = (unitTop <= (unitHeight - mapTop));
+        let bottomOuside = ((frameHeight - (mapTop + unitTop)) <= (unitHeight * 2));
+
+        return (rightOutside || leftOuside || topOuside || bottomOuside);
     }
 
     handleKeyDown(event) {
