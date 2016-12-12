@@ -3,8 +3,8 @@ package com.ymdwiseguy.col;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.ymdwiseguy.col.views.WorldMapView;
-import com.ymdwiseguy.col.worldmap.TileRepo;
-import com.ymdwiseguy.col.worldmap.UnitRepo;
+import com.ymdwiseguy.col.worldmap.tile.TileRepo;
+import com.ymdwiseguy.col.worldmap.unit.UnitRepo;
 import com.ymdwiseguy.col.worldmap.WorldMapRepo;
 import com.ymdwiseguy.col.worldmap.WorldMapService;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;

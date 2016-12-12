@@ -1,6 +1,9 @@
 package com.ymdwiseguy.col.worldmap
 
 import com.ymdwiseguy.Colonization
+import com.ymdwiseguy.col.worldmap.tile.Tile
+import com.ymdwiseguy.col.worldmap.tile.TileRepo
+import com.ymdwiseguy.col.worldmap.tile.TileType
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.jdbc.core.JdbcTemplate

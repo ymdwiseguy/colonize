@@ -1,4 +1,6 @@
-package com.ymdwiseguy.col.worldmap;
+package com.ymdwiseguy.col.worldmap.unit;
+
+import com.ymdwiseguy.col.worldmap.ParentTileType;
 
 import static com.ymdwiseguy.col.worldmap.ParentTileType.LAND;
 import static com.ymdwiseguy.col.worldmap.ParentTileType.SEA;

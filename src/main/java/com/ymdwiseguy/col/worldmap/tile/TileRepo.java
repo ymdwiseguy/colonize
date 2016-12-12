@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col.worldmap;
+package com.ymdwiseguy.col.worldmap.tile;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +141,7 @@ public class TileRepo {
         }
     }
 
-    List<Tile> updateTiles(List<Tile> tiles) {
+    public List<Tile> updateTiles(List<Tile> tiles) {
         final String sql = "UPDATE tile SET tile_id = ?, world_map_id = ?, x_coordinate = ?, y_coordinate = ?, type = ? WHERE tile_id = ?";
 
         try {

@@ -1,7 +1,7 @@
 package com.ymdwiseguy.col.worldmap.movement;
 
-import com.ymdwiseguy.col.worldmap.Tile;
-import com.ymdwiseguy.col.worldmap.Unit;
+import com.ymdwiseguy.col.worldmap.tile.Tile;
+import com.ymdwiseguy.col.worldmap.unit.Unit;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.springframework.stereotype.Service;
 

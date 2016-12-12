@@ -1,5 +1,10 @@
 package com.ymdwiseguy.col.worldmap;
 
+import com.ymdwiseguy.col.worldmap.tile.Tile;
+import com.ymdwiseguy.col.worldmap.tile.TileRepo;
+import com.ymdwiseguy.col.worldmap.tile.TileType;
+import com.ymdwiseguy.col.worldmap.unit.Unit;
+import com.ymdwiseguy.col.worldmap.unit.UnitRepo;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +47,7 @@ public class WorldMapService {
         return null;
     }
 
-    WorldMap generateMap(int width, int height) {
+    public WorldMap generateMap(int width, int height) {
         WorldMap generatedMap = new WorldMap();
         String mapId = UUID.randomUUID().toString();
         generatedMap.setWorldMapId(mapId);
@@ -60,7 +65,7 @@ public class WorldMapService {
         return generatedMap;
     }
 
-    String saveNewWorldMap(WorldMap worldMap) {
+    public String saveNewWorldMap(WorldMap worldMap) {
         String worldMapId = worldMapRepo.createWorldmap(worldMap);
         List<Tile> tiles = worldMap.getTiles();
         tileRepo.createTiles(tiles);
@@ -68,7 +73,7 @@ public class WorldMapService {
         return worldMapId;
     }
 
-    WorldMap saveWorldMapFromJson(String worldMapData) {
+    public WorldMap saveWorldMapFromJson(String worldMapData) {
         WorldMap worldMap = null;
         try {
             worldMap = new WorldMap().fromJson(worldMapData);

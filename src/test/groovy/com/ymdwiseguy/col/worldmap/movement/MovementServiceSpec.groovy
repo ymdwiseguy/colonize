@@ -1,9 +1,12 @@
 package com.ymdwiseguy.col.worldmap.movement
 
 import com.ymdwiseguy.col.worldmap.*
+import com.ymdwiseguy.col.worldmap.tile.Tile
+import com.ymdwiseguy.col.worldmap.tile.TileType
+import com.ymdwiseguy.col.worldmap.unit.Unit
 import spock.lang.Specification
 
-import static com.ymdwiseguy.col.worldmap.UnitType.KARAVELLE
+import static com.ymdwiseguy.col.worldmap.unit.UnitType.KARAVELLE
 
 class MovementServiceSpec extends Specification {
 

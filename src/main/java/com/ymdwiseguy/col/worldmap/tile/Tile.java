@@ -1,7 +1,8 @@
-package com.ymdwiseguy.col.worldmap;
+package com.ymdwiseguy.col.worldmap.tile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 
 import java.io.IOException;

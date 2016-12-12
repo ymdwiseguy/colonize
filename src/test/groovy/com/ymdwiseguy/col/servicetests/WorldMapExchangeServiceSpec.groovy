@@ -1,7 +1,7 @@
 package com.ymdwiseguy.col.servicetests
 
 import com.ymdwiseguy.Colonization
-import com.ymdwiseguy.col.worldmap.Tile
+import com.ymdwiseguy.col.worldmap.tile.Tile
 import com.ymdwiseguy.col.worldmap.WorldMap
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.SpringApplicationConfiguration
