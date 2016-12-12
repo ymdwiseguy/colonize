@@ -2,7 +2,7 @@ package com.ymdwiseguy.col.views;
 
 import com.github.jknack.handlebars.EscapingStrategy;
 import com.github.jknack.handlebars.Handlebars;
-import com.ymdwiseguy.col.worldmap.WorldMapTemplate;
+import com.ymdwiseguy.col.worldmap.HandlebarsTemplate;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class WorldMapView {
     }
 
     public String render(String mapData) {
-        WorldMapTemplate template;
+        HandlebarsTemplate template;
 
         try {
             template = getIndexTemplate();
@@ -34,11 +34,11 @@ public class WorldMapView {
         }
     }
 
-    protected WorldMapTemplate getIndexTemplate() throws IOException {
-        WorldMapTemplate template;
+    private HandlebarsTemplate getIndexTemplate() throws IOException {
+        HandlebarsTemplate template;
         handlebars.with(EscapingStrategy.NOOP);
         handlebars.getEscapingStrategy();
-        template = handlebars.compile("templates/maps").as(WorldMapTemplate.class);
+        template = handlebars.compile("templates/game").as(HandlebarsTemplate.class);
         return template;
     }
 }
