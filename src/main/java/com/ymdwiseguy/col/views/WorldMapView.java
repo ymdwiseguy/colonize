@@ -15,18 +15,16 @@ public class WorldMapView {
 
     private final Handlebars handlebars;
 
-
-
     public WorldMapView(Handlebars handlebars) {
         this.handlebars = handlebars;
     }
 
-    public String render(String mapData) {
+    public String render(String game) {
         HandlebarsTemplate template;
 
         try {
             template = getIndexTemplate();
-            template.setWorldMap(mapData);
+            template.setGame(game);
             return template.apply(null);
         } catch (IOException e) {
             LOGGER.error("could not load template file", e);

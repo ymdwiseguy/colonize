@@ -1,8 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import Frame from './frame.jsx';
+import MainSwitch from './mainswitch.jsx';
 
 
-render(<Frame mapdata={mapdata}/>, document.getElementById('col-body'));
-
+render(<MainSwitch game={game}/>, document.getElementById('col-body'));

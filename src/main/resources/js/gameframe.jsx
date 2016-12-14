@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 
 import Map from './map.jsx';
 
-class Frame extends React.Component {
+class GameFrame extends React.Component {
 
     constructor() {
         super();
@@ -11,6 +11,7 @@ class Frame extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         const url = "/api/maps/" + this.props.mapdata.worldMapId;
         this.updateState(url, 'GET');
         $(document.body).on('keydown', this.handleKeyDown.bind(this));
@@ -28,7 +29,7 @@ class Frame extends React.Component {
             cache: false,
             success: function (restData) {
                 this.setState({mapdata: restData});
-                Frame.checkViewPort();
+                GameFrame.checkViewPort();
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(url, status, err.toString());
@@ -110,5 +111,5 @@ class Frame extends React.Component {
     }
 }
 
-export default Frame;
+export default GameFrame;
 

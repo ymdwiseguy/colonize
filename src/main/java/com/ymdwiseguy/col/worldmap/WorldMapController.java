@@ -1,5 +1,6 @@
 package com.ymdwiseguy.col.worldmap;
 
+import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.views.MapConfigurationReader;
 import com.ymdwiseguy.col.views.WorldMapView;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
+import static com.ymdwiseguy.col.GameScreen.WORLDMAP;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -41,7 +43,12 @@ public class WorldMapController {
     public String generateMap(@PathVariable int width, @PathVariable int height) {
         WorldMap worldMapData = worldMapService.generateMap(width, height);
         worldMapService.saveNewWorldMap(worldMapData);
-        return worldMapView.render(worldMapData.toJson());
+
+        Game game = new Game();
+        game.setGameScreen(WORLDMAP);
+        game.setWorldMap(worldMapData);
+
+        return worldMapView.render(game.toJson());
     }
 
     // NEW (generated) - JSON
@@ -103,7 +110,13 @@ public class WorldMapController {
         mapConfigurationReader.setFilename(name);
         String worldMapData = mapConfigurationReader.read().orElse("[]");
         WorldMap worldMap = worldMapService.saveWorldMapFromJson(worldMapData);
-        return new ResponseEntity<>(worldMapView.render(worldMap.toJson()), HttpStatus.CREATED);
+
+
+        Game game = new Game();
+        game.setGameScreen(WORLDMAP);
+        game.setWorldMap(worldMap);
+
+        return new ResponseEntity<>(worldMapView.render(game.toJson()), HttpStatus.CREATED);
     }
 
 
