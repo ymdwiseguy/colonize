@@ -8,16 +8,16 @@ class MainSwitch extends React.Component {
 
     render() {
         let output;
-        switch(this.props.game.gameScreen.toLowerCase()){
+        switch(this.props.game.gameScreen){
             case 'MAPEDITOR':
-                output = <EditorFrame mapdata={this.props.game.worldMap}/>;
+                output = <EditorFrame game={this.props.game}/>;
                 break;
             case 'WORLDMAP':
-                output = <GameFrame mapdata={this.props.game.worldMap}/>;
+                output = <GameFrame game={this.props.game}/>;
                 break;
 
             default:
-                output = <GameFrame mapdata={this.props.game.worldMap}/>;
+                output = <GameFrame game={this.props.game}/>;
         }
         return (
             output

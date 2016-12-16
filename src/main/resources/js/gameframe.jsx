@@ -11,8 +11,7 @@ class GameFrame extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-        const url = "/api/maps/" + this.props.mapdata.worldMapId;
+        const url = "/api/maps/" + this.props.game.worldMap.worldMapId;
         this.updateState(url, 'GET');
         $(document.body).on('keydown', this.handleKeyDown.bind(this));
     }
@@ -70,7 +69,7 @@ class GameFrame extends React.Component {
     }
 
     handleKeyDown(event) {
-        let url = '/api/maps/' + this.props.mapdata.worldMapId + '/move/';
+        let url = '/api/maps/' + this.props.game.worldMap.worldMapId + '/move/';
 
         switch (event.keyCode) {
             case 37: // left
