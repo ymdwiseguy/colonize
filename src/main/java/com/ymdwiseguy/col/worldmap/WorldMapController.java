@@ -97,9 +97,11 @@ public class WorldMapController {
     // GET - JSON
     @RequestMapping(value = "/api/maps/{mapid}", method = GET)
     public ResponseEntity loadMap(@PathVariable String mapid) {
-        mapConfigurationReader.setFilename(mapid);
-        String worldMapData = mapConfigurationReader.read().orElse("[]");
-        return new ResponseEntity<>(worldMapData, HttpStatus.OK);
+        WorldMap worldMap = worldMapService.getWorldMap(mapid);
+        if(worldMap != null){
+            return new ResponseEntity<>(worldMap.toJson(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
     }
 
     // GET - HTML
