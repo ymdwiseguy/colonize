@@ -2,23 +2,18 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import Map from './map.jsx';
+import GameMenu from './gamemenu.jsx';
+import SideBar from './sidebar.jsx';
 
 class EditorFrame extends React.Component {
 
     constructor() {
         super();
         this.state = {};
+        this.handleClickFrame = this.handleClickFrame.bind(this);
     }
 
-    componentDidMount() {
-        $(document.body).on('click', this.handleClick.bind(this));
-    }
-
-    componentWillUnMount() {
-        $(document.body).off('click', this.handleClick);
-    }
-
-    handleClick(event) {
+    handleClickFrame(event) {
         event.preventDefault();
         let url = event.target.href;
         if (url) {
@@ -26,6 +21,9 @@ class EditorFrame extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.updateState('/api/mapeditor');
+    }
 
     updateState(url) {
         console.log('get data from url ' + url);
@@ -35,7 +33,8 @@ class EditorFrame extends React.Component {
             dataType: 'json',
             cache: false,
             success: function (restData) {
-                this.setState({mapdata: restData});
+                console.log(restData);
+                this.setState({game: restData});
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(url, status, err.toString());
@@ -43,24 +42,20 @@ class EditorFrame extends React.Component {
         });
     }
 
-
     render() {
-        return (
-            <div className="frame">
-                <div className="main-menu">
-                    <ul>
-                        <li>
-                            <a onClick={this.handleClick} href="/api/maps/largerMap">Load Map...</a></li>
-                    </ul>
+        if (this.state.game) {
+            return (
+                <div className="frame">
+                    <GameMenu menu={this.state.game.gameMenu} onClickFrame={this.handleClickFrame}/>
+                    <div className="map-outer-wrapper">
+                        <Map data={this.state.game.worldMap}/>
+                    </div>
+                    <SideBar sidebar={this.state.game.sideMenu} onClickFrame={this.handleClickFrame}/>
                 </div>
-                <div className="map-outer-wrapper">
-                    <Map data={this.state.mapdata}/>
-                </div>
-                <div className="sidebar">
-                    Sidebar
-                </div>
-            </div>
-        );
+            );
+        } else {
+            return null;
+        }
     }
 }
 

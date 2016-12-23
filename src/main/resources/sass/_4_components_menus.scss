@@ -1,0 +1,52 @@
+// **********************************************
+// COMPONENTS: Menu
+// Filename: _4_components_menus.scss
+// **********************************************
+//
+
+.main-menu {
+    //box-shadow: 0 0 5px 2px rgba(0, 0, 0, 1) inset;
+    display: inline-block;
+    float: left;
+    width: 100%;
+    height: 35px;
+    background: $color-foam;
+
+    &__menulevel-one {
+        background: none;
+        display: inline-block;
+        float: left;
+        line-height: 35px;
+        margin: 0 20px 0 0;
+        padding: 0;
+        position: relative;
+
+        .main-menu__menulevel-two--headline {
+            padding: 0 10px;
+        }
+
+    }
+
+    &__menulevel-two {
+        left: 0;
+        opacity: 0;
+        display: block;
+        line-height: 30px;
+        padding: 34px 0 0 0;
+        position: absolute;
+        top: 0;
+        transition: all 1s ease;
+        width: 200px;
+        z-index: 10;
+
+        li {
+            background: $color-foam;
+            padding: 0 10px;
+        }
+    }
+
+    &__menulevel-two:hover {
+        opacity: 1;
+    }
+
+}

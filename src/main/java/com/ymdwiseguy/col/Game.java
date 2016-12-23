@@ -2,6 +2,8 @@ package com.ymdwiseguy.col;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ymdwiseguy.col.menu.GameMenu;
+import com.ymdwiseguy.col.menu.SideMenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 
@@ -15,7 +17,9 @@ public class Game {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private GameScreen gameScreen;
+    private GameMenu gameMenu;
     private WorldMap worldMap;
+    private SideMenu sideMenu;
 
     public GameScreen getGameScreen() {
         return gameScreen;
@@ -25,12 +29,28 @@ public class Game {
         this.gameScreen = gameScreen;
     }
 
+    public GameMenu getGameMenu() {
+        return gameMenu;
+    }
+
+    public void setGameMenu(GameMenu gameMenu) {
+        this.gameMenu = gameMenu;
+    }
+
     public WorldMap getWorldMap() {
         return worldMap;
     }
 
     public void setWorldMap(WorldMap worldMap) {
         this.worldMap = worldMap;
+    }
+
+    public SideMenu getSideMenu() {
+        return sideMenu;
+    }
+
+    public void setSideMenu(SideMenu sideMenu) {
+        this.sideMenu = sideMenu;
     }
 
     public String toJson() {
