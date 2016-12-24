@@ -1,3 +1,12 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
+CREATE TABLE IF NOT EXISTS game_state (
+    game_id VARCHAR,
+    game_screen VARCHAR,
+    world_map_id VARCHAR
+);
+
+
 CREATE TABLE IF NOT EXISTS worldmap (
     worldmap_id VARCHAR,
     title VARCHAR,

@@ -16,10 +16,28 @@ public class Game {
     private static final Logger LOGGER = getLogger(Game.class);
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    private String gameId;
     private GameScreen gameScreen;
     private GameMenu gameMenu;
     private WorldMap worldMap;
     private SideMenu sideMenu;
+
+    public Game() {
+    }
+
+    public Game(String game_id, GameScreen game_screen, WorldMap worldMap) {
+        this.gameId = game_id;
+        this.gameScreen = game_screen;
+        this.worldMap = worldMap;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
 
     public GameScreen getGameScreen() {
         return gameScreen;
