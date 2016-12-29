@@ -1,10 +1,6 @@
 package com.ymdwiseguy.col.mapeditor;
 
 import com.ymdwiseguy.col.Game;
-import com.ymdwiseguy.col.menu.GameMenu;
-import com.ymdwiseguy.col.menu.MenuEntry;
-import com.ymdwiseguy.col.menu.Submenu;
-import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Objects;
 
 import static com.ymdwiseguy.col.GameScreen.MAPEDITOR;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -25,7 +21,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class MapEditorController {
 
     private static final Logger LOGGER = getLogger(MapEditorController.class);
-
     private final MapEditorView mapEditorView;
     private final MapEditorService mapEditorService;
 
@@ -35,69 +30,50 @@ public class MapEditorController {
         this.mapEditorService = mapEditorService;
     }
 
-    // GET - HTML
-    @RequestMapping(value = "/mapeditor")
+    // GET - HTML initial
+    @RequestMapping(value = "/mapeditor", method = GET)
     public ResponseEntity startMapEditor() {
-
-        Game mapeditor = new Game();
-        mapeditor.setGameScreen(MAPEDITOR);
-        mapeditor = setMenuPoints(mapeditor);
-
-        return new ResponseEntity<>(mapEditorView.render(mapeditor.toJson()), HttpStatus.OK);
+        return initMapEditor(null, null);
     }
 
-    // GET - JSON
-    @RequestMapping(value = "/api/mapeditor", method = GET, produces = "application/hal+json")
-    public ResponseEntity getMapEditorData() {
+    // GET - HTML with ID
+    @RequestMapping(value = "/mapeditor/{gameid}", method = GET)
+    public ResponseEntity getMapEditorData(@PathVariable String gameid) {
+        return initMapEditor(gameid, null);
+    }
 
-        Game mapeditor = new Game();
-        mapeditor.setGameScreen(MAPEDITOR);
-        mapeditor = setMenuPoints(mapeditor);
+    // GET - JSON initial
+    @RequestMapping(value = "/api/mapeditor", method = GET, produces = "application/json")
+    public ResponseEntity startMapEditorJson() {
+        return initMapEditor(null, "application/json");
+    }
 
-        return new ResponseEntity<>(mapeditor.toJson(), HttpStatus.OK);
+    // GET - JSON with ID
+    @RequestMapping(value = "/api/mapeditor/{gameid}", method = GET, produces = "application/json")
+    public ResponseEntity getMapEditorDataJson(@PathVariable String gameid) {
+        return initMapEditor(gameid, "application/json");
+    }
+
+    private ResponseEntity initMapEditor(String gameId, String produces) {
+        Game mapEditor = mapEditorService.initGame(MAPEDITOR, gameId);
+        if (Objects.equals(produces, "application/json")) {
+            return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(mapEditorView.render(mapEditor.toJson()), HttpStatus.OK);
     }
 
     // GET LIST - JSON
-    @RequestMapping(value = "/mapeditor/maps", method = GET, produces = "application/hal+json")
-    public ResponseEntity getMapList() {
-
-        Game mapeditor = new Game();
-        mapeditor.setGameScreen(MAPEDITOR);
-        mapeditor = setMenuPoints(mapeditor);
-        mapeditor.setSideMenu(mapEditorService.getMapList());
-
-        return new ResponseEntity<>(mapeditor.toJson(), HttpStatus.CREATED);
+    @RequestMapping(value = "/api/mapeditor/{gameid}/maps", method = GET, produces = "application/json")
+    public ResponseEntity getMapList(@PathVariable String gameid) {
+        Game mapEditor = mapEditorService.editorWithMapList(gameid);
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
-
 
     // GET MAP - JSON
-    @RequestMapping(value = "/mapeditor/maps/{mapid}", method = GET)
-    public ResponseEntity loadMap(@PathVariable String mapid) {
-//        mapConfigurationReader.setFilename(mapid);
-//        String worldMapData = mapConfigurationReader.read().orElse("[]");
-
-
-        Game mapeditor = new Game();
-        mapeditor.setGameScreen(MAPEDITOR);
-        mapeditor = setMenuPoints(mapeditor);
-        WorldMap worldMap = mapEditorService.getMap(mapid);
-        mapeditor.setWorldMap(worldMap);
-
-        return new ResponseEntity<>(mapeditor.toJson(), HttpStatus.OK);
-    }
-
-    private Game setMenuPoints(Game mapeditor) {
-        MenuEntry loadMap = new MenuEntry("Load Map", "/mapeditor/maps/");
-        List<MenuEntry> menuEntries = new ArrayList<>();
-        menuEntries.add(0, loadMap);
-
-        Submenu editorSubmenu = new Submenu("Editor", menuEntries);
-        List<Submenu> submenus = new ArrayList<>();
-        submenus.add(editorSubmenu);
-
-        GameMenu gameMenu = new GameMenu(submenus);
-        mapeditor.setGameMenu(gameMenu);
-        return mapeditor;
+    @RequestMapping(value = "/api/mapeditor/{gameid}/maps/{mapid}", method = GET)
+    public ResponseEntity loadMap(@PathVariable String gameid, @PathVariable String mapid) {
+        Game mapEditor = mapEditorService.loadMap(gameid, mapid);
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
 }

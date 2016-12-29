@@ -8,10 +8,14 @@ class Map extends React.Component{
     render () {
         if(this.props.data){
             let units = '';
-            let tileList = this.props.data.tiles.map((tile, i) => {
-                let key = 'tile_' + tile.xCoordinate + '_' + tile.yCoordinate;
-                return <Tile tile={tile} key={key}/>
-            });
+            let tileList;
+            if(this.props.data.tiles){
+                tileList = this.props.data.tiles.map((tile, i) => {
+                    let key = 'tile_' + tile.xCoordinate + '_' + tile.yCoordinate;
+                    return <Tile tile={tile} key={key}/>
+                });
+            }
+
             if (this.props.data.units) {
                 units = this.props.data.units.map((unit, i) => {
                     return <Unit unit={unit} key={i}/>

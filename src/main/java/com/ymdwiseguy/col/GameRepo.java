@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+@Component
 public class GameRepo {
 
     private static final Logger LOGGER = getLogger(GameRepo.class);
@@ -26,7 +28,7 @@ public class GameRepo {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public String createGame(Game game) {
+    public Game createGame(Game game) {
 
         final String sql = "INSERT INTO game_state (game_id,game_screen,world_map_id) VALUES (?,?,?)";
 
@@ -35,10 +37,10 @@ public class GameRepo {
                 populateGameStatement(game, post);
             });
         } catch (ConstraintViolationException cve) {
-            throw cve;
+            LOGGER.error("Unable to save game: {}", cve);
         }
         LOGGER.info("Created game state '{}'", game.getGameId());
-        return game.getGameId();
+        return game;
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
@@ -88,8 +90,12 @@ public class GameRepo {
         if (game.getGameId() == null) {
             game.setGameId(UUID.randomUUID().toString());
         }
+        String worldMapId = null;
+        if(game.getWorldMap() != null){
+            worldMapId = game.getWorldMap().getWorldMapId();
+        }
         post.setString(1, game.getGameId());
         post.setString(2, game.getGameScreen().toString());
-        post.setString(3, game.getWorldMap().getWorldMapId());
+        post.setString(3, worldMapId);
     }
 }

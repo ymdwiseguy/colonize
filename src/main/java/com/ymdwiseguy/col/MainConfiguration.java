@@ -55,6 +55,11 @@ public class MainConfiguration {
     }
 
     @Bean
+    GameRepo gameRepo() {
+        return new GameRepo(jdbcTemplate());
+    }
+
+    @Bean
     public WorldMapService WorldMapService(){
         return new WorldMapService(worldMapRepo(), tileRepo(), unitRepo());
     }

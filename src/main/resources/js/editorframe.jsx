@@ -22,7 +22,7 @@ class EditorFrame extends React.Component {
     }
 
     componentDidMount() {
-        this.updateState('/api/mapeditor');
+        this.updateState('/api/mapeditor/' + this.props.game.gameId);
     }
 
     updateState(url) {

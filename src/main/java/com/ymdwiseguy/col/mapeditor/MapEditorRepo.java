@@ -22,7 +22,7 @@ public class MapEditorRepo {
 
     private static final Logger LOGGER = getLogger(MapEditorRepo.class);
 
-    List<MenuEntry> getMapListFromPath() {
+    List<MenuEntry> getMapListFromPath(String gameId) {
         List<MenuEntry> results = new ArrayList<>();
         URL url = getClass().getResource("/maps");
         File filePath = new File(url.getPath());
@@ -34,7 +34,7 @@ public class MapEditorRepo {
             for (File file : files) {
                 if (file.isFile()) {
                     String mapId = cleanFileName(file.getName());
-                    MenuEntry menuEntry = new MenuEntry(mapId, "/mapeditor/maps/" + mapId);
+                    MenuEntry menuEntry = new MenuEntry(mapId, "/api/mapeditor/" + gameId + "/maps/" + mapId);
                     results.add(menuEntry);
                 }
             }

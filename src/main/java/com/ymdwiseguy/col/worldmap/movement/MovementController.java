@@ -28,7 +28,7 @@ public class MovementController {
     }
 
     // UPDATE - JSON - MOVE UNIT
-    @RequestMapping(value = "/api/maps/{mapid}/move/{direction}", method = PUT, produces = "application/hal+json")
+    @RequestMapping(value = "/api/maps/{mapid}/move/{direction}", method = PUT, produces = "application/json")
     public ResponseEntity moveUnit(@PathVariable String mapid, @PathVariable String direction) {
         WorldMap worldMap = worldMapService.getWorldMap(mapid);
         WorldMap updatedWorldMap = movementService.moveUnit(worldMap, direction);

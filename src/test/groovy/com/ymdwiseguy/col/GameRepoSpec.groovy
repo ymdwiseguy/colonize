@@ -37,13 +37,13 @@ class GameRepoSpec extends Specification {
         GameRepo gameRepo = new GameRepo(jdbcTemplate)
 
         when: "the game is saved"
-        String gameId = gameRepo.createGame(GAME)
+        Game createdGame = gameRepo.createGame(GAME)
 
         then: "a game id is returned"
-        gameId == GAME_ID
+        createdGame.getGameId() == GAME_ID
 
         when: "the game is fetched"
-        Optional<Game> fetchedGame = gameRepo.getGame(gameId)
+        Optional<Game> fetchedGame = gameRepo.getGame(GAME_ID)
 
         then: "it has the expected parameters"
         assertGame(fetchedGame)

@@ -25,9 +25,9 @@ public class Game {
     public Game() {
     }
 
-    public Game(String game_id, GameScreen game_screen, WorldMap worldMap) {
-        this.gameId = game_id;
-        this.gameScreen = game_screen;
+    public Game(String gameId, GameScreen gameScreen, WorldMap worldMap) {
+        this.gameId = gameId;
+        this.gameScreen = gameScreen;
         this.worldMap = worldMap;
     }
 

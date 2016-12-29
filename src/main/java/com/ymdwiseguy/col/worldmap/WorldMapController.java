@@ -52,7 +52,7 @@ public class WorldMapController {
     }
 
     // NEW (generated) - JSON
-    @RequestMapping(value = "/api/maps/generate/{width}/{height}", method = POST, produces = "application/hal+json")
+    @RequestMapping(value = "/api/maps/generate/{width}/{height}", method = POST, produces = "application/json")
     public ResponseEntity generateMapJson(@PathVariable int width, @PathVariable int height) {
         WorldMap worldMapData = worldMapService.generateMap(width, height);
         worldMapService.saveNewWorldMap(worldMapData);
@@ -60,7 +60,7 @@ public class WorldMapController {
     }
 
     // NEW - JSON
-    @RequestMapping(value = "/api/maps", method = POST, produces = "application/hal+json")
+    @RequestMapping(value = "/api/maps", method = POST, produces = "application/json")
     public ResponseEntity createMap(@RequestBody String worldMapJson) {
         try {
             WorldMap worldMap = new WorldMap().fromJson(worldMapJson);
@@ -73,7 +73,7 @@ public class WorldMapController {
     }
 
     // UPDATE - JSON
-    @RequestMapping(value = "/api/maps/{mapid}", method = PUT, produces = "application/hal+json")
+    @RequestMapping(value = "/api/maps/{mapid}", method = PUT, produces = "application/json")
     public ResponseEntity updateMap(@RequestBody String worldMapJson, @PathVariable String mapid) {
         LOGGER.info(worldMapJson);
         try {
