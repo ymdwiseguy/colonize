@@ -2,6 +2,8 @@ package com.ymdwiseguy.col.servicetests
 
 import com.ymdwiseguy.Colonization
 import com.ymdwiseguy.col.Game
+import com.ymdwiseguy.col.menu.MenuEntry
+import com.ymdwiseguy.col.menu.SideMenu
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.boot.test.TestRestTemplate
@@ -33,10 +35,11 @@ class MapEditorServiceSpec extends Specification {
 
     Game GAME
     String GAME_ID
+    String MAP_NAME
+    String MAP_ID
 
     def setup() {
         URL_MAPEDITOR = "http://localhost:$port/api/mapeditor"
-        URL_SHOW_MAPLIST = "http://localhost:$port/api/mapeditor"
         URL_LOAD_MAP = "http://localhost:$port/api/mapeditor"
     }
 
@@ -63,26 +66,64 @@ class MapEditorServiceSpec extends Specification {
         createInitialGame()
 
         when: "the mapeditor is called"
-        ResponseEntity<String> secondResponse = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR + '/' + GAME_ID)
-        Game secondGame = new Game().fromJson(secondResponse.body)
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR + '/' + GAME_ID)
+        Game editorInstance = new Game().fromJson(responseEntity.body)
 
         then: "the initiated data is known"
-        secondGame.getGameId() == GAME_ID
+        editorInstance.getGameId() == GAME_ID
     }
 
-    def "getting a menu"(){
+    def "getting a menu"() {
         given: "an initiated game"
         createInitialGame()
 
         when: "the load button is clicked"
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST)
+        Game editorInstance = new Game().fromJson(responseEntity.body)
+
         then: "a list of maps is returned"
+        editorInstance.getSideMenu().getEntries().size() > 0
+        assertMenuContains(editorInstance.getSideMenu(), 'testSandbox')
     }
 
+    def "getting a map"() {
+        given: "an initiated game with a selected map name"
+        getAGameAndGetAMapName()
 
-    def createInitialGame(){
+        when: "the map is fetched"
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_LOAD_MAP)
+        Game editorInstance = new Game().fromJson(responseEntity.body)
+
+        then: "my game includes"
+        editorInstance.getWorldMap() != null
+        editorInstance.getWorldMap().getWorldMapId() != null
+    }
+
+    def assertMenuContains(SideMenu menu, String entry) {
+        List<MenuEntry> entries = menu.getEntries()
+        for (MenuEntry menuEntry : entries) {
+            if (menuEntry.getEntryName() == entry) {
+                return true
+            }
+        }
+        return false
+    }
+
+    def createInitialGame() {
         ResponseEntity<String> initialResponse = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR)
         GAME = new Game().fromJson(initialResponse.body)
         GAME_ID = GAME.getGameId()
+        URL_SHOW_MAPLIST = "http://localhost:$port/api/mapeditor/$GAME_ID/maps"
+    }
+
+    def getAGameAndGetAMapName() {
+        createInitialGame()
+
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST)
+        Game editorInstance = new Game().fromJson(responseEntity.body)
+
+        MAP_NAME = editorInstance.getSideMenu().getEntries().get(0).getEntryName()
+        URL_LOAD_MAP = URL_SHOW_MAPLIST + '/' + MAP_NAME
     }
 
     ResponseEntity getResponseEntity(HttpMethod method, String url, String body = "nothing here") {
