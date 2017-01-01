@@ -65,12 +65,12 @@ public class WorldMapService {
         return generatedMap;
     }
 
-    public String saveNewWorldMap(WorldMap worldMap) {
+    public WorldMap saveNewWorldMap(WorldMap worldMap) {
         String worldMapId = worldMapRepo.createWorldmap(worldMap);
-        List<Tile> tiles = worldMap.getTiles();
-        tileRepo.createTiles(tiles);
+        worldMap.setUnits(saveUnits(worldMap.getUnits(), worldMapId));
+        worldMap.setTiles(saveTiles(worldMap.getTiles(), worldMapId));
 
-        return worldMapId;
+        return worldMap;
     }
 
     public WorldMap saveWorldMapFromJson(String worldMapData) {
@@ -80,9 +80,7 @@ public class WorldMapService {
             if(worldMap.getWorldMapId() == null){
                 worldMap.setWorldMapId(UUID.randomUUID().toString());
             }
-            String mapId = worldMapRepo.createWorldmap(worldMap);
-            worldMap.setUnits(saveUnits(worldMap.getUnits(), mapId));
-            worldMap.setTiles(saveTiles(worldMap.getTiles(), mapId));
+            worldMap = saveNewWorldMap(worldMap);
         } catch (IOException e) {
             LOGGER.error("unable to convert Json to WorldMap: {}", e);
         }
@@ -106,6 +104,9 @@ public class WorldMapService {
     }
 
     private List<Tile> saveTiles(List<Tile> tiles, String mapId){
+        if(tiles == null){
+            return null;
+        }
         for (Tile tile : tiles) {
             if (tile.getTileId() == null) {
                 tile.setTileId(UUID.randomUUID().toString());
@@ -117,6 +118,9 @@ public class WorldMapService {
     }
 
     private List<Unit> saveUnits(List<Unit> units, String mapId){
+        if(units == null){
+            return null;
+        }
         for (Unit unit : units) {
             if (unit.getUnitId() == null) {
                 unit.setUnitId(UUID.randomUUID().toString());

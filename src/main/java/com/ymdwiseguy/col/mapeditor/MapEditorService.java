@@ -8,11 +8,14 @@ import com.ymdwiseguy.col.menu.MenuEntry;
 import com.ymdwiseguy.col.menu.SideMenu;
 import com.ymdwiseguy.col.menu.Submenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
+import com.ymdwiseguy.col.worldmap.WorldMapRepo;
+import com.ymdwiseguy.col.worldmap.WorldMapService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.ymdwiseguy.col.GameScreen.MAPEDITOR;
 
@@ -20,13 +23,17 @@ import static com.ymdwiseguy.col.GameScreen.MAPEDITOR;
 public class MapEditorService {
 
     private MapEditorRepo mapEditorRepo;
+    private WorldMapRepo worldMapRepo;
     private GameRepo gameRepo;
+    private WorldMapService worldMapService;
 
 
     @Inject
-    public MapEditorService(MapEditorRepo mapEditorRepo, GameRepo gameRepo) {
+    public MapEditorService(MapEditorRepo mapEditorRepo, WorldMapRepo worldMapRepo, GameRepo gameRepo, WorldMapService worldMapService) {
         this.mapEditorRepo = mapEditorRepo;
+        this.worldMapRepo = worldMapRepo;
         this.gameRepo = gameRepo;
+        this.worldMapService = worldMapService;
     }
 
     public Game initGame(GameScreen gameScreen, String gameid) {
@@ -39,6 +46,7 @@ public class MapEditorService {
             saveGameState(mapEditor);
         }
         mapEditor = setMenuPoints(mapEditor);
+        mapEditor = setWorldMap(mapEditor);
         return mapEditor;
     }
 
@@ -51,17 +59,22 @@ public class MapEditorService {
 
     public Game editorWithMapList(String gameId) {
         Game mapEditor = getMapEditor(gameId);
+        mapEditor = setMenuPoints(mapEditor);
+        mapEditor = setWorldMap(mapEditor);
         mapEditor.setSideMenu(getMapList(gameId));
 
         return mapEditor;
     }
 
-    public Game loadMap(String gameid, String mapid) {
+    public Game loadMap(String gameid, String mapName) {
         Game mapEditor = getMapEditor(gameid);
 
         mapEditor.setGameScreen(MAPEDITOR);
-        WorldMap worldMap = getMap(mapid);
+        WorldMap worldMap = getMap(mapName);
         mapEditor.setWorldMap(worldMap);
+
+        updateGameState(mapEditor);
+
         return mapEditor;
     }
 
@@ -75,12 +88,32 @@ public class MapEditorService {
     }
 
     public WorldMap getMap(String mapid) {
-        return mapEditorRepo.getWorldmap(mapid);
+        WorldMap worldMap = mapEditorRepo.getWorldmap(mapid);
+        String worldMapId = worldMapService.saveNewWorldMap(worldMap).getWorldMapId();
+        worldMap.setWorldMapId(worldMapId);
+        return worldMap;
     }
 
     private Game saveGameState(Game game) {
         Game savedGame = gameRepo.createGame(game);
         return savedGame;
+    }
+
+    private Game updateGameState(Game game) {
+        Optional<Game> savedGame = gameRepo.updateGame(game);
+        return savedGame.orElse(null);
+    }
+
+
+    private Game setWorldMap(Game mapEditor) {
+        if(mapEditor.getWorldMap() == null){
+            return mapEditor;
+        }
+        String worldMapId = mapEditor.getWorldMap().getWorldMapId();
+        if(worldMapId != null){
+            mapEditor.setWorldMap(worldMapService.getWorldMap(worldMapId));
+        }
+        return mapEditor;
     }
 
     private Game setMenuPoints(Game mapeditor) {
