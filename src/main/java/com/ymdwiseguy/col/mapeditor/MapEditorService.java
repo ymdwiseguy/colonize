@@ -36,7 +36,7 @@ public class MapEditorService {
         this.worldMapService = worldMapService;
     }
 
-    public Game initGame(GameScreen gameScreen, String gameid) {
+    Game initGame(GameScreen gameScreen, String gameid) {
         Game mapEditor;
         if (gameid != null) {
             mapEditor = getMapEditor(gameid);
@@ -50,14 +50,7 @@ public class MapEditorService {
         return mapEditor;
     }
 
-    public SideMenu getMapList(String gameId) {
-        SideMenu sideMenu = new SideMenu();
-        sideMenu.setHeader("Load map...");
-        sideMenu.setEntries(mapEditorRepo.getMapListFromPath(gameId));
-        return sideMenu;
-    }
-
-    public Game editorWithMapList(String gameId) {
+    Game editorWithMapList(String gameId) {
         Game mapEditor = getMapEditor(gameId);
         mapEditor = setMenuPoints(mapEditor);
         mapEditor = setWorldMap(mapEditor);
@@ -66,7 +59,7 @@ public class MapEditorService {
         return mapEditor;
     }
 
-    public Game loadMap(String gameid, String mapName) {
+    Game loadMap(String gameid, String mapName) {
         Game mapEditor = getMapEditor(gameid);
 
         mapEditor.setGameScreen(MAPEDITOR);
@@ -78,7 +71,14 @@ public class MapEditorService {
         return mapEditor;
     }
 
-    public Game getMapEditor(String gameId) {
+    private SideMenu getMapList(String gameId) {
+        SideMenu sideMenu = new SideMenu();
+        sideMenu.setHeader("Load map...");
+        sideMenu.setEntries(mapEditorRepo.getMapListFromPath(gameId));
+        return sideMenu;
+    }
+
+    private Game getMapEditor(String gameId) {
         return gameRepo.getGame(gameId)
             .map(game -> {
                 game.setGameScreen(MAPEDITOR);
@@ -87,7 +87,7 @@ public class MapEditorService {
             }).orElse(null);
     }
 
-    public WorldMap getMap(String mapid) {
+    private WorldMap getMap(String mapid) {
         WorldMap worldMap = mapEditorRepo.getWorldmap(mapid);
         String worldMapId = worldMapService.saveNewWorldMap(worldMap).getWorldMapId();
         worldMap.setWorldMapId(worldMapId);
@@ -117,9 +117,12 @@ public class MapEditorService {
     }
 
     private Game setMenuPoints(Game mapeditor) {
-        MenuEntry loadMap = new MenuEntry("Load Map", "/api/mapeditor/" + mapeditor.getGameId() + "/maps/");
+        MenuEntry loadMap = new MenuEntry("Load Map ...", "/api/mapeditor/" + mapeditor.getGameId() + "/maps/");
+        // TODO: add "saveName" to maps
+//        MenuEntry saveMap = new MenuEntry("Save Map As ...", "/api/mapeditor/" + mapeditor.getGameId() + "/maps/" + mapeditor.getWorldMap().getWorldMapId());
         List<MenuEntry> menuEntries = new ArrayList<>();
         menuEntries.add(0, loadMap);
+//        menuEntries.add(1, saveMap);
 
         Submenu editorSubmenu = new Submenu("Editor", menuEntries);
         List<Submenu> submenus = new ArrayList<>();

@@ -70,10 +70,24 @@ public class MapEditorController {
     }
 
     // GET MAP - JSON
-    @RequestMapping(value = "/api/mapeditor/{gameid}/maps/{mapid}", method = GET)
-    public ResponseEntity loadMap(@PathVariable String gameid, @PathVariable String mapid) {
-        Game mapEditor = mapEditorService.loadMap(gameid, mapid);
+    @RequestMapping(value = "/api/mapeditor/{gameId}/maps/{mapName}", method = GET)
+    public ResponseEntity loadMap(@PathVariable String gameId, @PathVariable String mapName) {
+        Game mapEditor = mapEditorService.loadMap(gameId, mapName);
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
+
+//    // POST MAP - JSON
+//    @RequestMapping(value = "/api/mapeditor/{gameId}/maps/{mapName}", method = POST)
+//    public ResponseEntity saveMap(@PathVariable String gameId, @PathVariable String mapName) {
+//        Game mapEditor = mapEditorService.saveMap(gameId, mapName);
+//        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+//    }
+//
+//    // PUT MAP - JSON
+//    @RequestMapping(value = "/api/mapeditor/{gameId}/maps/{mapName}", method = PUT)
+//    public ResponseEntity updateMap(@PathVariable String gameId, @PathVariable String mapName) {
+//        Game mapEditor = mapEditorService.updateMap(gameId, mapName);
+//        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+//    }
 
 }
