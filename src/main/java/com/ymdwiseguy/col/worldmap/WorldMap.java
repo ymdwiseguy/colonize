@@ -18,7 +18,8 @@ public class WorldMap {
 
 
     private String worldMapId;
-    private String title;
+    private String title; // e.g. "America (large)"
+    private String worldMapName; // Filename, unique e.g. "america_large_001"
     private List<Tile> tiles;
     private List<Unit> units;
     private int width = 56;
@@ -31,9 +32,10 @@ public class WorldMap {
     public WorldMap() {
     }
 
-    public WorldMap(String worldMapId, String title, int width, int height) {
+    public WorldMap(String worldMapId, String title, String worldMapName, int width, int height) {
         setWorldMapId(worldMapId);
         setTitle(title);
+        setWorldMapName(worldMapName);
         setWidth(width);
         setHeight(height);
     }
@@ -52,6 +54,14 @@ public class WorldMap {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getWorldMapName() {
+        return worldMapName;
+    }
+
+    public void setWorldMapName(String worldMapName) {
+        this.worldMapName = worldMapName;
     }
 
     public List<Tile> getTiles() {

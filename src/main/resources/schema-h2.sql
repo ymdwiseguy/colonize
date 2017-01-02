@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS game_state (
 CREATE TABLE IF NOT EXISTS worldmap (
     worldmap_id VARCHAR,
     title VARCHAR,
+    worldmap_name VARCHAR,
     width INT,
     height INT
 );

@@ -27,7 +27,7 @@ public class WorldMapRepo {
     @Transactional(propagation = Propagation.REQUIRED)
     public String createWorldmap(WorldMap worldMap) {
 
-        final String sql = "INSERT INTO worldmap (worldmap_id,title,width,height) VALUES (?,?,?,?)";
+        final String sql = "INSERT INTO worldmap (worldmap_id,title,worldmap_name,width,height) VALUES (?,?,?,?,?)";
 
         try {
             jdbcTemplate.update(sql, post -> {
@@ -47,6 +47,7 @@ public class WorldMapRepo {
         RowMapper<WorldMap> worldmapRowMapper = (resultSet, rowNum) -> new WorldMap(
             resultSet.getString("worldmap_id"),
             resultSet.getString("title"),
+            resultSet.getString("worldmap_name"),
             resultSet.getInt("width"),
             resultSet.getInt("height")
         );
@@ -62,12 +63,12 @@ public class WorldMapRepo {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public Optional<WorldMap> updateWorldmap(WorldMap worldMap) {
-        final String sql = "UPDATE worldmap SET worldmap_id = ?, title = ?, width = ?, height = ? WHERE worldmap_id = ?";
+        final String sql = "UPDATE worldmap SET worldmap_id = ?, title = ?, worldmap_name = ?, width = ?, height = ? WHERE worldmap_id = ?";
         String worldMapId = worldMap.getWorldMapId();
         try {
             jdbcTemplate.update(sql, post -> {
                 populateWorldmapStatement(worldMap, post);
-                post.setString(5, worldMapId);
+                post.setString(6, worldMapId);
             });
             LOGGER.info("Updated worldMap '{}'", worldMap.getWorldMapId());
         } catch (ConstraintViolationException cve) {
@@ -90,7 +91,8 @@ public class WorldMapRepo {
         }
         post.setString(1, worldMap.getWorldMapId());
         post.setString(2, worldMap.getTitle());
-        post.setInt(3, worldMap.getWidth());
-        post.setInt(4, worldMap.getHeight());
+        post.setString(3, worldMap.getWorldMapName());
+        post.setInt(4, worldMap.getWidth());
+        post.setInt(5, worldMap.getHeight());
     }
 }

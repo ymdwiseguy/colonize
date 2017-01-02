@@ -52,6 +52,7 @@ public class WorldMapService {
         String mapId = UUID.randomUUID().toString();
         generatedMap.setWorldMapId(mapId);
         generatedMap.setTitle("new Map");
+        generatedMap.setWorldMapName("generated_map");
         generatedMap.setWidth(width);
         generatedMap.setHeight(height);
         List<Tile> tileList = new ArrayList<>();
