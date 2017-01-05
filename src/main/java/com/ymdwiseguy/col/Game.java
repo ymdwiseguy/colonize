@@ -3,6 +3,7 @@ package com.ymdwiseguy.col;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ymdwiseguy.col.menu.GameMenu;
+import com.ymdwiseguy.col.menu.PopupMenu;
 import com.ymdwiseguy.col.menu.SideMenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ public class Game {
     private GameMenu gameMenu;
     private WorldMap worldMap;
     private SideMenu sideMenu;
+    private PopupMenu popupMenu;
 
     public Game() {
     }
@@ -69,6 +71,14 @@ public class Game {
 
     public void setSideMenu(SideMenu sideMenu) {
         this.sideMenu = sideMenu;
+    }
+
+    public PopupMenu getPopupMenu() {
+        return popupMenu;
+    }
+
+    public void setPopupMenu(PopupMenu popupMenu) {
+        this.popupMenu = popupMenu;
     }
 
     public String toJson() {

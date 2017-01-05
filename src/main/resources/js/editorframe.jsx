@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 
 import Map from './map.jsx';
 import GameMenu from './gamemenu.jsx';
+import SaveGamePopup from './savegamepopup.jsx';
 import SideBar from './sidebar.jsx';
 
 class EditorFrame extends React.Component {
@@ -44,6 +45,12 @@ class EditorFrame extends React.Component {
 
     render() {
         if (this.state.game) {
+
+            let popup = null;
+            if (this.state.game.popupMenu != null) {
+                popup = <SaveGamePopup onClickFrame={this.handleClickFrame} game={this.state.game}/>;
+            }
+
             return (
                 <div className="frame">
                     <GameMenu menu={this.state.game.gameMenu} onClickFrame={this.handleClickFrame}/>
@@ -51,6 +58,7 @@ class EditorFrame extends React.Component {
                         <Map data={this.state.game.worldMap}/>
                     </div>
                     <SideBar sidebar={this.state.game.sideMenu} onClickFrame={this.handleClickFrame}/>
+                    {popup}
                 </div>
             );
         } else {

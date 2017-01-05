@@ -1,5 +1,6 @@
 {
     "title": "test map",
+    "worldMapName": "testSandbox",
     "width": 5,
     "height": 5,
     "units": [

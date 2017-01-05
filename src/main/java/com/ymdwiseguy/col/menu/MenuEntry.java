@@ -24,6 +24,8 @@ public class MenuEntry {
         this.endpointUrl = endpointUrl;
     }
 
+
+
     public String getEntryName() {
         return entryName;
     }

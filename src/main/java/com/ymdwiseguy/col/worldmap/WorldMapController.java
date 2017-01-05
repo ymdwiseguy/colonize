@@ -89,7 +89,7 @@ public class WorldMapController {
             return new ResponseEntity<>(updatedWorldmap.toJson(), HttpStatus.OK);
         } catch (IOException e) {
             LOGGER.error("unable to save map: {}", e);
-            return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
         }
     }
 

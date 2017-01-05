@@ -1,5 +1,6 @@
 {
     "title": "new Map",
+    "worldMapName": "largerMap",
     "units": [
         {
             "unitType": "KARAVELLE",
