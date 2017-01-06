@@ -26,15 +26,14 @@ class EditorFrame extends React.Component {
         this.updateState('/api/mapeditor/' + this.props.game.gameId);
     }
 
-    updateState(url) {
-        console.log('get data from url ' + url);
+    updateState(url, method = 'GET') {
+        console.log('get data from url ' + url + ' -- METHOD: ' + method);
         $.ajax({
             url: url,
-            method: 'GET',
+            method: method,
             dataType: 'json',
             cache: false,
             success: function (restData) {
-                console.log(restData);
                 this.setState({game: restData});
             }.bind(this),
             error: function (xhr, status, err) {
