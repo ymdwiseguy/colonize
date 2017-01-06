@@ -15,7 +15,6 @@ class SaveGamePopup extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         if (this.props.game.popupMenu.menuEntries.length > 0 && this.props.game.worldMap.worldMapName) {
             let menuentries = this.props.game.popupMenu.menuEntries.map((entry, i) => {
                 return <MenuEntry entry={entry} key={i} onClickSubmenu={this.handlePopupClick}/>
