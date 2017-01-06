@@ -15,20 +15,20 @@ class SaveGamePopup extends React.Component {
     }
 
     render() {
-        let entry1 = {
-           'endpointUrl' : '/api/mapeditor/' + this.props.game.gameId,
-           'entryName' : 'Abort'
-        };
         console.log(this.props);
-        if(this.props.game.worldMap){
+        if (this.props.game.popupMenu.menuEntries.length > 0 && this.props.game.worldMap.worldMapName) {
+            let menuentries = this.props.game.popupMenu.menuEntries.map((entry, i) => {
+                return <MenuEntry entry={entry} key={i} onClickSubmenu={this.handlePopupClick}/>
+            });
+
             let mapName = this.props.game.worldMap.worldMapName;
             return (
                 <div className="popup">
                     <h2>Overwrite map &quot;{mapName}&quot;</h2>
-                    <MenuEntry entry={entry1} key="example" onClickSubmenu={this.handlePopupClick}/>
+                    {menuentries}
                 </div>
             )
-        }else {
+        } else {
             return null;
         }
 
