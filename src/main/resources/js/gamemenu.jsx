@@ -7,16 +7,15 @@ class GameMenu extends React.Component {
 
     constructor(props) {
         super(props);
-        this.handleGameMenuClick = this.handleGameMenuClick.bind(this);
     }
 
-    handleGameMenuClick(event) {
-        this.props.onClickFrame(event);
+    handleGameMenuClick(event, method) {
+        this.props.onClickFrame(event, method);
     }
 
     render() {
         let submenus = this.props.menu.submenus.map((submenu, i) => {
-            return <Submenu submenu={submenu} key={i} onClickMainMenu={this.handleGameMenuClick}/>
+            return <Submenu submenu={submenu} key={i} onClickMainMenu={(e, m) => this.handleGameMenuClick(e, m)}/>
         });
 
         return (

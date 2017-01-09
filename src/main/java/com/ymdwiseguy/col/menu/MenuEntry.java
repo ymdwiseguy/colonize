@@ -3,10 +3,12 @@ package com.ymdwiseguy.col.menu;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
+import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 
 import static org.slf4j.LoggerFactory.getLogger;
+import static org.springframework.http.HttpMethod.GET;
 
 public class MenuEntry {
 
@@ -15,6 +17,7 @@ public class MenuEntry {
 
     private String entryName;
     private String endpointUrl;
+    private HttpMethod method = GET;
 
     public MenuEntry() {
     }
@@ -42,6 +45,13 @@ public class MenuEntry {
         this.endpointUrl = endpointUrl;
     }
 
+    public HttpMethod getMethod() {
+        return method;
+    }
+
+    public void setMethod(HttpMethod method) {
+        this.method = method;
+    }
 
     public String toJson() {
         try {

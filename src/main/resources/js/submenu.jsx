@@ -7,16 +7,15 @@ class Submenu extends React.Component {
 
     constructor(props) {
         super(props);
-        this.handleSubmenuClick = this.handleSubmenuClick.bind(this);
     }
 
-    handleSubmenuClick(event) {
-        this.props.onClickMainMenu(event);
+    handleSubmenuClick(event, method) {
+        this.props.onClickMainMenu(event, method);
     }
 
     render() {
         let menuentries = this.props.submenu.menuEntries.map((entry, i) => {
-            return <MenuEntry entry={entry} key={i} onClickSubmenu={this.handleSubmenuClick}/>
+            return <MenuEntry entry={entry} key={i} onClickSubmenu={(e, m) => this.handleSubmenuClick(e, m)}/>
         });
 
         return (

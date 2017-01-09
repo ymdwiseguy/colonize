@@ -11,14 +11,14 @@ class EditorFrame extends React.Component {
     constructor() {
         super();
         this.state = {};
-        this.handleClickFrame = this.handleClickFrame.bind(this);
+        // this.updateState = this.updateState.bind(this);
     }
 
-    handleClickFrame(event) {
+    handleClickFrame(event, method) {
         event.preventDefault();
         let url = event.target.href;
         if (url) {
-            this.updateState(url);
+            this.updateState(url, method);
         }
     }
 
@@ -32,6 +32,7 @@ class EditorFrame extends React.Component {
             url: url,
             method: method,
             dataType: 'json',
+            body: this.state.game,
             cache: false,
             success: function (restData) {
                 this.setState({game: restData});
@@ -47,16 +48,16 @@ class EditorFrame extends React.Component {
 
             let popup = null;
             if (this.state.game.popupMenu != null) {
-                popup = <SaveGamePopup onClickFrame={this.handleClickFrame} game={this.state.game}/>;
+                popup = <SaveGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)} game={this.state.game}/>;
             }
 
             return (
                 <div className="frame">
-                    <GameMenu menu={this.state.game.gameMenu} onClickFrame={this.handleClickFrame}/>
+                    <GameMenu menu={this.state.game.gameMenu} onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>
                     <div className="map-outer-wrapper">
                         <Map data={this.state.game.worldMap}/>
                     </div>
-                    <SideBar sidebar={this.state.game.sideMenu} onClickFrame={this.handleClickFrame}/>
+                    <SideBar sidebar={this.state.game.sideMenu} onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>
                     {popup}
                 </div>
             );
