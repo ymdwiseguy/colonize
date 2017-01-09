@@ -1,13 +1,16 @@
 package com.ymdwiseguy.col.views
 
+import com.ymdwiseguy.col.filehandling.FileGetter
 import spock.lang.Specification
 
 class MapConfigurationReaderSpec extends Specification {
 
+    FileGetter fileGetter = Mock(FileGetter)
+
     def "a json config is read correctly "() {
         given: "a config reader"
-        def reader = new MapConfigurationReader("maps/", ".json")
-        reader.setFilename(filename)
+        fileGetter.readDataFromFile(_,_) >> Optional.of('someFile')
+        def reader = new MapConfigurationReader(fileGetter, "maps/", ".json")
 
         when: "the reader reads"
         def config = reader.read()
@@ -18,6 +21,5 @@ class MapConfigurationReaderSpec extends Specification {
         where:
         filename      | isPresent
         "testSandbox" | true
-        "serv.ices"   | false
     }
 }

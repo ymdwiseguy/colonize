@@ -1,15 +1,14 @@
 package com.ymdwiseguy.col.mapeditor;
 
+import com.ymdwiseguy.col.filehandling.FileGetter;
 import com.ymdwiseguy.col.menu.MenuEntry;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
+import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,13 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Component
 public class MapEditorRepo {
 
+    private FileGetter fileGetter;
     private static final Logger LOGGER = getLogger(MapEditorRepo.class);
+
+    @Inject
+    public MapEditorRepo(FileGetter fileGetter) {
+        this.fileGetter = fileGetter;
+    }
 
     List<MenuEntry> getMapListFromPath(String gameId) {
         List<MenuEntry> results = new ArrayList<>();
@@ -43,7 +48,7 @@ public class MapEditorRepo {
     }
 
     WorldMap getWorldmap(String mapid) {
-        Optional<String> mapData = getMapDataFromFile(mapid);
+        Optional<String> mapData = fileGetter.readDataFromFile(mapid, "maps/");
         if (mapData.isPresent()) {
             try {
                 WorldMap worldMap = new WorldMap();
@@ -53,27 +58,6 @@ public class MapEditorRepo {
             }
         }
         return null;
-    }
-
-    private Optional<String> getMapDataFromFile(final String mapName) {
-
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("maps/" + mapName + ".json");
-        if (inputStream != null) {
-            StringBuilder worldmapData = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            try {
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    worldmapData.append(line);
-                }
-                return Optional.of(worldmapData.toString());
-            } catch (IOException e) {
-                LOGGER.error("could not read config data from " + mapName, e);
-            }
-        } else {
-            LOGGER.error("could not read config data from {}", mapName);
-        }
-        return Optional.empty();
     }
 
     private String cleanFileName(String filename) {
