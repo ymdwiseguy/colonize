@@ -94,7 +94,7 @@ class MapEditorServiceSpec extends Specification {
         ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_LOAD_MAP)
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
-        then: "my game includes"
+        then: "my game includes the worldmap"
         editorInstance.getWorldMap() != null
         editorInstance.getWorldMap().getWorldMapId() != null
     }
