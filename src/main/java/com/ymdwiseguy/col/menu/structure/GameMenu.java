@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col.menu;
+package com.ymdwiseguy.col.menu.structure;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

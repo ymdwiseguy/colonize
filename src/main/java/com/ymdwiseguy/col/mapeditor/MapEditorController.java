@@ -1,7 +1,7 @@
 package com.ymdwiseguy.col.mapeditor;
 
 import com.ymdwiseguy.col.Game;
-import com.ymdwiseguy.col.menu.PopupType;
+import com.ymdwiseguy.col.menu.structure.PopupType;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +66,7 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditorView.render(mapEditor.toJson()), HttpStatus.OK);
     }
 
-    // GET LIST - JSON
+    // GET MAP LIST - JSON
     @RequestMapping(value = "/api/mapeditor/{gameid}/maps", method = GET, produces = "application/json")
     public ResponseEntity getMapList(@PathVariable String gameid) {
         Game mapEditor = mapEditorService.editorWithMapList(gameid);

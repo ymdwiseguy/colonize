@@ -2,9 +2,9 @@ package com.ymdwiseguy.col;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ymdwiseguy.col.menu.GameMenu;
-import com.ymdwiseguy.col.menu.PopupMenu;
-import com.ymdwiseguy.col.menu.SideMenu;
+import com.ymdwiseguy.col.menu.structure.GameMenu;
+import com.ymdwiseguy.col.menu.structure.PopupMenu;
+import com.ymdwiseguy.col.menu.structure.SideMenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 

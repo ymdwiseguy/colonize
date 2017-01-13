@@ -27,12 +27,16 @@ class EditorFrame extends React.Component {
     }
 
     updateState(url, method = 'GET') {
-        console.log('get data from url ' + url + ' -- METHOD: ' + method);
+        let gameJson = '{}';
+        if (this.state.game) {
+            gameJson  = JSON.stringify(this.state.game);
+        }
         $.ajax({
             url: url,
             method: method,
             dataType: 'json',
-            body: this.state.game,
+            contentType: 'application/json; charset=UTF-8',
+            data: gameJson,
             cache: false,
             success: function (restData) {
                 this.setState({game: restData});

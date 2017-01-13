@@ -1,7 +1,7 @@
 package com.ymdwiseguy.col.worldmap;
 
 import com.ymdwiseguy.col.Game;
-import com.ymdwiseguy.col.filehandling.FileGetter;
+import com.ymdwiseguy.col.filehandling.MapFileHandler;
 import com.ymdwiseguy.col.views.MapConfigurationReader;
 import com.ymdwiseguy.col.views.WorldMapView;
 import org.slf4j.Logger;
@@ -30,14 +30,14 @@ public class WorldMapController {
     private final WorldMapView worldMapView;
     private final MapConfigurationReader mapConfigurationReader;
     private final WorldMapService worldMapService;
-    private final FileGetter fileGetter;
+    private final MapFileHandler mapFileHandler;
 
     @Autowired
-    public WorldMapController(WorldMapView worldMapView, WorldMapService worldMapService, MapConfigurationReader mapConfigurationReader, FileGetter fileGetter) {
+    public WorldMapController(WorldMapView worldMapView, WorldMapService worldMapService, MapConfigurationReader mapConfigurationReader, MapFileHandler mapFileHandler) {
         this.worldMapView = worldMapView;
         this.worldMapService = worldMapService;
         this.mapConfigurationReader = mapConfigurationReader;
-        this.fileGetter = fileGetter;
+        this.mapFileHandler = mapFileHandler;
     }
 
 
@@ -111,7 +111,7 @@ public class WorldMapController {
     @RequestMapping(value = "/maps/{name}")
     public ResponseEntity loadMapFromFile(@PathVariable String name) {
 //        mapConfigurationReader.setFilename(name);
-        String worldMapData = fileGetter.readDataFromFile(name, "maps/").orElse("[]");// mapConfigurationReader.read();
+        String worldMapData = mapFileHandler.readDataFromFile(name).orElse("[]");// mapConfigurationReader.read();
         WorldMap worldMap = worldMapService.saveWorldMapFromJson(worldMapData);
 
 

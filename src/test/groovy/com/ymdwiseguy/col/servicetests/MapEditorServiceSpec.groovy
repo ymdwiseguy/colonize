@@ -2,8 +2,8 @@ package com.ymdwiseguy.col.servicetests
 
 import com.ymdwiseguy.Colonization
 import com.ymdwiseguy.col.Game
-import com.ymdwiseguy.col.menu.MenuEntry
-import com.ymdwiseguy.col.menu.SideMenu
+import com.ymdwiseguy.col.menu.structure.MenuEntry
+import com.ymdwiseguy.col.menu.structure.SideMenu
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.boot.test.TestRestTemplate

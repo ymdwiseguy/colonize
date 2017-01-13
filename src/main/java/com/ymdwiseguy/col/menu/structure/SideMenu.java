@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col.menu;
+package com.ymdwiseguy.col.menu.structure;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,21 +9,13 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class PopupMenu {
+public class SideMenu {
 
-    private static final Logger LOGGER = getLogger(PopupMenu.class);
+    private static final Logger LOGGER = getLogger(SideMenu.class);
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    public PopupMenu() {
-    }
-
-    public PopupMenu(String header, List<MenuEntry> menuEntries) {
-        this.header = header;
-        this.menuEntries = menuEntries;
-    }
-
     private String header;
-    private List<MenuEntry> menuEntries;
+    private List<MenuEntry> entries;
 
     public String getHeader() {
         return header;
@@ -33,12 +25,12 @@ public class PopupMenu {
         this.header = header;
     }
 
-    public List<MenuEntry> getMenuEntries() {
-        return menuEntries;
+    public List<MenuEntry> getEntries() {
+        return entries;
     }
 
-    public void setMenuEntries(List<MenuEntry> menuEntries) {
-        this.menuEntries = menuEntries;
+    public void setEntries(List<MenuEntry> entries) {
+        this.entries = entries;
     }
 
 
@@ -50,7 +42,7 @@ public class PopupMenu {
         }
     }
 
-    public PopupMenu fromJson(String sideMenu) throws IOException {
-        return mapper.reader().forType(PopupMenu.class).readValue(sideMenu);
+    public SideMenu fromJson(String sideMenu) throws IOException {
+        return mapper.reader().forType(SideMenu.class).readValue(sideMenu);
     }
 }

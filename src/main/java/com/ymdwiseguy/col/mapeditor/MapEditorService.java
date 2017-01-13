@@ -3,12 +3,13 @@ package com.ymdwiseguy.col.mapeditor;
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
 import com.ymdwiseguy.col.GameScreen;
-import com.ymdwiseguy.col.menu.GameMenu;
-import com.ymdwiseguy.col.menu.MenuEntry;
-import com.ymdwiseguy.col.menu.PopupMenu;
-import com.ymdwiseguy.col.menu.PopupType;
-import com.ymdwiseguy.col.menu.SideMenu;
-import com.ymdwiseguy.col.menu.Submenu;
+import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
+import com.ymdwiseguy.col.menu.structure.GameMenu;
+import com.ymdwiseguy.col.menu.structure.MenuEntry;
+import com.ymdwiseguy.col.menu.structure.PopupMenu;
+import com.ymdwiseguy.col.menu.structure.PopupType;
+import com.ymdwiseguy.col.menu.structure.SideMenu;
+import com.ymdwiseguy.col.menu.structure.Submenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import com.ymdwiseguy.col.worldmap.WorldMapService;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class MapEditorService {
         }
         mapEditor = setMenuPoints(mapEditor);
         mapEditor = setWorldMap(mapEditor);
-        if(showPopup != null){
+        if (showPopup != null) {
             mapEditor = setPopup(mapEditor, showPopup);
         }
         return mapEditor;
@@ -72,24 +73,33 @@ public class MapEditorService {
         WorldMap worldMap = getMap(mapName);
         mapEditor.setWorldMap(worldMap);
 
-        updateGameState(mapEditor);
+        mapEditor = updateGameState(mapEditor);
 
         return mapEditor;
     }
 
     // UPDATE
-    Game updateMap(Game game, String mapName) {
+    Game updateMap(Game mapEditor, String mapName) {
 
-        if (!Objects.equals(game.getWorldMap().getWorldMapName(), mapName)) {
-            // TODO: throw MapEditorException
+        if (!Objects.equals(mapEditor.getWorldMap().getWorldMapName(), mapName)) {
             return null;
         }
-        // check if file exists
-        // overwrite file
-        game = updateGameState(game);
 
-        return game;
+        if (!mapEditorRepo.fileExists(mapName)) {
+            return null;
+        }
+
+        if (mapEditorRepo.updateWorldMap(mapName, mapEditor.getWorldMap().toJson())) {
+            mapEditor = updateGameState(mapEditor);
+            return mapEditor;
+
+        }
+        return null;
     }
+
+
+//  -- private methods .. TODO: move stuff to own classes
+
 
     private Game setMenuPoints(Game mapeditor) {
         MenuEntry loadMap = new MenuEntry("Load Map ...", "/api/mapeditor/" + mapeditor.getGameId() + "/maps/");
@@ -98,7 +108,6 @@ public class MapEditorService {
         List<MenuEntry> menuEntries = new ArrayList<>();
         menuEntries.add(loadMap);
         menuEntries.add(saveMap);
-//        menuEntries.add(1, saveMap);
 
         Submenu editorSubmenu = new Submenu("Editor", menuEntries);
         List<Submenu> submenus = new ArrayList<>();
@@ -110,27 +119,16 @@ public class MapEditorService {
     }
 
     private Game setPopup(Game mapEditor, PopupType showPopup) {
+        PopupMenu popupMenu;
         switch (showPopup) {
             case SAVE_MAPEDITOR:
-                mapEditor.setPopupMenu(
-                    buildSaveGamePopup(
-                        mapEditor.getWorldMap().getWorldMapName(),
-                        mapEditor.getGameId()
-                    )
-                );
+                popupMenu = new SaveGamePopupMenu().create(mapEditor);
                 break;
+            default:
+                popupMenu = null;
         }
+        mapEditor.setPopupMenu(popupMenu);
         return mapEditor;
-    }
-
-    private PopupMenu buildSaveGamePopup(String worldMapName, String gameId) {
-        List<MenuEntry> entries = new ArrayList<>();
-        MenuEntry save = new MenuEntry("Save", "/api/mapeditor/" + gameId);
-        MenuEntry abort = new MenuEntry("Abort", "/api/mapeditor/" + gameId);
-        entries.add(save);
-        entries.add(abort);
-
-        return new PopupMenu("Overwrite map '" + worldMapName + "'?", entries);
     }
 
     private SideMenu getMapList(String gameId) {
@@ -151,8 +149,10 @@ public class MapEditorService {
 
     private WorldMap getMap(String mapid) {
         WorldMap worldMap = mapEditorRepo.getWorldmap(mapid);
-        String worldMapId = worldMapService.saveNewWorldMap(worldMap).getWorldMapId();
-        worldMap.setWorldMapId(worldMapId);
+        if (worldMap.getWorldMapId() == null) {
+            String worldMapId = worldMapService.saveNewWorldMap(worldMap).getWorldMapId();
+            worldMap.setWorldMapId(worldMapId);
+        }
         return worldMap;
     }
 

@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col.menu;
+package com.ymdwiseguy.col.menu.structure;
 
 public enum PopupType {
     SAVE_MAPEDITOR

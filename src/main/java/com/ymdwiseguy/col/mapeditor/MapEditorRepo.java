@@ -1,7 +1,7 @@
 package com.ymdwiseguy.col.mapeditor;
 
-import com.ymdwiseguy.col.filehandling.FileGetter;
-import com.ymdwiseguy.col.menu.MenuEntry;
+import com.ymdwiseguy.col.filehandling.MapFileHandler;
+import com.ymdwiseguy.col.menu.structure.MenuEntry;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
@@ -19,12 +19,12 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Component
 public class MapEditorRepo {
 
-    private FileGetter fileGetter;
+    private MapFileHandler mapFileHandler;
     private static final Logger LOGGER = getLogger(MapEditorRepo.class);
 
     @Inject
-    public MapEditorRepo(FileGetter fileGetter) {
-        this.fileGetter = fileGetter;
+    public MapEditorRepo(MapFileHandler mapFileHandler) {
+        this.mapFileHandler = mapFileHandler;
     }
 
     List<MenuEntry> getMapListFromPath(String gameId) {
@@ -37,7 +37,7 @@ public class MapEditorRepo {
             LOGGER.error("could not read config data from {}", "/maps");
         } else {
             for (File file : files) {
-                if (file.isFile()) {
+                if (file.isFile() && !file.isHidden()) {
                     String mapId = cleanFileName(file.getName());
                     MenuEntry menuEntry = new MenuEntry(mapId, "/api/mapeditor/" + gameId + "/maps/" + mapId);
                     results.add(menuEntry);
@@ -48,7 +48,7 @@ public class MapEditorRepo {
     }
 
     WorldMap getWorldmap(String mapid) {
-        Optional<String> mapData = fileGetter.readDataFromFile(mapid, "maps/");
+        Optional<String> mapData = mapFileHandler.readDataFromFile(mapid);
         if (mapData.isPresent()) {
             try {
                 WorldMap worldMap = new WorldMap();
@@ -60,8 +60,19 @@ public class MapEditorRepo {
         return null;
     }
 
+    boolean updateWorldMap(String mapid, String mapData){
+        return mapFileHandler.writeDataToFile(mapid, mapData);
+    }
+
+    boolean fileExists(String mapName) {
+        return mapFileHandler.fileExists(mapName);
+    }
+
     private String cleanFileName(String filename) {
-        return filename.substring(0, filename.lastIndexOf(".json"));
+        if(filename.lastIndexOf(".json") > 0) {
+            return filename.substring(0, filename.lastIndexOf(".json"));
+        }
+        return filename;
     }
 
 }

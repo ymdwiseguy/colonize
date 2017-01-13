@@ -1,6 +1,6 @@
 package com.ymdwiseguy.col.views;
 
-import com.ymdwiseguy.col.filehandling.FileGetter;
+import com.ymdwiseguy.col.filehandling.MapFileHandler;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Component
 public class MapConfigurationReader {
 
-    private FileGetter fileGetter;
+    private MapFileHandler mapFileHandler;
     private static final Logger LOGGER = getLogger(MapConfigurationReader.class);
 
     private String path;
@@ -25,9 +25,9 @@ public class MapConfigurationReader {
 
     @Autowired
     public MapConfigurationReader(
-        FileGetter fileGetter, @Value("${maps.configPath}") String path,
+        MapFileHandler mapFileHandler, @Value("${maps.configPath}") String path,
         @Value("${maps.suffix}") String suffix) {
-        this.fileGetter = fileGetter;
+        this.mapFileHandler = mapFileHandler;
         this.path = path;
         this.suffix = suffix;
     }
@@ -45,7 +45,7 @@ public class MapConfigurationReader {
         Objects.nonNull(this.path);
         Objects.nonNull(this.filename);
         Objects.nonNull(this.suffix);
-        return fileGetter.readDataFromFile(filename, path);
+        return mapFileHandler.readDataFromFile(filename);
     }
 
 }
