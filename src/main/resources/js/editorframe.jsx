@@ -36,7 +36,7 @@ class EditorFrame extends React.Component {
             method: method,
             dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
-            data: gameJson,
+            data: (method == 'GET' ? '' : gameJson),
             cache: false,
             success: function (restData) {
                 this.setState({game: restData});

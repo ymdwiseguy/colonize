@@ -47,11 +47,7 @@ public class MapEditorService {
             mapEditor.setGameScreen(gameScreen);
             saveGameState(mapEditor);
         }
-        mapEditor = setMenuPoints(mapEditor);
-        mapEditor = setWorldMap(mapEditor);
-        if (showPopup != null) {
-            mapEditor = setPopup(mapEditor, showPopup);
-        }
+        mapEditor = addStaticData(mapEditor, showPopup);
         return mapEditor;
     }
 
@@ -73,7 +69,7 @@ public class MapEditorService {
         WorldMap worldMap = getMap(mapName);
         mapEditor.setWorldMap(worldMap);
 
-        mapEditor = updateGameState(mapEditor);
+        mapEditor = updateGameState(mapEditor, null);
 
         return mapEditor;
     }
@@ -90,7 +86,7 @@ public class MapEditorService {
         }
 
         if (mapEditorRepo.updateWorldMap(mapName, mapEditor.getWorldMap().toJson())) {
-            mapEditor = updateGameState(mapEditor);
+            mapEditor = updateGameState(mapEditor, null);
             return mapEditor;
 
         }
@@ -100,11 +96,18 @@ public class MapEditorService {
 
 //  -- private methods .. TODO: move stuff to own classes
 
+    private Game addStaticData(Game mapEditor, PopupType showPopup){
+        mapEditor = setMenuPoints(mapEditor);
+        mapEditor = setWorldMap(mapEditor);
+        if (showPopup != null) {
+            mapEditor = setPopup(mapEditor, showPopup);
+        }
+        return mapEditor;
+    }
 
     private Game setMenuPoints(Game mapeditor) {
         MenuEntry loadMap = new MenuEntry("Load Map ...", "/api/mapeditor/" + mapeditor.getGameId() + "/maps/");
         MenuEntry saveMap = new MenuEntry("Save map", "/api/mapeditor/" + mapeditor.getGameId() + "?showPopup=SAVE_MAPEDITOR");
-//        MenuEntry saveMap = new MenuEntry("Save Map As ...", "/api/mapeditor/" + mapeditor.getGameId() + "/maps/" + mapeditor.getWorldMap().getWorldMapId());
         List<MenuEntry> menuEntries = new ArrayList<>();
         menuEntries.add(loadMap);
         menuEntries.add(saveMap);
@@ -147,8 +150,8 @@ public class MapEditorService {
             }).orElse(null);
     }
 
-    private WorldMap getMap(String mapid) {
-        WorldMap worldMap = mapEditorRepo.getWorldmap(mapid);
+    private WorldMap getMap(String mapName) {
+        WorldMap worldMap = mapEditorRepo.getWorldmap(mapName);
         if (worldMap.getWorldMapId() == null) {
             String worldMapId = worldMapService.saveNewWorldMap(worldMap).getWorldMapId();
             worldMap.setWorldMapId(worldMapId);
@@ -160,9 +163,15 @@ public class MapEditorService {
         return gameRepo.createGame(game);
     }
 
-    private Game updateGameState(Game game) {
+    private Game updateGameState(Game game, PopupType showPopup) {
         Optional<Game> savedGame = gameRepo.updateGame(game);
-        return savedGame.orElse(null);
+
+        if(savedGame.isPresent()){
+            Game sg = savedGame.get();
+            return addStaticData(sg, showPopup);
+        }
+
+        return null;
     }
 
     private Game setWorldMap(Game mapEditor) {

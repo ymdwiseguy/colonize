@@ -80,13 +80,6 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-//    // POST MAP - JSON
-//    @RequestMapping(value = "/api/mapeditor/{gameId}/maps/{mapName}", method = POST)
-//    public ResponseEntity saveMap(@PathVariable String gameId, @PathVariable String mapName) {
-//        Game mapEditor = mapEditorService.saveMap(gameId, mapName);
-//        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
-//    }
-//
     // PUT MAP - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/maps/{mapName}", method = PUT)
     public ResponseEntity updateMap(@RequestBody String gameJson, @PathVariable String mapName) {

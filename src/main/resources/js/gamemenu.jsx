@@ -14,17 +14,21 @@ class GameMenu extends React.Component {
     }
 
     render() {
-        let submenus = this.props.menu.submenus.map((submenu, i) => {
-            return <Submenu submenu={submenu} key={i} onClickMainMenu={(e, m) => this.handleGameMenuClick(e, m)}/>
-        });
+        if (this.props.menu) {
+            let submenus = this.props.menu.submenus.map((submenu, i) => {
+                return <Submenu submenu={submenu} key={i} onClickMainMenu={(e, m) => this.handleGameMenuClick(e, m)}/>
+            });
 
-        return (
-            <div className="main-menu">
-                <ul className="main-menu__menulevel-one">
-                    {submenus}
-                </ul>
-            </div>
-        );
+            return (
+                <div className="main-menu">
+                    <ul className="main-menu__menulevel-one">
+                        {submenus}
+                    </ul>
+                </div>
+            );
+        } else {
+            return null;
+        }
     }
 }
 
