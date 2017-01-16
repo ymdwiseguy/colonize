@@ -3,12 +3,14 @@ package com.ymdwiseguy.col.menu.implementation;
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.menu.structure.MenuEntry;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.PUT;
 
+@Component
 public class SaveGamePopupMenu {
 
     public PopupMenu create(Game mapEditor) {

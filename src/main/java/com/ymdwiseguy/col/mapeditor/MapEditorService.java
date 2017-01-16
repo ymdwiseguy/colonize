@@ -3,20 +3,16 @@ package com.ymdwiseguy.col.mapeditor;
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
 import com.ymdwiseguy.col.GameScreen;
+import com.ymdwiseguy.col.menu.implementation.EditorMainMenu;
 import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
-import com.ymdwiseguy.col.menu.structure.GameMenu;
-import com.ymdwiseguy.col.menu.structure.MenuEntry;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupType;
 import com.ymdwiseguy.col.menu.structure.SideMenu;
-import com.ymdwiseguy.col.menu.structure.Submenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import com.ymdwiseguy.col.worldmap.WorldMapService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -28,13 +24,15 @@ public class MapEditorService {
     private MapEditorRepo mapEditorRepo;
     private GameRepo gameRepo;
     private WorldMapService worldMapService;
+    private EditorMainMenu editorMainMenu;
 
 
     @Inject
-    public MapEditorService(MapEditorRepo mapEditorRepo, GameRepo gameRepo, WorldMapService worldMapService) {
+    public MapEditorService(MapEditorRepo mapEditorRepo, GameRepo gameRepo, WorldMapService worldMapService, EditorMainMenu editorMainMenu) {
         this.mapEditorRepo = mapEditorRepo;
         this.gameRepo = gameRepo;
         this.worldMapService = worldMapService;
+        this.editorMainMenu = editorMainMenu;
     }
 
     // CREATE
@@ -54,7 +52,7 @@ public class MapEditorService {
     // GET
     Game editorWithMapList(String gameId) {
         Game mapEditor = getMapEditor(gameId);
-        mapEditor = setMenuPoints(mapEditor);
+        mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
         mapEditor = setWorldMap(mapEditor);
         mapEditor.setSideMenu(getMapList(gameId));
 
@@ -97,28 +95,12 @@ public class MapEditorService {
 //  -- private methods .. TODO: move stuff to own classes
 
     private Game addStaticData(Game mapEditor, PopupType showPopup){
-        mapEditor = setMenuPoints(mapEditor);
+        mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
         mapEditor = setWorldMap(mapEditor);
         if (showPopup != null) {
             mapEditor = setPopup(mapEditor, showPopup);
         }
         return mapEditor;
-    }
-
-    private Game setMenuPoints(Game mapeditor) {
-        MenuEntry loadMap = new MenuEntry("Load Map ...", "/api/mapeditor/" + mapeditor.getGameId() + "/maps/");
-        MenuEntry saveMap = new MenuEntry("Save map", "/api/mapeditor/" + mapeditor.getGameId() + "?showPopup=SAVE_MAPEDITOR");
-        List<MenuEntry> menuEntries = new ArrayList<>();
-        menuEntries.add(loadMap);
-        menuEntries.add(saveMap);
-
-        Submenu editorSubmenu = new Submenu("Editor", menuEntries);
-        List<Submenu> submenus = new ArrayList<>();
-        submenus.add(editorSubmenu);
-
-        GameMenu gameMenu = new GameMenu(submenus);
-        mapeditor.setGameMenu(gameMenu);
-        return mapeditor;
     }
 
     private Game setPopup(Game mapEditor, PopupType showPopup) {
@@ -143,10 +125,11 @@ public class MapEditorService {
 
     private Game getMapEditor(String gameId) {
         return gameRepo.getGame(gameId)
-            .map(game -> {
-                game.setGameScreen(MAPEDITOR);
-                game = setMenuPoints(game);
-                return game;
+            .map(mapEditor -> {
+                mapEditor.setGameScreen(MAPEDITOR);
+                mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
+
+                return mapEditor;
             }).orElse(null);
     }
 
