@@ -3,7 +3,7 @@ package com.ymdwiseguy.col.servicetests
 import com.ymdwiseguy.Colonization
 import com.ymdwiseguy.col.Game
 import com.ymdwiseguy.col.menu.structure.MenuEntry
-import com.ymdwiseguy.col.menu.structure.SideMenu
+import com.ymdwiseguy.col.menu.structure.PopupMenu
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.boot.test.TestRestTemplate
@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
 
 import static org.springframework.http.HttpStatus.OK
-
 
 @SpringApplicationConfiguration(classes = Colonization.class)
 @WebIntegrationTest("server.port:0")
@@ -78,12 +77,12 @@ class MapEditorServiceSpec extends Specification {
         createInitialGame()
 
         when: "the load button is clicked"
-        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST)
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST + '/?showPopup=SHOW_MAPLIST')
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
         then: "a list of maps is returned"
-        editorInstance.getSideMenu().getEntries().size() > 0
-        assertMenuContains(editorInstance.getSideMenu(), 'testSandbox')
+        editorInstance.getPopupMenu().getEntries().size() > 0
+        assertMenuContains(editorInstance.getPopupMenu(), 'testSandbox')
     }
 
     def "getting a map"() {
@@ -99,7 +98,7 @@ class MapEditorServiceSpec extends Specification {
         editorInstance.getWorldMap().getWorldMapId() != null
     }
 
-    def assertMenuContains(SideMenu menu, String entry) {
+    def assertMenuContains(PopupMenu menu, String entry) {
         List<MenuEntry> entries = menu.getEntries()
         for (MenuEntry menuEntry : entries) {
             if (menuEntry.getEntryName() == entry) {
@@ -119,10 +118,10 @@ class MapEditorServiceSpec extends Specification {
     def getAGameAndGetAMapName() {
         createInitialGame()
 
-        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST)
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST + '/?showPopup=SHOW_MAPLIST')
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
-        MAP_NAME = editorInstance.getSideMenu().getEntries().get(0).getEntryName()
+        MAP_NAME = editorInstance.getPopupMenu().getEntries().get(0).getEntryName()
         URL_LOAD_MAP = URL_SHOW_MAPLIST + '/' + MAP_NAME
     }
 
@@ -142,7 +141,7 @@ class MapEditorServiceSpec extends Specification {
       "gameMenu" : {
         "submenus" : [ {
           "entryName" : "Editor",
-          "menuEntries" : [ {
+          "entries" : [ {
             "entryName" : "Load Map",
             "endpointUrl" : "/mapeditor/94199ef2-33f9-4448-ab27-433f5023cc86/maps/"
           } ]

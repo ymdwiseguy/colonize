@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ymdwiseguy.col.menu.structure.PopupType.SAVE_MAPEDITOR;
 import static org.springframework.http.HttpMethod.PUT;
 
 @Component
@@ -23,6 +24,6 @@ public class SaveGamePopupMenu {
         entries.add(save);
         entries.add(abort);
 
-        return new PopupMenu("Overwrite map '" + worldMapName + "'?", entries);
+        return new PopupMenu("Overwrite map '" + worldMapName + "'?", entries, SAVE_MAPEDITOR);
     }
 }

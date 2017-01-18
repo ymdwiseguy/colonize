@@ -72,11 +72,11 @@ public class GameRepo {
                 post.setString(4, gameId);
             });
             LOGGER.info("Updated game '{}'", game.getGameId());
+            return Optional.of(game);
         } catch (ConstraintViolationException cve) {
             LOGGER.info("Game with id {} was not found in the database.", game.getGameId());
             throw cve;
         }
-        return getGame(gameId);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

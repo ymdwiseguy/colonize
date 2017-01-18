@@ -50,12 +50,9 @@ public class MapEditorService {
     }
 
     // GET
-    Game editorWithMapList(String gameId) {
+    Game editorWithMapList(String gameId, PopupType showPopup) {
         Game mapEditor = getMapEditor(gameId);
-        mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
-        mapEditor = setWorldMap(mapEditor);
-        mapEditor.setSideMenu(getMapList(gameId));
-
+        mapEditor = addStaticData(mapEditor, showPopup);
         return mapEditor;
     }
 
@@ -67,7 +64,7 @@ public class MapEditorService {
         WorldMap worldMap = getMap(mapName);
         mapEditor.setWorldMap(worldMap);
 
-        mapEditor = updateGameState(mapEditor, null);
+        mapEditor = updateGameState(mapEditor);
 
         return mapEditor;
     }
@@ -83,8 +80,8 @@ public class MapEditorService {
             return null;
         }
 
-        if (mapEditorRepo.updateWorldMap(mapName, mapEditor.getWorldMap().toJson())) {
-            mapEditor = updateGameState(mapEditor, null);
+        if (mapEditorRepo.updateWorldMap(mapName, mapEditor.getWorldMap())) {
+            mapEditor = updateGameState(mapEditor);
             return mapEditor;
 
         }
@@ -108,6 +105,12 @@ public class MapEditorService {
         switch (showPopup) {
             case SAVE_MAPEDITOR:
                 popupMenu = new SaveGamePopupMenu().create(mapEditor);
+                break;
+            case SHOW_MAPLIST:
+                popupMenu = new PopupMenu(
+                    "Load map...",
+                    mapEditorRepo.getMapListFromPath(mapEditor.getGameId()),
+                    PopupType.SHOW_MAPLIST);
                 break;
             default:
                 popupMenu = null;
@@ -146,12 +149,12 @@ public class MapEditorService {
         return gameRepo.createGame(game);
     }
 
-    private Game updateGameState(Game game, PopupType showPopup) {
+    private Game updateGameState(Game game) {
         Optional<Game> savedGame = gameRepo.updateGame(game);
 
         if(savedGame.isPresent()){
             Game sg = savedGame.get();
-            return addStaticData(sg, showPopup);
+            return addStaticData(sg, null);
         }
 
         return null;

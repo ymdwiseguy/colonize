@@ -16,14 +16,14 @@ public class Submenu {
 
 
     private String entryName;
-    private List<MenuEntry> menuEntries;
+    private List<MenuEntry> entries;
 
     public Submenu() {
     }
 
-    public Submenu(String entryName, List<MenuEntry> menuEntries) {
+    public Submenu(String entryName, List<MenuEntry> entries) {
         this.entryName = entryName;
-        this.menuEntries = menuEntries;
+        this.entries = entries;
     }
 
     public String getEntryName() {
@@ -34,12 +34,12 @@ public class Submenu {
         this.entryName = entryName;
     }
 
-    public List<MenuEntry> getMenuEntries() {
-        return menuEntries;
+    public List<MenuEntry> getEntries() {
+        return entries;
     }
 
-    public void setMenuEntries(List<MenuEntry> menuEntries) {
-        this.menuEntries = menuEntries;
+    public void setEntries(List<MenuEntry> entries) {
+        this.entries = entries;
     }
 
 

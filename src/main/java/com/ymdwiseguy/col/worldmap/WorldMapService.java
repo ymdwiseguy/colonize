@@ -34,8 +34,8 @@ public class WorldMapService {
     }
 
 
-    public WorldMap getWorldMap(String uuid) {
-        Optional<WorldMap> worldMapOptional = worldMapRepo.getWorldmap(uuid);
+    public WorldMap getWorldMap(String worldMapId) {
+        Optional<WorldMap> worldMapOptional = worldMapRepo.getWorldmap(worldMapId);
         if (worldMapOptional.isPresent()) {
             WorldMap worldMap = worldMapOptional.get();
             List<Tile> tiles = tileRepo.getTiles(worldMap.getWorldMapId());

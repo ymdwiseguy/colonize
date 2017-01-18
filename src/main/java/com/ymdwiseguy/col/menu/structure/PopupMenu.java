@@ -17,13 +17,15 @@ public class PopupMenu {
     public PopupMenu() {
     }
 
-    public PopupMenu(String header, List<MenuEntry> menuEntries) {
+    public PopupMenu(String header, List<MenuEntry> entries, PopupType type) {
         this.header = header;
-        this.menuEntries = menuEntries;
+        this.entries = entries;
+        this.type = type;
     }
 
     private String header;
-    private List<MenuEntry> menuEntries;
+    private List<MenuEntry> entries;
+    private PopupType type;
 
     public String getHeader() {
         return header;
@@ -33,14 +35,21 @@ public class PopupMenu {
         this.header = header;
     }
 
-    public List<MenuEntry> getMenuEntries() {
-        return menuEntries;
+    public List<MenuEntry> getEntries() {
+        return entries;
     }
 
-    public void setMenuEntries(List<MenuEntry> menuEntries) {
-        this.menuEntries = menuEntries;
+    public void setEntries(List<MenuEntry> entries) {
+        this.entries = entries;
     }
 
+    public PopupType getType() {
+        return type;
+    }
+
+    public void setType(PopupType type) {
+        this.type = type;
+    }
 
     public String toJson() {
         try {

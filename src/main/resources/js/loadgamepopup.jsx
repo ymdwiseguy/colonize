@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 
 import MenuEntry from './menuentry.jsx';
 
-class SaveGamePopup extends React.Component {
+class LoadGamePopup extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,15 +14,15 @@ class SaveGamePopup extends React.Component {
     }
 
     render() {
-        if (this.props.game.popupMenu.entries.length > 0 && this.props.game.worldMap.worldMapName) {
+        console.log(this.props);
+        if (this.props.game.popupMenu.entries.length > 0) {
             let menuentries = this.props.game.popupMenu.entries.map((entry, i) => {
                 return <MenuEntry entry={entry} key={i} onClickSubmenu={(e, m) => this.handlePopupClick(e, m)}/>
             });
 
-            let mapName = this.props.game.worldMap.worldMapName;
             return (
                 <div className="popup">
-                    <h2>Overwrite map &quot;{mapName}&quot;</h2>
+                    <h2>{this.props.game.popupMenu.header}</h2>
                     {menuentries}
                 </div>
             )
@@ -33,4 +33,4 @@ class SaveGamePopup extends React.Component {
     }
 }
 
-export default SaveGamePopup;
+export default LoadGamePopup;

@@ -41,9 +41,9 @@ public class MapEditorController {
     }
 
     // GET - HTML with ID
-    @RequestMapping(value = "/mapeditor/{gameid}", method = GET)
-    public ResponseEntity getMapEditorData(@PathVariable String gameid, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
-        return initMapEditor(gameid, null, showPopup);
+    @RequestMapping(value = "/mapeditor/{gameId}", method = GET)
+    public ResponseEntity getMapEditorData(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        return initMapEditor(gameId, null, showPopup);
     }
 
     // GET - JSON initial
@@ -53,9 +53,9 @@ public class MapEditorController {
     }
 
     // GET - JSON with ID
-    @RequestMapping(value = "/api/mapeditor/{gameid}", method = GET, produces = "application/json")
-    public ResponseEntity getMapEditorDataJson(@PathVariable String gameid, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
-        return initMapEditor(gameid, "application/json", showPopup);
+    @RequestMapping(value = "/api/mapeditor/{gameId}", method = GET, produces = "application/json")
+    public ResponseEntity getMapEditorDataJson(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        return initMapEditor(gameId, "application/json", showPopup);
     }
 
     private ResponseEntity initMapEditor(String gameId, String produces, PopupType showPopup) {
@@ -67,9 +67,9 @@ public class MapEditorController {
     }
 
     // GET MAP LIST - JSON
-    @RequestMapping(value = "/api/mapeditor/{gameid}/maps", method = GET, produces = "application/json")
-    public ResponseEntity getMapList(@PathVariable String gameid) {
-        Game mapEditor = mapEditorService.editorWithMapList(gameid);
+    @RequestMapping(value = "/api/mapeditor/{gameId}/maps", method = GET, produces = "application/json")
+    public ResponseEntity getMapList(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        Game mapEditor = mapEditorService.editorWithMapList(gameId, showPopup);
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 

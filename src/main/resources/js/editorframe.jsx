@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 
 import Map from './map.jsx';
 import GameMenu from './gamemenu.jsx';
+import LoadGamePopup from './loadgamepopup.jsx';
 import SaveGamePopup from './savegamepopup.jsx';
 import SideBar from './sidebar.jsx';
 
@@ -29,7 +30,7 @@ class EditorFrame extends React.Component {
     updateState(url, method = 'GET') {
         let gameJson = '{}';
         if (this.state.game) {
-            gameJson  = JSON.stringify(this.state.game);
+            gameJson = JSON.stringify(this.state.game);
         }
         $.ajax({
             url: url,
@@ -52,7 +53,17 @@ class EditorFrame extends React.Component {
 
             let popup = null;
             if (this.state.game.popupMenu != null) {
-                popup = <SaveGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)} game={this.state.game}/>;
+                console.log(this.state.game.popupMenu.type);
+                switch (this.state.game.popupMenu.type) {
+                    case 'SAVE_MAPEDITOR':
+                        popup = <SaveGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}
+                                               game={this.state.game}/>;
+                        break;
+                    case 'SHOW_MAPLIST' :
+                        popup = <LoadGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}
+                                               game={this.state.game}/>;
+                        break;
+                }
             }
 
             return (

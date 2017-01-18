@@ -13,17 +13,17 @@ import java.util.List;
 public class EditorMainMenu {
 
     public GameMenu create(Game mapEditor) {
-        MenuEntry loadMap = new MenuEntry("Load Map ...", "/api/mapeditor/" + mapEditor.getGameId() + "/maps/");
+        MenuEntry loadMap = new MenuEntry("Load Map ...", "/api/mapeditor/" + mapEditor.getGameId() + "/maps/?showPopup=SHOW_MAPLIST");
         MenuEntry saveMap = new MenuEntry("Save map", "/api/mapeditor/" + mapEditor.getGameId() + "?showPopup=SAVE_MAPEDITOR");
         List<MenuEntry> menuEntries = new ArrayList<>();
         menuEntries.add(loadMap);
         menuEntries.add(saveMap);
 
         Submenu editorSubmenu = new Submenu("Editor", menuEntries);
-        List<Submenu> submenus = new ArrayList<>();
-        submenus.add(editorSubmenu);
+        List<Submenu> subMenus = new ArrayList<>();
+        subMenus.add(editorSubmenu);
 
-        GameMenu gameMenu = new GameMenu(submenus);
+        GameMenu gameMenu = new GameMenu(subMenus);
         return gameMenu;
     }
 }
