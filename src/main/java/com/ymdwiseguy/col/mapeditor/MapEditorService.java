@@ -20,18 +20,20 @@ import static com.ymdwiseguy.col.GameScreen.MAPEDITOR;
 @Service
 public class MapEditorService {
 
-    private MapEditorRepo mapEditorRepo;
+    private MapFileRepo mapFileRepo;
     private GameRepo gameRepo;
     private WorldMapService worldMapService;
     private EditorMainMenu editorMainMenu;
+    private MapEditorRepo mapEditorRepo;
 
 
     @Inject
-    public MapEditorService(MapEditorRepo mapEditorRepo, GameRepo gameRepo, WorldMapService worldMapService, EditorMainMenu editorMainMenu) {
-        this.mapEditorRepo = mapEditorRepo;
+    public MapEditorService(MapFileRepo mapFileRepo, GameRepo gameRepo, WorldMapService worldMapService, EditorMainMenu editorMainMenu, MapEditorRepo mapEditorRepo) {
+        this.mapFileRepo = mapFileRepo;
         this.gameRepo = gameRepo;
         this.worldMapService = worldMapService;
         this.editorMainMenu = editorMainMenu;
+        this.mapEditorRepo = mapEditorRepo;
     }
 
     // CREATE
@@ -55,6 +57,26 @@ public class MapEditorService {
         return mapEditor;
     }
 
+    private Game updateGameState(Game game) {
+        Optional<Game> savedGame = gameRepo.updateGame(game);
+
+        if (savedGame.isPresent()) {
+            Game sg = savedGame.get();
+            return addStaticData(sg, null);
+        }
+
+        return null;
+    }
+
+    private Game addStaticData(Game mapEditor, PopupType showPopup) {
+        mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
+        mapEditor = setWorldMap(mapEditor);
+        if (showPopup != null) {
+            mapEditor = setPopup(mapEditor, showPopup);
+        }
+        return mapEditor;
+    }
+
     // GET
     Game loadMap(String gameid, String mapName) {
         Game mapEditor = getMapEditor(gameid);
@@ -63,7 +85,10 @@ public class MapEditorService {
         WorldMap worldMap = getMap(mapName);
         mapEditor.setWorldMap(worldMap);
 
-        mapEditor = updateGameState(mapEditor);
+//        mapEditor = updateGameState(mapEditor);
+
+        mapEditor = mapEditorRepo.update(mapEditor);
+        mapEditor = setPopup(mapEditor, null);
 
         return mapEditor;
     }
@@ -75,11 +100,11 @@ public class MapEditorService {
             return null;
         }
 
-        if (!mapEditorRepo.fileExists(mapName)) {
+        if (!mapFileRepo.fileExists(mapName)) {
             return null;
         }
 
-        if (mapEditorRepo.updateWorldMap(mapName, mapEditor.getWorldMap())) {
+        if (mapFileRepo.updateWorldMap(mapName, mapEditor.getWorldMap())) {
             mapEditor = updateGameState(mapEditor);
             return mapEditor;
 
@@ -90,17 +115,14 @@ public class MapEditorService {
 
 //  -- private methods .. TODO: move stuff to own classes
 
-    private Game addStaticData(Game mapEditor, PopupType showPopup){
-        mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
-        mapEditor = setWorldMap(mapEditor);
-        if (showPopup != null) {
-            mapEditor = setPopup(mapEditor, showPopup);
-        }
-        return mapEditor;
-    }
-
     private Game setPopup(Game mapEditor, PopupType showPopup) {
+
+        if (showPopup == null) {
+            return mapEditor;
+        }
+
         PopupMenu popupMenu;
+
         switch (showPopup) {
             case SAVE_MAPEDITOR:
                 popupMenu = new SaveGamePopupMenu().create(mapEditor);
@@ -108,12 +130,13 @@ public class MapEditorService {
             case SHOW_MAPLIST:
                 popupMenu = new PopupMenu(
                     "Load map...",
-                    mapEditorRepo.getMapListFromPath(mapEditor.getGameId()),
+                    mapFileRepo.getMapListFromPath(mapEditor.getGameId()),
                     PopupType.SHOW_MAPLIST);
                 break;
             default:
                 popupMenu = null;
         }
+
         mapEditor.setPopupMenu(popupMenu);
         return mapEditor;
     }
@@ -129,7 +152,7 @@ public class MapEditorService {
     }
 
     private WorldMap getMap(String mapName) {
-        WorldMap worldMap = mapEditorRepo.getWorldmap(mapName);
+        WorldMap worldMap = mapFileRepo.getWorldmap(mapName);
         if (worldMap.getWorldMapId() == null) {
             String worldMapId = worldMapService.saveNewWorldMap(worldMap).getWorldMapId();
             worldMap.setWorldMapId(worldMapId);
@@ -139,17 +162,6 @@ public class MapEditorService {
 
     private Game saveGameState(Game game) {
         return gameRepo.createGame(game);
-    }
-
-    private Game updateGameState(Game game) {
-        Optional<Game> savedGame = gameRepo.updateGame(game);
-
-        if(savedGame.isPresent()){
-            Game sg = savedGame.get();
-            return addStaticData(sg, null);
-        }
-
-        return null;
     }
 
     private Game setWorldMap(Game mapEditor) {
