@@ -7,7 +7,6 @@ import com.ymdwiseguy.col.menu.implementation.EditorMainMenu;
 import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupType;
-import com.ymdwiseguy.col.menu.structure.SideMenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import com.ymdwiseguy.col.worldmap.WorldMapService;
 import org.springframework.stereotype.Service;
@@ -117,13 +116,6 @@ public class MapEditorService {
         }
         mapEditor.setPopupMenu(popupMenu);
         return mapEditor;
-    }
-
-    private SideMenu getMapList(String gameId) {
-        SideMenu sideMenu = new SideMenu();
-        sideMenu.setHeader("Load map...");
-        sideMenu.setEntries(mapEditorRepo.getMapListFromPath(gameId));
-        return sideMenu;
     }
 
     private Game getMapEditor(String gameId) {
