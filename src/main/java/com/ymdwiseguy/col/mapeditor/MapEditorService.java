@@ -34,7 +34,7 @@ public class MapEditorService {
         this.mapEditorRepo = mapEditorRepo;
     }
 
-    // Startscreen
+    // GET/CREATE
     Game initGame(String gameid, PopupType showPopup) {
         Game mapEditor;
         if (gameid != null) {
@@ -44,14 +44,6 @@ public class MapEditorService {
             mapEditor.setGameScreen(MAPEDITOR);
             saveGameState(mapEditor);
         }
-        mapEditor = setPopup(mapEditor, showPopup);
-
-        return mapEditor;
-    }
-
-    // GET
-    Game editorWithMapList(String gameId, PopupType showPopup) {
-        Game mapEditor = mapEditorRepo.getMapEditor(gameId);
         mapEditor = setPopup(mapEditor, showPopup);
 
         return mapEditor;
@@ -117,16 +109,6 @@ public class MapEditorService {
 
         mapEditor.setPopupMenu(popupMenu);
         return mapEditor;
-    }
-
-    private Game getMapEditor(String gameId) {
-        return gameRepo.getGame(gameId)
-            .map(mapEditor -> {
-                mapEditor.setGameScreen(MAPEDITOR);
-                mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
-
-                return mapEditor;
-            }).orElse(null);
     }
 
     private WorldMap getMap(String mapName) {
