@@ -63,26 +63,41 @@ public class MapFileRepo {
     }
 
     boolean updateWorldMap(String mapid, WorldMap worldMap){
-        WorldMap strippedIds = stripIds(worldMap);
-        String mapData = strippedIds.toJson();
+        WorldMap worldMapWithoutIds = copyWorldMapWithoutIds(worldMap);
+        String mapData = worldMapWithoutIds.toJson();
         return mapFileHandler.writeDataToFile(mapid, mapData);
     }
 
-    private WorldMap stripIds(WorldMap worldMap) {
-        worldMap.setWorldMapId(null);
+    private WorldMap copyWorldMapWithoutIds(WorldMap worldMap) {
+        WorldMap worldMapCopy = new WorldMap(null);
+
         List<Tile> strippedTiles = new ArrayList<>();
-        for (Tile strippedTile : worldMap.getTiles()) {
-            strippedTile.setTileId(null);
+        for (Tile tile : worldMap.getTiles()) {
+            Tile strippedTile = new Tile();
+            strippedTile.setType(tile.getType());
+            strippedTile.setxCoordinate(tile.getxCoordinate());
+            strippedTile.setyCoordinate(tile.getyCoordinate());
             strippedTiles.add(strippedTile);
         }
-        worldMap.setTiles(strippedTiles);
+        worldMapCopy.setTiles(strippedTiles);
+
         List<Unit> strippedUnits = new ArrayList<>();
-        for (Unit strippedUnit : worldMap.getUnits()) {
-            strippedUnit.setUnitId(null);
+        for (Unit unit : worldMap.getUnits()) {
+            Unit strippedUnit = new Unit();
+            strippedUnit.setActive(unit.isActive());
+            strippedUnit.setUnitType(unit.getUnitType());
+            strippedUnit.setxPosition(unit.getxPosition());
+            strippedUnit.setyPosition(unit.getyPosition());
             strippedUnits.add(strippedUnit);
         }
-        worldMap.setUnits(strippedUnits);
-        return worldMap;
+        worldMapCopy.setUnits(strippedUnits);
+
+        worldMapCopy.setHeight(worldMap.getHeight());
+        worldMapCopy.setWidth(worldMap.getWidth());
+        worldMapCopy.setTitle(worldMap.getTitle());
+        worldMapCopy.setWorldMapName(worldMap.getWorldMapName());
+
+        return worldMapCopy;
     }
 
     boolean fileExists(String mapName) {
@@ -95,5 +110,4 @@ public class MapFileRepo {
         }
         return filename;
     }
-
 }

@@ -72,7 +72,7 @@ public class MapEditorService {
 
         if (mapFileRepo.updateWorldMap(mapName, mapEditor.getWorldMap())) {
             mapEditor = mapEditorRepo.update(mapEditor);
-            mapEditor = setPopup(mapEditor, null);
+            mapEditor.setPopupMenu(null);
             return mapEditor;
 
         }
