@@ -2,7 +2,6 @@ package com.ymdwiseguy.col.mapeditor;
 
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
-import com.ymdwiseguy.col.GameScreen;
 import com.ymdwiseguy.col.menu.implementation.EditorMainMenu;
 import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Objects;
-import java.util.Optional;
 
 import static com.ymdwiseguy.col.GameScreen.MAPEDITOR;
 
@@ -36,56 +34,35 @@ public class MapEditorService {
         this.mapEditorRepo = mapEditorRepo;
     }
 
-    // CREATE
-    Game initGame(GameScreen gameScreen, String gameid, PopupType showPopup) {
+    // Startscreen
+    Game initGame(String gameid, PopupType showPopup) {
         Game mapEditor;
         if (gameid != null) {
-            mapEditor = getMapEditor(gameid);
+            mapEditor = mapEditorRepo.getMapEditor(gameid);
         } else {
             mapEditor = new Game();
-            mapEditor.setGameScreen(gameScreen);
+            mapEditor.setGameScreen(MAPEDITOR);
             saveGameState(mapEditor);
         }
-        mapEditor = addStaticData(mapEditor, showPopup);
+        mapEditor = setPopup(mapEditor, showPopup);
+
         return mapEditor;
     }
 
     // GET
     Game editorWithMapList(String gameId, PopupType showPopup) {
-        Game mapEditor = getMapEditor(gameId);
-        mapEditor = addStaticData(mapEditor, showPopup);
-        return mapEditor;
-    }
+        Game mapEditor = mapEditorRepo.getMapEditor(gameId);
+        mapEditor = setPopup(mapEditor, showPopup);
 
-    private Game updateGameState(Game game) {
-        Optional<Game> savedGame = gameRepo.updateGame(game);
-
-        if (savedGame.isPresent()) {
-            Game sg = savedGame.get();
-            return addStaticData(sg, null);
-        }
-
-        return null;
-    }
-
-    private Game addStaticData(Game mapEditor, PopupType showPopup) {
-        mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
-        mapEditor = setWorldMap(mapEditor);
-        if (showPopup != null) {
-            mapEditor = setPopup(mapEditor, showPopup);
-        }
         return mapEditor;
     }
 
     // GET
-    Game loadMap(String gameid, String mapName) {
-        Game mapEditor = getMapEditor(gameid);
+    Game loadMap(String gameId, String mapName) {
+        Game mapEditor = mapEditorRepo.getMapEditor(gameId);
 
-        mapEditor.setGameScreen(MAPEDITOR);
         WorldMap worldMap = getMap(mapName);
         mapEditor.setWorldMap(worldMap);
-
-//        mapEditor = updateGameState(mapEditor);
 
         mapEditor = mapEditorRepo.update(mapEditor);
         mapEditor = setPopup(mapEditor, null);
@@ -105,7 +82,8 @@ public class MapEditorService {
         }
 
         if (mapFileRepo.updateWorldMap(mapName, mapEditor.getWorldMap())) {
-            mapEditor = updateGameState(mapEditor);
+            mapEditor = mapEditorRepo.update(mapEditor);
+            mapEditor = setPopup(mapEditor, null);
             return mapEditor;
 
         }

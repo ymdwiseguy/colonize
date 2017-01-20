@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Objects;
 
-import static com.ymdwiseguy.col.GameScreen.MAPEDITOR;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -59,7 +58,7 @@ public class MapEditorController {
     }
 
     private ResponseEntity initMapEditor(String gameId, String produces, PopupType showPopup) {
-        Game mapEditor = mapEditorService.initGame(MAPEDITOR, gameId, showPopup);
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
         if (Objects.equals(produces, "application/json")) {
             return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
         }
@@ -69,7 +68,7 @@ public class MapEditorController {
     // GET MAP LIST - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/maps", method = GET, produces = "application/json")
     public ResponseEntity getMapList(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
-        Game mapEditor = mapEditorService.editorWithMapList(gameId, showPopup);
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import java.util.Optional;
 
+import static com.ymdwiseguy.col.GameScreen.MAPEDITOR;
+
 @Component
 public class MapEditorRepo {
 
@@ -23,22 +25,28 @@ public class MapEditorRepo {
         this.worldMapService = worldMapService;
     }
 
+    public Game getMapEditor(String gameId) {
+        return gameRepo.getGame(gameId)
+            .map(mapEditor -> {
+                mapEditor.setGameScreen(MAPEDITOR);
+                mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
+
+                mapEditor = setWorldMap(mapEditor);
+
+                return mapEditor;
+            }).orElse(null);
+    }
+
     public Game update(Game mapEditor) {
         Optional<Game> savedGame = gameRepo.updateGame(mapEditor);
 
         if(savedGame.isPresent()){
             Game sg = savedGame.get();
-            return addStaticData(sg);
+            sg.setGameMenu(editorMainMenu.create(sg));
+            sg = setWorldMap(sg);
+            return sg;
         }
-
         return null;
-    }
-
-
-    private Game addStaticData(Game mapEditor){
-        mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
-        mapEditor = setWorldMap(mapEditor);
-        return mapEditor;
     }
 
 
