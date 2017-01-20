@@ -2,7 +2,6 @@ package com.ymdwiseguy.col.mapeditor;
 
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
-import com.ymdwiseguy.col.menu.implementation.EditorMainMenu;
 import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupType;
@@ -21,16 +20,16 @@ public class MapEditorService {
     private MapFileRepo mapFileRepo;
     private GameRepo gameRepo;
     private WorldMapService worldMapService;
-    private EditorMainMenu editorMainMenu;
     private MapEditorRepo mapEditorRepo;
 
-
     @Inject
-    public MapEditorService(MapFileRepo mapFileRepo, GameRepo gameRepo, WorldMapService worldMapService, EditorMainMenu editorMainMenu, MapEditorRepo mapEditorRepo) {
+    public MapEditorService(MapFileRepo mapFileRepo,
+                            GameRepo gameRepo,
+                            WorldMapService worldMapService,
+                            MapEditorRepo mapEditorRepo) {
         this.mapFileRepo = mapFileRepo;
         this.gameRepo = gameRepo;
         this.worldMapService = worldMapService;
-        this.editorMainMenu = editorMainMenu;
         this.mapEditorRepo = mapEditorRepo;
     }
 
@@ -42,7 +41,7 @@ public class MapEditorService {
         } else {
             mapEditor = new Game();
             mapEditor.setGameScreen(MAPEDITOR);
-            saveGameState(mapEditor);
+            gameRepo.createGame(mapEditor);
         }
         mapEditor = setPopup(mapEditor, showPopup);
 
@@ -64,11 +63,9 @@ public class MapEditorService {
 
     // UPDATE
     Game updateMap(Game mapEditor, String mapName) {
-
         if (!Objects.equals(mapEditor.getWorldMap().getWorldMapName(), mapName)) {
             return null;
         }
-
         if (!mapFileRepo.fileExists(mapName)) {
             return null;
         }
@@ -83,10 +80,7 @@ public class MapEditorService {
     }
 
 
-//  -- private methods .. TODO: move stuff to own classes
-
     private Game setPopup(Game mapEditor, PopupType showPopup) {
-
         if (showPopup == null) {
             return mapEditor;
         }
@@ -118,20 +112,5 @@ public class MapEditorService {
             worldMap.setWorldMapId(worldMapId);
         }
         return worldMap;
-    }
-
-    private Game saveGameState(Game game) {
-        return gameRepo.createGame(game);
-    }
-
-    private Game setWorldMap(Game mapEditor) {
-        if (mapEditor.getWorldMap() == null) {
-            return mapEditor;
-        }
-        String worldMapId = mapEditor.getWorldMap().getWorldMapId();
-        if (worldMapId != null) {
-            mapEditor.setWorldMap(worldMapService.getWorldMap(worldMapId));
-        }
-        return mapEditor;
     }
 }
