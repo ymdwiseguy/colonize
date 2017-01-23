@@ -84,7 +84,7 @@ public class MapFileRepo {
         List<Unit> strippedUnits = new ArrayList<>();
         for (Unit unit : worldMap.getUnits()) {
             Unit strippedUnit = new Unit();
-            strippedUnit.setActive(unit.isActive());
+            strippedUnit.setActive(false);
             strippedUnit.setUnitType(unit.getUnitType());
             strippedUnit.setxPosition(unit.getxPosition());
             strippedUnit.setyPosition(unit.getyPosition());
