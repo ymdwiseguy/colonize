@@ -29,7 +29,7 @@ class GameRepoSpec extends Specification {
         GAME_ID = UUID.randomUUID().toString()
         WORLD_MAP = new WorldMap(UUID.randomUUID().toString())
         GAME_SCREEN = MAPEDITOR
-        GAME = new Game(GAME_ID, GAME_SCREEN, WORLD_MAP)
+        GAME = new Game(GAME_ID, GAME_SCREEN, WORLD_MAP, 1, 1)
     }
 
     def "Game CRUD"() {

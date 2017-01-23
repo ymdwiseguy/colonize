@@ -30,7 +30,7 @@ public class GameRepo {
     @Transactional(propagation = Propagation.REQUIRED)
     public Game createGame(Game game) {
 
-        final String sql = "INSERT INTO game_state (game_id,game_screen,world_map_id) VALUES (?,?,?)";
+        final String sql = "INSERT INTO game_state (game_id,game_screen,world_map_id,cursor_x,cursor_y) VALUES (?,?,?,?,?)";
 
         try {
             jdbcTemplate.update(sql, post -> {
@@ -50,7 +50,9 @@ public class GameRepo {
         RowMapper<Game> gameRowMapper = (resultSet, rowNum) -> new Game(
             resultSet.getString("game_id"),
             GameScreen.valueOf(resultSet.getString("game_screen")),
-            new WorldMap(resultSet.getString("world_map_id"))
+            new WorldMap(resultSet.getString("world_map_id")),
+            resultSet.getInt("cursor_x"),
+            resultSet.getInt("cursor_y")
         );
         try {
             LOGGER.info("Fetched game with gameID '{}'", gameID);
@@ -64,12 +66,12 @@ public class GameRepo {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public Optional<Game> updateGame(Game game) {
-        final String sql = "UPDATE game_state SET game_id = ?, game_screen = ?, world_map_id = ? WHERE game_id = ?";
+        final String sql = "UPDATE game_state SET game_id = ?, game_screen = ?, world_map_id = ?, cursor_x = ?, cursor_y = ? WHERE game_id = ?";
         String gameId = game.getGameId();
         try {
             jdbcTemplate.update(sql, post -> {
                 populateGameStatement(game, post);
-                post.setString(4, gameId);
+                post.setString(6, gameId);
             });
             LOGGER.info("Updated game '{}'", game.getGameId());
             return Optional.of(game);
@@ -91,11 +93,13 @@ public class GameRepo {
             game.setGameId(UUID.randomUUID().toString());
         }
         String worldMapId = null;
-        if(game.getWorldMap() != null){
+        if (game.getWorldMap() != null) {
             worldMapId = game.getWorldMap().getWorldMapId();
         }
         post.setString(1, game.getGameId());
         post.setString(2, game.getGameScreen().toString());
         post.setString(3, worldMapId);
+        post.setInt(4, game.getCursorX());
+        post.setInt(5, game.getCursorY());
     }
 }

@@ -24,13 +24,18 @@ public class Game {
     private SideMenu sideMenu;
     private PopupMenu popupMenu;
 
+    private int cursorX = 1;
+    private int cursorY = 1;
+
     public Game() {
     }
 
-    public Game(String gameId, GameScreen gameScreen, WorldMap worldMap) {
+    public Game(String gameId, GameScreen gameScreen, WorldMap worldMap, int cursorX, int cursorY) {
         this.gameId = gameId;
         this.gameScreen = gameScreen;
         this.worldMap = worldMap;
+        this.cursorX = cursorX;
+        this.cursorY = cursorY;
     }
 
     public String getGameId() {
@@ -79,6 +84,22 @@ public class Game {
 
     public void setPopupMenu(PopupMenu popupMenu) {
         this.popupMenu = popupMenu;
+    }
+
+    public int getCursorX() {
+        return cursorX;
+    }
+
+    public void setCursorX(int cursorX) {
+        this.cursorX = cursorX;
+    }
+
+    public int getCursorY() {
+        return cursorY;
+    }
+
+    public void setCursorY(int cursorY) {
+        this.cursorY = cursorY;
     }
 
     public String toJson() {
