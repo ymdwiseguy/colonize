@@ -19,6 +19,11 @@ public class InputBlock {
     public InputBlock() {
     }
 
+    public InputBlock(String name, String title) {
+        this.name = name;
+        this.title = title;
+    }
+
     public String getName() {
         return name;
     }
