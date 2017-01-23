@@ -14,14 +14,13 @@ class LoadGamePopup extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         if (this.props.game.popupMenu.entries.length > 0) {
             let menuentries = this.props.game.popupMenu.entries.map((entry, i) => {
                 return <MenuEntry entry={entry} key={i} onClickSubmenu={(e, m) => this.handlePopupClick(e, m)}/>
             });
 
             return (
-                <div className="popup">
+                <div className="popup loadGamePopup">
                     <h2>{this.props.game.popupMenu.header}</h2>
                     {menuentries}
                 </div>

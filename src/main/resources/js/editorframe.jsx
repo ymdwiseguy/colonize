@@ -5,6 +5,8 @@ import Map from './map.jsx';
 import GameMenu from './gamemenu.jsx';
 import LoadGamePopup from './loadgamepopup.jsx';
 import SaveGamePopup from './savegamepopup.jsx';
+import GenerateMapPopup from './generateMapPopup.jsx';
+
 import SideBar from './sidebar.jsx';
 
 class EditorFrame extends React.Component {
@@ -55,6 +57,10 @@ class EditorFrame extends React.Component {
             if (this.state.game.popupMenu != null) {
                 console.log(this.state.game.popupMenu.type);
                 switch (this.state.game.popupMenu.type) {
+                    case 'GENERATE_MAP' :
+                        popup = <GenerateMapPopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}
+                                               game={this.state.game}/>;
+                        break;
                     case 'SAVE_MAPEDITOR':
                         popup = <SaveGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}
                                                game={this.state.game}/>;
