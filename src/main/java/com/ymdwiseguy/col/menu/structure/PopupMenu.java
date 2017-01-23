@@ -59,7 +59,7 @@ public class PopupMenu {
         }
     }
 
-    public PopupMenu fromJson(String sideMenu) throws IOException {
-        return mapper.reader().forType(PopupMenu.class).readValue(sideMenu);
+    public PopupMenu fromJson(String popupMenu) throws IOException {
+        return mapper.reader().forType(PopupMenu.class).readValue(popupMenu);
     }
 }
