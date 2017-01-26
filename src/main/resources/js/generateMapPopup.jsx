@@ -20,11 +20,10 @@ class GenerateMapPopup extends React.Component {
     render() {
         let inputs = this.props.game.popupMenu.inputs.map((input, i) => {
             let className = 'inputblock inputblock_' + input.name;
-            const value = input.value;
             return (
                 <div className={className}>
                     <label>{input.title}</label>
-                    <input name={input.name} value={value} onChange={(e, fieldName) => this.handleInputChange(e, input.name)}/>
+                    <input name={input.name} onChange={(e, fieldName) => this.handleInputChange(e, input.name)}/>
                 </div>
             )
         });

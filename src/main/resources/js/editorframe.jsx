@@ -62,8 +62,7 @@ class EditorFrame extends React.Component {
         this.updateState('/api/mapeditor/' + this.props.game.gameId);
     }
 
-    updateState(url, method = 'GET') {
-        let gameJson = '{}';
+    updateState(url, method = 'GET', gameJson = '{}') {
         if (this.state.game) {
             gameJson = JSON.stringify(this.state.game);
         }
