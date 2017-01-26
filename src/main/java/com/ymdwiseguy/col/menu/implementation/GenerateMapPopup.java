@@ -1,4 +1,8 @@
-package com.ymdwiseguy.col.menu.structure;
+package com.ymdwiseguy.col.menu.implementation;
+
+import com.ymdwiseguy.col.menu.structure.InputBlock;
+import com.ymdwiseguy.col.menu.structure.MenuEntry;
+import com.ymdwiseguy.col.menu.structure.PopupMenu;
 
 import java.util.ArrayList;
 import java.util.List;

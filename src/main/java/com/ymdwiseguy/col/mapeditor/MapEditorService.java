@@ -3,7 +3,7 @@ package com.ymdwiseguy.col.mapeditor;
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
 import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
-import com.ymdwiseguy.col.menu.structure.GenerateMapPopup;
+import com.ymdwiseguy.col.menu.implementation.GenerateMapPopup;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupType;
 import com.ymdwiseguy.col.worldmap.WorldMap;
