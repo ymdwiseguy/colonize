@@ -2,7 +2,6 @@ package com.ymdwiseguy.col.worldmap;
 
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.filehandling.MapFileHandler;
-import com.ymdwiseguy.col.views.MapConfigurationReader;
 import com.ymdwiseguy.col.views.WorldMapView;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +27,13 @@ public class WorldMapController {
     private static final Logger LOGGER = getLogger(WorldMapController.class);
 
     private final WorldMapView worldMapView;
-    private final MapConfigurationReader mapConfigurationReader;
     private final WorldMapService worldMapService;
     private final MapFileHandler mapFileHandler;
 
     @Autowired
-    public WorldMapController(WorldMapView worldMapView, WorldMapService worldMapService, MapConfigurationReader mapConfigurationReader, MapFileHandler mapFileHandler) {
+    public WorldMapController(WorldMapView worldMapView, WorldMapService worldMapService, MapFileHandler mapFileHandler) {
         this.worldMapView = worldMapView;
         this.worldMapService = worldMapService;
-        this.mapConfigurationReader = mapConfigurationReader;
         this.mapFileHandler = mapFileHandler;
     }
 

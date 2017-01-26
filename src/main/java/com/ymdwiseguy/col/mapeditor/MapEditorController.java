@@ -18,6 +18,7 @@ import java.util.Objects;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 @RestController
@@ -79,6 +80,19 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
+    // GET MAP - JSON
+    @RequestMapping(value = "/api/mapeditor/{gameId}/maps/generate", method = POST, produces = "application/json")
+    public ResponseEntity generateMap(@PathVariable String gameId, @RequestBody String formDataJson) {
+        try {
+            FormData formData = new FormData().fromJson(formDataJson);
+            Game mapEditor = mapEditorService.generateMap(gameId, formData.getTitle(), formData.getWidth(), formData.getHeight(), formData.getName());
+            return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+        } catch (IOException e) {
+            LOGGER.info("Could not create FormData Object, reason: {}", e);
+            return initMapEditor(gameId, null, null);
+        }
+    }
+
     // PUT MAP - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/maps/{mapName}", method = PUT)
     public ResponseEntity updateMap(@RequestBody String gameJson, @PathVariable String mapName) {
@@ -90,7 +104,7 @@ public class MapEditorController {
             return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
         }
         Game mapEditor = mapEditorService.updateMap(game, mapName);
-        if(mapEditor == null){
+        if (mapEditor == null) {
             return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);

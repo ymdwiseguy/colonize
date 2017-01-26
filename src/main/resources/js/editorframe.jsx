@@ -14,7 +14,6 @@ class EditorFrame extends React.Component {
     constructor() {
         super();
         this.state = {};
-        // this.updateState = this.updateState.bind(this);
     }
 
     handleClickFrame(event, method) {
@@ -22,6 +21,40 @@ class EditorFrame extends React.Component {
         let url = event.target.href;
         if (url) {
             this.updateState(url, method);
+        }
+    }
+
+    updateFormData(value, fieldName) {
+        let jsonData = this.state.formData || {};
+        jsonData[fieldName] = value;
+
+        this.setState({formData: jsonData});
+    }
+
+    formSubmit(event) {
+        event.preventDefault();
+        let url = event.target.href;
+        let formDataJson;
+        if (this.state.formData) {
+            formDataJson = JSON.stringify(this.state.formData);
+        }
+        if (url) {
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'json',
+                contentType: 'application/json; charset=UTF-8',
+                data: formDataJson,
+                cache: false,
+                success: function (restData) {
+                    this.setState({game: restData});
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.error(url, status, err.toString());
+                }.bind(this)
+            });
+        }else {
+            console.log('no url defined');
         }
     }
 
@@ -55,11 +88,12 @@ class EditorFrame extends React.Component {
 
             let popup = null;
             if (this.state.game.popupMenu != null) {
-                console.log(this.state.game.popupMenu.type);
                 switch (this.state.game.popupMenu.type) {
                     case 'GENERATE_MAP' :
-                        popup = <GenerateMapPopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}
-                                               game={this.state.game}/>;
+                        popup = <GenerateMapPopup formSubmit={(e) => this.formSubmit(e)}
+                                                  onChangeFrame={(v, f) => this.updateFormData(v, f)}
+                                                  game={this.state.game}
+                        />;
                         break;
                     case 'SAVE_MAPEDITOR':
                         popup = <SaveGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}

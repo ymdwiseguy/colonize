@@ -117,4 +117,19 @@ public class MapEditorService {
         }
         return worldMap;
     }
+
+    public Game generateMap(String gameId, String title, int width, int height, String name) {
+
+        WorldMap worldMap = worldMapService.generateMap(width,height);
+        worldMap.setWorldMapName(name);
+        worldMap.setTitle(title);
+
+        Game mapEditor = initGame(gameId, null);
+        mapEditor.setWorldMap(worldMap);
+
+        worldMapService.saveNewWorldMap(worldMap);
+        mapEditor = mapEditorRepo.update(mapEditor);
+
+        return mapEditor;
+    }
 }
