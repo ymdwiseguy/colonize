@@ -18,6 +18,7 @@ public class MenuEntry {
     private String entryName;
     private String endpointUrl;
     private HttpMethod method = GET;
+    private boolean active;
 
     public MenuEntry() {
     }
@@ -26,8 +27,6 @@ public class MenuEntry {
         this.entryName = entryName;
         this.endpointUrl = endpointUrl;
     }
-
-
 
     public String getEntryName() {
         return entryName;
@@ -53,6 +52,14 @@ public class MenuEntry {
         this.method = method;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public String toJson() {
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
@@ -64,4 +71,5 @@ public class MenuEntry {
     public MenuEntry fromJson(String menuEntry) throws IOException {
         return mapper.reader().forType(MenuEntry.class).readValue(menuEntry);
     }
+
 }

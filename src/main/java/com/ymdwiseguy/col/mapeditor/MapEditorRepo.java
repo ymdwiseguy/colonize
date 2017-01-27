@@ -3,6 +3,7 @@ package com.ymdwiseguy.col.mapeditor;
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
 import com.ymdwiseguy.col.menu.implementation.EditorMainMenu;
+import com.ymdwiseguy.col.menu.implementation.SideMenuSelectTiles;
 import com.ymdwiseguy.col.worldmap.WorldMapService;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +18,14 @@ public class MapEditorRepo {
     private GameRepo gameRepo;
     private EditorMainMenu editorMainMenu;
     private WorldMapService worldMapService;
+    private SideMenuSelectTiles sideMenuSelectTiles;
 
     @Inject
-    public MapEditorRepo(GameRepo gameRepo, EditorMainMenu editorMainMenu, WorldMapService worldMapService) {
+    public MapEditorRepo(GameRepo gameRepo, EditorMainMenu editorMainMenu, WorldMapService worldMapService, SideMenuSelectTiles sideMenuSelectTiles) {
         this.gameRepo = gameRepo;
         this.editorMainMenu = editorMainMenu;
         this.worldMapService = worldMapService;
+        this.sideMenuSelectTiles = sideMenuSelectTiles;
     }
 
     public Game getMapEditor(String gameId) {
@@ -30,6 +33,7 @@ public class MapEditorRepo {
             .map(mapEditor -> {
                 mapEditor.setGameScreen(MAPEDITOR);
                 mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
+                mapEditor.setSideMenu(sideMenuSelectTiles.create());
 
                 mapEditor = setWorldMap(mapEditor);
 
@@ -43,6 +47,8 @@ public class MapEditorRepo {
         if(savedGame.isPresent()){
             Game sg = savedGame.get();
             sg.setGameMenu(editorMainMenu.create(sg));
+            mapEditor.setSideMenu(sideMenuSelectTiles.create());
+
             sg = setWorldMap(sg);
             return sg;
         }

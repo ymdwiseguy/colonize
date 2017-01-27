@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.util.List;
 
+import static com.ymdwiseguy.col.menu.structure.SideMenuType.DEFAULT;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class SideMenu {
@@ -14,6 +15,7 @@ public class SideMenu {
     private static final Logger LOGGER = getLogger(SideMenu.class);
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    private SideMenuType type = DEFAULT;
     private String header;
     private List<MenuEntry> entries;
 
@@ -33,6 +35,13 @@ public class SideMenu {
         this.entries = entries;
     }
 
+    public SideMenuType getType() {
+        return type;
+    }
+
+    public void setType(SideMenuType type) {
+        this.type = type;
+    }
 
     public String toJson() {
         try {

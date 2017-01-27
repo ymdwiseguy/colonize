@@ -8,6 +8,7 @@ import SaveGamePopup from './savegamepopup.jsx';
 import GenerateMapPopup from './generateMapPopup.jsx';
 
 import SideBar from './sidebar.jsx';
+import SideMenuSelectTiles from './sideMenu/SideMenuSelectTiles.jsx';
 
 class EditorFrame extends React.Component {
 
@@ -53,7 +54,7 @@ class EditorFrame extends React.Component {
                     console.error(url, status, err.toString());
                 }.bind(this)
             });
-        }else {
+        } else {
             console.log('no url defined');
         }
     }
@@ -105,13 +106,28 @@ class EditorFrame extends React.Component {
                 }
             }
 
+            let sidebar = null;
+            if (this.state.game.sideMenu != null) {
+                switch (this.state.game.sideMenu.type) {
+                    case 'EDITOR_SELECT_TILES':
+                        sidebar = <SideMenuSelectTiles sidebar={this.state.game.sideMenu}
+                                           onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>;
+                        break;
+                    default:
+                        sidebar = <SideBar sidebar={this.state.game.sideMenu}
+                                           onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>;
+                        break;
+
+                }
+            }
+
             return (
                 <div className="frame">
                     <GameMenu menu={this.state.game.gameMenu} onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>
                     <div className="map-outer-wrapper">
                         <Map data={this.state.game.worldMap}/>
                     </div>
-                    <SideBar sidebar={this.state.game.sideMenu} onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>
+                    {sidebar}
                     {popup}
                 </div>
             );

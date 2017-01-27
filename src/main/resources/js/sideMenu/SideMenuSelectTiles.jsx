@@ -1,9 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import MenuEntry from './menuentry.jsx';
+import SelectableTiles from './SelectableTiles.jsx';
 
-class SideBar extends React.Component {
+class SideMenuSelectTiles extends React.Component {
 
     constructor(props) {
         super(props);
@@ -17,14 +17,14 @@ class SideBar extends React.Component {
     render() {
         if (this.props.sidebar) {
             let entries = this.props.sidebar.entries.map((entry, i) => {
-                return <MenuEntry entry={entry} key={i} onClickSubmenu={this.handleSideBarClick}/>
+                return <SelectableTiles entry={entry} key={i} onClickSubmenu={this.handleSideBarClick}/>
             });
 
             return (
-                <div className="sidebar">
+                <div className="sidebar sidebar--select_tiles">
                     <div className="sidebar--inner">
                         <h2 className="sidebar__header">{this.props.sidebar.header}</h2>
-                        <ul className="main-menu__menulevel-one">
+                        <ul className="sidebar-menu__menulevel-one">
                             {entries}
                         </ul>
                     </div>
@@ -38,4 +38,4 @@ class SideBar extends React.Component {
     }
 }
 
-export default SideBar;
+export default SideMenuSelectTiles;
