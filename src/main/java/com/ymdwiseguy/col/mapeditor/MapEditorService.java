@@ -118,13 +118,13 @@ public class MapEditorService {
         return worldMap;
     }
 
-    public Game generateMap(String gameId, String title, int width, int height, String name) {
+    public Game generateMap(String gameId, String title, int width, int height, String name, PopupType showPopup) {
 
-        WorldMap worldMap = worldMapService.generateMap(width,height);
+        WorldMap worldMap = worldMapService.generateMap(width, height);
         worldMap.setWorldMapName(name);
         worldMap.setTitle(title);
 
-        Game mapEditor = initGame(gameId, null);
+        Game mapEditor = initGame(gameId, showPopup);
         mapEditor.setWorldMap(worldMap);
 
         worldMapService.saveNewWorldMap(worldMap);

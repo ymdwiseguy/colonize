@@ -1,15 +1,19 @@
 import React from 'react';
-import Unit from './unit.jsx';
-import Tile from './tile.jsx';
-
+import Unit from '../unit.jsx';
+import Tile from '../tile.jsx';
+import Cursor from './Cursor.jsx';
 
 
 class Map extends React.Component{
+
     render () {
         if(this.props.data){
             let units = '';
+            let cursor = null;
             let tileList;
             if(this.props.data.tiles){
+                cursor = <Cursor cursorX={this.props.data.cursorX} cursorY={this.props.data.cursorY}/>;
+
                 tileList = this.props.data.tiles.map((tile, i) => {
                     let key = 'tile_' + tile.xCoordinate + '_' + tile.yCoordinate;
                     return <Tile tile={tile} key={key}/>
@@ -26,6 +30,7 @@ class Map extends React.Component{
                 <div className={classname}>
                     {tileList}
                     {units}
+                    {cursor}
                 </div>
             )
         }else{

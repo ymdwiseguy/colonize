@@ -1,14 +1,16 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import Map from './map.jsx';
+import Map from './worldMap/WorldMap.jsx';
+
 import GameMenu from './gamemenu.jsx';
-import LoadGamePopup from './loadgamepopup.jsx';
-import SaveGamePopup from './savegamepopup.jsx';
-import GenerateMapPopup from './generateMapPopup.jsx';
 
 import SideBar from './sidebar.jsx';
 import SideMenuSelectTiles from './sideMenu/SideMenuSelectTiles.jsx';
+
+import LoadGamePopup from './loadgamepopup.jsx';
+import SaveGamePopup from './savegamepopup.jsx';
+import GenerateMapPopup from './generateMapPopup.jsx';
 
 class EditorFrame extends React.Component {
 

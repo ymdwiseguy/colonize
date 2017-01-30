@@ -59,7 +59,8 @@ public class MapEditorController {
     }
 
     private ResponseEntity initMapEditor(String gameId, String produces, PopupType showPopup) {
-        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+//        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+        Game mapEditor = mapEditorService.generateMap(null, "New Map", 56, 70, "new_map", showPopup);
         if (Objects.equals(produces, "application/json")) {
             return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
         }
@@ -85,7 +86,7 @@ public class MapEditorController {
     public ResponseEntity generateMap(@PathVariable String gameId, @RequestBody String formDataJson) {
         try {
             FormData formData = new FormData().fromJson(formDataJson);
-            Game mapEditor = mapEditorService.generateMap(gameId, formData.getTitle(), formData.getWidth(), formData.getHeight(), formData.getName());
+            Game mapEditor = mapEditorService.generateMap(gameId, formData.getTitle(), formData.getWidth(), formData.getHeight(), formData.getName(), null);
             return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
         } catch (IOException e) {
             LOGGER.info("Could not create FormData Object, reason: {}", e);

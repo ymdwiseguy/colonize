@@ -18,6 +18,25 @@
             width: calc(#{$i} * 100px);
         }
     }
+
+    .cursor{
+        position: absolute;
+        width: 100px;
+        height:100px;
+        border: 2px solid white;
+
+        @for $i from 1 through 120 {
+            &#{$class-ext}-x#{$i} {
+                left: calc(#{$i} * 100px);
+            }
+        }
+
+        @for $i from 1 through 120 {
+            &#{$class-ext}-y#{$i} {
+                top: calc(#{$i} * 100px);
+            }
+        }
+    }
 }
 
 .map-tile {

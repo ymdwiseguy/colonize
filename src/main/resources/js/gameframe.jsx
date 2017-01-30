@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import Map from './map.jsx';
+import Map from './worldMap/WorldMap.jsx';
 
 class GameFrame extends React.Component {
 
