@@ -2,6 +2,7 @@ package com.ymdwiseguy.col;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ymdwiseguy.col.cursor.Cursor;
 import com.ymdwiseguy.col.menu.structure.GameMenu;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
 import com.ymdwiseguy.col.menu.structure.SideMenu;
@@ -9,6 +10,7 @@ import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -24,18 +26,16 @@ public class Game {
     private SideMenu sideMenu;
     private PopupMenu popupMenu;
 
-    private int cursorX = 1;
-    private int cursorY = 1;
+    private Cursor cursor;
 
     public Game() {
     }
 
-    public Game(String gameId, GameScreen gameScreen, WorldMap worldMap, int cursorX, int cursorY) {
+    public Game(String gameId, GameScreen gameScreen, WorldMap worldMap, Cursor cursor) {
         this.gameId = gameId;
         this.gameScreen = gameScreen;
         this.worldMap = worldMap;
-        this.cursorX = cursorX;
-        this.cursorY = cursorY;
+        this.cursor = Objects.requireNonNull(cursor);
     }
 
     public String getGameId() {
@@ -86,20 +86,12 @@ public class Game {
         this.popupMenu = popupMenu;
     }
 
-    public int getCursorX() {
-        return cursorX;
+    public Cursor getCursor() {
+        return cursor;
     }
 
-    public void setCursorX(int cursorX) {
-        this.cursorX = cursorX;
-    }
-
-    public int getCursorY() {
-        return cursorY;
-    }
-
-    public void setCursorY(int cursorY) {
-        this.cursorY = cursorY;
+    public void setCursor(Cursor cursor) {
+        this.cursor = cursor;
     }
 
     public String toJson() {

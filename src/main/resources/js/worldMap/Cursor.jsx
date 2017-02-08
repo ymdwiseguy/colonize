@@ -9,6 +9,9 @@ class Cursor extends React.Component {
 
     render() {
         let className = 'cursor cursor-x' + this.props.cursorX + ' cursor-y' + this.props.cursorY;
+        if(this.props.active == true){
+            className += ' cursor--active';
+        }
         return (
             <div className={className}>
                 &nbsp;

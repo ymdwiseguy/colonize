@@ -1,7 +1,9 @@
 package com.ymdwiseguy.col.mapeditor;
 
 import com.ymdwiseguy.col.Game;
+import com.ymdwiseguy.col.cursor.CursorMovementService;
 import com.ymdwiseguy.col.menu.structure.PopupType;
+import com.ymdwiseguy.col.worldmap.movement.UnitDirection;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,8 @@ import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 
 @RestController
@@ -27,11 +29,15 @@ public class MapEditorController {
     private static final Logger LOGGER = getLogger(MapEditorController.class);
     private final MapEditorView mapEditorView;
     private final MapEditorService mapEditorService;
+    private final CursorMovementService cursorMovementService;
+    private final MapEditorRepo mapEditorRepo;
 
     @Inject
-    public MapEditorController(MapEditorView mapEditorView, MapEditorService mapEditorService) {
+    public MapEditorController(MapEditorView mapEditorView, MapEditorService mapEditorService, CursorMovementService cursorMovementService, MapEditorRepo mapEditorRepo) {
         this.mapEditorView = mapEditorView;
         this.mapEditorService = mapEditorService;
+        this.cursorMovementService = cursorMovementService;
+        this.mapEditorRepo = mapEditorRepo;
     }
 
     // GET - HTML initial
@@ -59,19 +65,11 @@ public class MapEditorController {
     }
 
     private ResponseEntity initMapEditor(String gameId, String produces, PopupType showPopup) {
-//        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
-        Game mapEditor = mapEditorService.generateMap(null, "New Map", 56, 70, "new_map", showPopup);
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
         if (Objects.equals(produces, "application/json")) {
             return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
         }
         return new ResponseEntity<>(mapEditorView.render(mapEditor.toJson()), HttpStatus.OK);
-    }
-
-    // GET MAP LIST - JSON
-    @RequestMapping(value = "/api/mapeditor/{gameId}/maps", method = GET, produces = "application/json")
-    public ResponseEntity getMapList(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
-        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
-        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
     // GET MAP - JSON
@@ -86,7 +84,7 @@ public class MapEditorController {
     public ResponseEntity generateMap(@PathVariable String gameId, @RequestBody String formDataJson) {
         try {
             FormData formData = new FormData().fromJson(formDataJson);
-            Game mapEditor = mapEditorService.generateMap(gameId, formData.getTitle(), formData.getWidth(), formData.getHeight(), formData.getName(), null);
+            Game mapEditor = mapEditorService.generateMap(gameId, formData.getTitle(), formData.getWidth(), formData.getHeight(), formData.getName());
             return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
         } catch (IOException e) {
             LOGGER.info("Could not create FormData Object, reason: {}", e);
@@ -108,6 +106,15 @@ public class MapEditorController {
         if (mapEditor == null) {
             return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+    }
+
+    // PUT Cursor - JSON
+    @RequestMapping(value = "/api/mapeditor/{gameId}/movecursor/{direction}", method = PUT, produces = "application/json")
+    public ResponseEntity moveCursor(@PathVariable String gameId, @PathVariable UnitDirection direction, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+        mapEditor = cursorMovementService.moveCursor(mapEditor, direction);
+        mapEditor = mapEditorRepo.update(mapEditor);
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 

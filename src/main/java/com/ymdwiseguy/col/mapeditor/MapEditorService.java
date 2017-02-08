@@ -2,6 +2,7 @@ package com.ymdwiseguy.col.mapeditor;
 
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
+import com.ymdwiseguy.col.cursor.Cursor;
 import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
 import com.ymdwiseguy.col.menu.implementation.GenerateMapPopup;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
@@ -35,14 +36,16 @@ public class MapEditorService {
     }
 
     // GET/CREATE
-    Game initGame(String gameid, PopupType showPopup) {
+    Game initGame(String gameId, PopupType showPopup) {
         Game mapEditor;
-        if (gameid != null) {
-            mapEditor = mapEditorRepo.getMapEditor(gameid);
+        if (gameId != null) {
+            mapEditor = mapEditorRepo.getMapEditor(gameId);
         } else {
             mapEditor = new Game();
             mapEditor.setGameScreen(MAPEDITOR);
-            gameRepo.createGame(mapEditor);
+            Cursor cursor = new Cursor(1, 1);
+            mapEditor.setCursor(cursor);
+            mapEditor = gameRepo.createGame(mapEditor);
         }
         mapEditor = setPopup(mapEditor, showPopup);
 
@@ -57,7 +60,6 @@ public class MapEditorService {
         mapEditor.setWorldMap(worldMap);
 
         mapEditor = mapEditorRepo.update(mapEditor);
-        mapEditor = setPopup(mapEditor, null);
 
         return mapEditor;
     }
@@ -86,7 +88,7 @@ public class MapEditorService {
             return mapEditor;
         }
 
-        PopupMenu popupMenu;
+        PopupMenu popupMenu = null;
 
         switch (showPopup) {
             case GENERATE_MAP:
@@ -102,7 +104,6 @@ public class MapEditorService {
                     PopupType.SHOW_MAPLIST);
                 break;
             default:
-                popupMenu = null;
         }
 
         mapEditor.setPopupMenu(popupMenu);
@@ -118,16 +119,20 @@ public class MapEditorService {
         return worldMap;
     }
 
-    public Game generateMap(String gameId, String title, int width, int height, String name, PopupType showPopup) {
+    public Game generateMap(String gameId, String title, int width, int height, String name) {
+
+        if (gameId == null) {
+            return null;
+        }
+
+        Game mapEditor = mapEditorRepo.getMapEditor(gameId);
 
         WorldMap worldMap = worldMapService.generateMap(width, height);
         worldMap.setWorldMapName(name);
         worldMap.setTitle(title);
-
-        Game mapEditor = initGame(gameId, showPopup);
-        mapEditor.setWorldMap(worldMap);
-
         worldMapService.saveNewWorldMap(worldMap);
+
+        mapEditor.setWorldMap(worldMap);
         mapEditor = mapEditorRepo.update(mapEditor);
 
         return mapEditor;

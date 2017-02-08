@@ -1,5 +1,6 @@
 package com.ymdwiseguy.col;
 
+import com.ymdwiseguy.col.cursor.Cursor;
 import com.ymdwiseguy.col.worldmap.WorldMap;
 import org.slf4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -51,8 +52,8 @@ public class GameRepo {
             resultSet.getString("game_id"),
             GameScreen.valueOf(resultSet.getString("game_screen")),
             new WorldMap(resultSet.getString("world_map_id")),
-            resultSet.getInt("cursor_x"),
-            resultSet.getInt("cursor_y")
+            new Cursor(resultSet.getInt("cursor_x"), resultSet.getInt("cursor_y"))
+
         );
         try {
             LOGGER.info("Fetched game with gameID '{}'", gameID);
@@ -99,7 +100,7 @@ public class GameRepo {
         post.setString(1, game.getGameId());
         post.setString(2, game.getGameScreen().toString());
         post.setString(3, worldMapId);
-        post.setInt(4, game.getCursorX());
-        post.setInt(5, game.getCursorY());
+        post.setInt(4, game.getCursor().getxPosition());
+        post.setInt(5, game.getCursor().getyPosition());
     }
 }

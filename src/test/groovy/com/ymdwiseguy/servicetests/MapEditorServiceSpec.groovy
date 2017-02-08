@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col.servicetests
+package com.ymdwiseguy.servicetests
 
 import com.ymdwiseguy.Colonization
 import com.ymdwiseguy.col.Game
@@ -35,11 +35,9 @@ class MapEditorServiceSpec extends Specification {
     Game GAME
     String GAME_ID
     String MAP_NAME
-    String MAP_ID
 
     def setup() {
         URL_MAPEDITOR = "http://localhost:$port/api/mapeditor"
-        URL_LOAD_MAP = "http://localhost:$port/api/mapeditor"
     }
 
 
@@ -77,7 +75,7 @@ class MapEditorServiceSpec extends Specification {
         createInitialGame()
 
         when: "the load button is clicked"
-        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST + '/?showPopup=SHOW_MAPLIST')
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR + '/?showPopup=SHOW_MAPLIST')
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
         then: "a list of maps is returned"
@@ -112,7 +110,7 @@ class MapEditorServiceSpec extends Specification {
         ResponseEntity<String> initialResponse = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR)
         GAME = new Game().fromJson(initialResponse.body)
         GAME_ID = GAME.getGameId()
-        URL_SHOW_MAPLIST = "http://localhost:$port/api/mapeditor/$GAME_ID/maps"
+        URL_SHOW_MAPLIST = "http://localhost:$port/api/mapeditor/$GAME_ID"
     }
 
     def getAGameAndGetAMapName() {
@@ -122,7 +120,7 @@ class MapEditorServiceSpec extends Specification {
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
         MAP_NAME = editorInstance.getPopupMenu().getEntries().get(0).getEntryName()
-        URL_LOAD_MAP = URL_SHOW_MAPLIST + '/' + MAP_NAME
+        URL_LOAD_MAP = URL_SHOW_MAPLIST + '/maps/' + MAP_NAME
     }
 
     ResponseEntity getResponseEntity(HttpMethod method, String url, String body = "nothing here") {

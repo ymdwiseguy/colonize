@@ -47,6 +47,6 @@
       "start": "npm run dev"
   },
   "workingPaths": {
-    "static": "./src/main/resources/static/assets/"
+    "static": "./target/classes/static/assets/"
   }
 }

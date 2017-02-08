@@ -19,6 +19,58 @@ class EditorFrame extends React.Component {
         this.state = {};
     }
 
+
+    static checkViewPort() {
+        let cursor = $('.cursor');
+        let mapFrame = $('.map-outer-wrapper');
+        let mapInner = $('.map-main-wrapper');
+
+        if (cursor.length == 1) {
+            let cursorWidth = parseInt(cursor.css('width'));
+            let cursorLeft = parseInt(cursor.css('left'));
+            let frameWidth = parseInt(mapFrame.css('width'));
+            let mapLeft = parseInt(mapInner.css('left'));
+            let cursorHeight = parseInt(cursor.css('height'));
+            let cursorTop = parseInt(cursor.css('top'));
+            let frameHeight = parseInt(mapFrame.css('height'));
+            let mapTop = parseInt(mapInner.css('top'));
+
+            if (this.unitOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop, cursorWidth, cursorHeight)) {
+                mapLeft = frameWidth / 2 - cursorLeft - cursorWidth / 2;
+                mapTop = frameHeight / 2 - cursorTop - cursorHeight / 2;
+                mapInner.css({'left': mapLeft, 'top': mapTop});
+            }
+        }
+    }
+
+    static unitOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop, cursorWidth, cursorHeight) {
+        let rightOutside = ((frameWidth - (mapLeft + cursorLeft)) <= (cursorWidth * 2));
+        let leftOuside = (cursorLeft <= (cursorWidth - mapLeft));
+        let topOuside = (cursorTop <= (cursorHeight - mapTop));
+        let bottomOuside = ((frameHeight - (mapTop + cursorTop)) <= (cursorHeight * 2));
+
+        return (rightOutside || leftOuside || topOuside || bottomOuside);
+    }
+
+    handleKeyDown(event) {
+        let url = '/api/mapeditor/' + this.props.game.gameId + '/movecursor/';
+
+        switch (event.keyCode) {
+            case 37: // left
+                this.updateState(url + 'LEFT', 'PUT');
+                break;
+            case 38: // up
+                this.updateState(url + 'UP', 'PUT');
+                break;
+            case 39: // right
+                this.updateState(url + 'RIGHT', 'PUT');
+                break;
+            case 40: // down
+                this.updateState(url + 'DOWN', 'PUT');
+                break;
+        }
+    }
+
     handleClickFrame(event, method) {
         event.preventDefault();
         let url = event.target.href;
@@ -51,6 +103,7 @@ class EditorFrame extends React.Component {
                 cache: false,
                 success: function (restData) {
                     this.setState({game: restData});
+                    EditorFrame.checkViewPort();
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.error(url, status, err.toString());
@@ -63,6 +116,11 @@ class EditorFrame extends React.Component {
 
     componentDidMount() {
         this.updateState('/api/mapeditor/' + this.props.game.gameId);
+        $(document.body).on('keydown', this.handleKeyDown.bind(this));
+    }
+
+    componentWillUnMount() {
+        $(document.body).off('keydown', this.handleKeyDown);
     }
 
     updateState(url, method = 'GET', gameJson = '{}') {
@@ -78,6 +136,7 @@ class EditorFrame extends React.Component {
             cache: false,
             success: function (restData) {
                 this.setState({game: restData});
+                EditorFrame.checkViewPort();
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error(url, status, err.toString());
@@ -124,10 +183,10 @@ class EditorFrame extends React.Component {
             }
 
             return (
-                <div className="frame">
+                <div className="frame" onKeyDown={this.handleKeyDown}>
                     <GameMenu menu={this.state.game.gameMenu} onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>
                     <div className="map-outer-wrapper">
-                        <Map data={this.state.game.worldMap}/>
+                        <Map data={this.state.game.worldMap} cursor={this.state.game.cursor}/>
                     </div>
                     {sidebar}
                     {popup}

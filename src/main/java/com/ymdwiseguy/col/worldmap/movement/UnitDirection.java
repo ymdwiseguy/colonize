@@ -1,6 +1,6 @@
 package com.ymdwiseguy.col.worldmap.movement;
 
-enum UnitDirection {
+public enum UnitDirection {
     LEFT,
     RIGHT,
     UP,

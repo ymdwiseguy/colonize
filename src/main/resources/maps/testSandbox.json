@@ -6,7 +6,7 @@
     "units": [
         {
             "unitType": "KARAVELLE",
-            "active": true,
+            "active": false,
             "xPosition": 3,
             "yPosition": 2
         }

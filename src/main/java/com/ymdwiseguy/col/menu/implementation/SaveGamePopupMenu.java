@@ -15,6 +15,9 @@ import static org.springframework.http.HttpMethod.PUT;
 public class SaveGamePopupMenu {
 
     public PopupMenu create(Game mapEditor) {
+        if(mapEditor.getWorldMap() == null || mapEditor.getWorldMap().getWorldMapName() == null){
+            return null;
+        }
         String worldMapName = mapEditor.getWorldMap().getWorldMapName();
         String gameId = mapEditor.getGameId();
         List<MenuEntry> entries = new ArrayList<>();

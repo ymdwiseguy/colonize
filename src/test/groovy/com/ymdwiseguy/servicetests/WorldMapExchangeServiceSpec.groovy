@@ -1,4 +1,4 @@
-package com.ymdwiseguy.col.servicetests
+package com.ymdwiseguy.servicetests
 
 import com.ymdwiseguy.Colonization
 import com.ymdwiseguy.col.worldmap.tile.Tile

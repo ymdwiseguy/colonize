@@ -1,6 +1,10 @@
-package com.ymdwiseguy.col
+package com.ymdwiseguy.servicetests
 
 import com.ymdwiseguy.Colonization
+import com.ymdwiseguy.col.Game
+import com.ymdwiseguy.col.GameRepo
+import com.ymdwiseguy.col.GameScreen
+import com.ymdwiseguy.col.cursor.Cursor
 import com.ymdwiseguy.col.worldmap.WorldMap
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
@@ -24,12 +28,14 @@ class GameRepoSpec extends Specification {
     WorldMap WORLD_MAP
     String GAME_ID
     GameScreen GAME_SCREEN
+    Cursor CURSOR
 
     def setup() {
         GAME_ID = UUID.randomUUID().toString()
         WORLD_MAP = new WorldMap(UUID.randomUUID().toString())
         GAME_SCREEN = MAPEDITOR
-        GAME = new Game(GAME_ID, GAME_SCREEN, WORLD_MAP, 1, 1)
+        CURSOR = new Cursor(1, 1)
+        GAME = new Game(GAME_ID, GAME_SCREEN, WORLD_MAP, CURSOR)
     }
 
     def "Game CRUD"() {
