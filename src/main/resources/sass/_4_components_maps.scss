@@ -57,7 +57,7 @@
         }
 
         &--active {
-            animation: cursorblink 1s;
+            animation: cursorblink 600ms;
             animation-iteration-count: infinite;
         }
     }

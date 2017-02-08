@@ -14,7 +14,7 @@ class Map extends React.Component {
 
             if (this.props.data.tiles) {
                 if (this.props.cursor) {
-                    cursor = <Cursor cursorX={this.props.cursor.xPosition} cursorY={this.props.cursor.yPosition}/>;
+                    cursor = <Cursor cursorX={this.props.cursor.xPosition} cursorY={this.props.cursor.yPosition} cursorActive={this.props.cursor.active}/>;
                 }
 
                 tileList = this.props.data.tiles.map((tile, i) => {
