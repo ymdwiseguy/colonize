@@ -82,6 +82,7 @@ class EditorFrame extends React.Component {
 
         switch (event.keyCode) {
             case 32: // space
+                this.updateState('/api/mapeditor/' + this.props.game.gameId + '/activetile', PUT);
                 break;
             case 37: // left
                 this.updateState(url + 'LEFT', 'PUT');

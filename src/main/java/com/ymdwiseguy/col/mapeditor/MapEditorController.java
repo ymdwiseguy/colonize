@@ -118,4 +118,16 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
+    // PUT Set Tile - JSON
+    @RequestMapping(value = "/api/mapeditor/{gameId}/activetile", method = PUT, produces = "application/json")
+    public ResponseEntity setActiveTile(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+        // Todo: get Cursor Position
+        // Todo: get currently selected TileType
+        // Todo: overwrite Tile with new Type
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+    }
+
+    // Todo: set selected TileType (from Sidebar click)
+
 }
