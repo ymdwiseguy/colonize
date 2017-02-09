@@ -30,6 +30,7 @@ class EditorFrame extends React.Component {
             let cursorLeft = parseInt(cursor.css('left'));
             let frameWidth = parseInt(mapFrame.css('width'));
             let mapLeft = parseInt(mapInner.css('left'));
+            const mapWidth = parseInt(mapInner.css('width'));
             let cursorHeight = parseInt(cursor.css('height'));
             let cursorTop = parseInt(cursor.css('top'));
             let frameHeight = parseInt(mapFrame.css('height'));
@@ -37,17 +38,41 @@ class EditorFrame extends React.Component {
 
             if (this.unitOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop, cursorWidth, cursorHeight)) {
                 mapLeft = frameWidth / 2 - cursorLeft - cursorWidth / 2;
+                mapLeft = this.limitHorizontally(mapLeft, mapWidth, frameWidth);
                 mapTop = frameHeight / 2 - cursorTop - cursorHeight / 2;
+                mapTop = this.limitVertically(mapTop, frameHeight);
                 mapInner.css({'left': mapLeft, 'top': mapTop});
             }
         }
     }
 
+    static limitHorizontally(mapLeft, mapWidth, frameWidth) {
+        if (mapLeft > 0) {
+            mapLeft = 0;
+        }
+        let limitRight = (mapWidth + mapLeft);
+        if (limitRight < frameWidth) {
+            mapLeft = -1 * (mapWidth - frameWidth);
+        }
+        return mapLeft;
+    }
+
+    static limitVertically(mapTop, mapHeight, frameHeight) {
+        if (mapTop > 0) {
+            mapTop = 0;
+        }
+        let limitBottom = (mapHeight + mapTop);
+        if (limitBottom < frameHeight) {
+            mapLeft = -1 * (mapHeight - frameHeight);
+        }
+        return mapTop;
+    }
+
     static unitOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop, cursorWidth, cursorHeight) {
-        let rightOutside = ((frameWidth - (mapLeft + cursorLeft)) <= (cursorWidth * 2));
+        let rightOutside = ((frameWidth - (mapLeft + cursorLeft)) < (cursorWidth));
         let leftOuside = (cursorLeft <= (cursorWidth - mapLeft));
         let topOuside = (cursorTop <= (cursorHeight - mapTop));
-        let bottomOuside = ((frameHeight - (mapTop + cursorTop)) <= (cursorHeight * 2));
+        let bottomOuside = ((frameHeight - (mapTop + cursorTop)) < (cursorHeight));
 
         return (rightOutside || leftOuside || topOuside || bottomOuside);
     }
@@ -56,6 +81,8 @@ class EditorFrame extends React.Component {
         let url = '/api/mapeditor/' + this.props.game.gameId + '/movecursor/';
 
         switch (event.keyCode) {
+            case 32: // space
+                break;
             case 37: // left
                 this.updateState(url + 'LEFT', 'PUT');
                 break;
@@ -172,7 +199,7 @@ class EditorFrame extends React.Component {
                 switch (this.state.game.sideMenu.type) {
                     case 'EDITOR_SELECT_TILES':
                         sidebar = <SideMenuSelectTiles sidebar={this.state.game.sideMenu}
-                                           onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>;
+                                                       onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>;
                         break;
                     default:
                         sidebar = <SideBar sidebar={this.state.game.sideMenu}
