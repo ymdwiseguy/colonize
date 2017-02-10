@@ -1,12 +1,15 @@
 package com.ymdwiseguy.col.mapeditor
 
+import com.ymdwiseguy.col.Game
 import com.ymdwiseguy.col.cursor.CursorMovementService
 import com.ymdwiseguy.col.menu.structure.PopupType
+import com.ymdwiseguy.col.worldmap.tile.TileRepo
 import spock.lang.Specification
 import spock.lang.Subject
 
 import static com.ymdwiseguy.col.menu.structure.PopupType.GENERATE_MAP
 import static com.ymdwiseguy.col.worldmap.movement.UnitDirection.RIGHT
+import static com.ymdwiseguy.col.worldmap.tile.TileType.LAND_GRASS
 import static org.springframework.http.HttpStatus.*
 
 class MapEditorControllerSpec extends Specification implements MapEditorStates {
@@ -18,6 +21,9 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
     MapEditorService mapEditorService
     CursorMovementService cursorMovementService
     MapEditorRepo mapEditorRepo
+    TileRepo tileRepo
+
+    Game expectedUpdateResult
 
     def setup() {
         mapEditorService = Mock(MapEditorService)
@@ -37,7 +43,9 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         mapEditorRepo = Mock(MapEditorRepo)
         mapEditorRepo.update(_) >> mapEditorWithLoadedMapAndCursor()
 
-        mapEditorController = new MapEditorController(mapEditorView, mapEditorService, cursorMovementService, mapEditorRepo)
+        tileRepo = Mock(TileRepo)
+
+        mapEditorController = new MapEditorController(mapEditorView, mapEditorService, cursorMovementService, mapEditorRepo, tileRepo)
     }
 
     def "initializing a map editor"() {
@@ -133,7 +141,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         result.body == '{}'
     }
 
-    def "failing update if map is not found"(){
+    def "failing update if map is not found"() {
         when: "the update method is called for a unknown map"
         def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(), 'unknown map')
 
@@ -156,6 +164,32 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
         and: "the cursor gets a new position"
         result.body == mapEditorWithLoadedMapAndCursorJson()
+    }
+
+    def "setting the active tile type"() {
+        given: "prepared mock data"
+        expectedUpdateResult = mapEditorWithLoadedMapAndCursor()
+        expectedUpdateResult.setSelectedTileType(LAND_GRASS)
+
+        when: "the tileType is set"
+        def result = mapEditorController.selectTileType(GAME_UUID, LAND_GRASS, null)
+
+        then: "the gamestate is updated"
+        1 * mapEditorRepo.update(_) >> expectedUpdateResult
+
+        and: "a new selected tile type was set"
+        result.body == expectedUpdateResult.toJson()
+    }
+
+    def "updating a tile with a new type"() {
+        given: "a game with a generated map"
+        Game mapEditor = mapEditorWithLoadedMap()
+
+        when: "the activetile endpoint is called"
+        // TODO
+
+        then: "a modified map is returned"
+        // TODO
     }
 }
 

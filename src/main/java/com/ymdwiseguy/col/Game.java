@@ -7,6 +7,7 @@ import com.ymdwiseguy.col.menu.structure.GameMenu;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
 import com.ymdwiseguy.col.menu.structure.SideMenu;
 import com.ymdwiseguy.col.worldmap.WorldMap;
+import com.ymdwiseguy.col.worldmap.tile.TileType;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class Game {
     private PopupMenu popupMenu;
 
     private Cursor cursor;
+    private TileType selectedTileType;
 
     public Game() {
     }
@@ -36,6 +38,32 @@ public class Game {
         this.gameScreen = gameScreen;
         this.worldMap = worldMap;
         this.cursor = Objects.requireNonNull(cursor);
+    }
+
+    public Game(String gameId, GameScreen gameScreen, WorldMap worldMap, Cursor cursor, TileType selectedTileType) {
+        this.gameId = gameId;
+        this.gameScreen = gameScreen;
+        this.worldMap = worldMap;
+        this.cursor = cursor;
+        this.selectedTileType = selectedTileType;
+    }
+
+    public Game(String gameId, String game_screen, String worldMapId, Cursor cursor, String tile_type) {
+        this.gameId = gameId;
+        try {
+            this.gameScreen = GameScreen.valueOf(game_screen);
+        } catch (NullPointerException ex) {
+            this.gameScreen = null;
+        }
+        if (worldMapId != null) {
+            this.worldMap = new WorldMap(worldMapId);
+        }
+        this.cursor = cursor;
+        try {
+            this.selectedTileType = TileType.valueOf(tile_type);
+        } catch (NullPointerException ex) {
+            this.selectedTileType = null;
+        }
     }
 
     public String getGameId() {
@@ -92,6 +120,14 @@ public class Game {
 
     public void setCursor(Cursor cursor) {
         this.cursor = cursor;
+    }
+
+    public TileType getSelectedTileType() {
+        return selectedTileType;
+    }
+
+    public void setSelectedTileType(TileType selectedTileType) {
+        this.selectedTileType = selectedTileType;
     }
 
     public String toJson() {

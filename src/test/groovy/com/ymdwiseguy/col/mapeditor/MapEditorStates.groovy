@@ -90,7 +90,8 @@ trait MapEditorStates {
             '  "worldMap" : null,\n' +
             '  "sideMenu" : null,\n' +
             '  "popupMenu" : null,\n' +
-            '  "cursor" : ' + cursorJson() + '\n' +
+            '  "cursor" : ' + cursorJson() + ',\n' +
+            '  "selectedTileType" : null\n' +
             '}'
     }
 
@@ -102,7 +103,8 @@ trait MapEditorStates {
             '  "worldMap" : null,\n' +
             '  "sideMenu" : null,\n' +
             '  "popupMenu" : ' + popupJson() + ',\n' +
-            '  "cursor" : ' + cursorJson() + '\n' +
+            '  "cursor" : ' + cursorJson() + ',\n' +
+            '  "selectedTileType" : null\n' +
             '}'
     }
 
@@ -114,7 +116,8 @@ trait MapEditorStates {
             '  "worldMap" : null,\n' +
             '  "sideMenu" : ' + sideMenuJson() + ',\n' +
             '  "popupMenu" : null,\n' +
-            '  "cursor" : ' + cursorJson() + '\n' +
+            '  "cursor" : ' + cursorJson() + ',\n' +
+            '  "selectedTileType" : null\n' +
             '}'
     }
 
@@ -126,7 +129,8 @@ trait MapEditorStates {
             '  "worldMap" : null,\n' +
             '  "sideMenu" : ' + sideMenuJson() + ',\n' +
             '  "popupMenu" : ' + popupJson() + ',\n' +
-            '  "cursor" : ' + cursorJson() + '\n' +
+            '  "cursor" : ' + cursorJson() + ',\n' +
+            '  "selectedTileType" : null\n' +
             '}'
     }
 
@@ -138,7 +142,8 @@ trait MapEditorStates {
             '  "worldMap" : ' + worldMapJson() + ',\n' +
             '  "sideMenu" : ' + sideMenuJson() + ',\n' +
             '  "popupMenu" : null,\n' +
-            '  "cursor" : ' + cursorJson() + '\n' +
+            '  "cursor" : ' + cursorJson() + ',\n' +
+            '  "selectedTileType" : null\n' +
             '}'
     }
 
@@ -151,10 +156,11 @@ trait MapEditorStates {
             '  "sideMenu" : ' + sideMenuJson() + ',\n' +
             '  "popupMenu" : null,\n' +
             '  "cursor" : ' + '{\n' +
-            '    "active" : false,\n' +
+            '    "active" : true,\n' +
             '    "xPosition" : 2,\n' +
             '    "yPosition" : 1\n' +
-            '  }' + '\n' +
+            '  },\n' +
+            '  "selectedTileType" : null\n' +
             '}'
     }
 
@@ -166,7 +172,7 @@ trait MapEditorStates {
 
     String cursorJson() {
         '{\n' +
-            '    "active" : false,\n' +
+            '    "active" : true,\n' +
             '    "xPosition" : 1,\n' +
             '    "yPosition" : 1\n' +
             '  }'

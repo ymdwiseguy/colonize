@@ -33,7 +33,7 @@ public class MapEditorRepo {
             .map(mapEditor -> {
                 mapEditor.setGameScreen(MAPEDITOR);
                 mapEditor.setGameMenu(editorMainMenu.create(mapEditor));
-                mapEditor.setSideMenu(sideMenuSelectTiles.create());
+                mapEditor.setSideMenu(sideMenuSelectTiles.create(mapEditor));
 
                 mapEditor = setWorldMap(mapEditor);
 
@@ -47,7 +47,7 @@ public class MapEditorRepo {
         if(savedGame.isPresent()){
             Game sg = savedGame.get();
             sg.setGameMenu(editorMainMenu.create(sg));
-            mapEditor.setSideMenu(sideMenuSelectTiles.create());
+            mapEditor.setSideMenu(sideMenuSelectTiles.create(mapEditor));
 
             sg = setWorldMap(sg);
             return sg;

@@ -4,6 +4,9 @@ import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.cursor.CursorMovementService;
 import com.ymdwiseguy.col.menu.structure.PopupType;
 import com.ymdwiseguy.col.worldmap.movement.UnitDirection;
+import com.ymdwiseguy.col.worldmap.tile.Tile;
+import com.ymdwiseguy.col.worldmap.tile.TileRepo;
+import com.ymdwiseguy.col.worldmap.tile.TileType;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -31,13 +35,15 @@ public class MapEditorController {
     private final MapEditorService mapEditorService;
     private final CursorMovementService cursorMovementService;
     private final MapEditorRepo mapEditorRepo;
+    private final TileRepo tileRepo;
 
     @Inject
-    public MapEditorController(MapEditorView mapEditorView, MapEditorService mapEditorService, CursorMovementService cursorMovementService, MapEditorRepo mapEditorRepo) {
+    public MapEditorController(MapEditorView mapEditorView, MapEditorService mapEditorService, CursorMovementService cursorMovementService, MapEditorRepo mapEditorRepo, TileRepo tileRepo) {
         this.mapEditorView = mapEditorView;
         this.mapEditorService = mapEditorService;
         this.cursorMovementService = cursorMovementService;
         this.mapEditorRepo = mapEditorRepo;
+        this.tileRepo = tileRepo;
     }
 
     // GET - HTML initial
@@ -123,11 +129,27 @@ public class MapEditorController {
     public ResponseEntity setActiveTile(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
         // Todo: get Cursor Position
-        // Todo: get currently selected TileType
-        // Todo: overwrite Tile with new Type
+        int cursorX = mapEditor.getCursor().getxPosition();
+        int cursorY = mapEditor.getCursor().getyPosition();
+        List<Tile> tiles = mapEditor.getWorldMap().getTiles();
+        for (Tile tile : tiles) {
+            if(tile.getxCoordinate() == cursorX && tile.getyCoordinate() == cursorY){
+                tile.setType(mapEditor.getSelectedTileType());
+                tileRepo.updateTile(tile);
+            }
+        }
+        mapEditor.getWorldMap().setTiles(tiles);
+
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // Todo: set selected TileType (from Sidebar click)
+    // PUT Set Tile - JSON
+    @RequestMapping(value = "/api/mapeditor/{gameId}/selecttiletype/{tileType}", method = PUT, produces = "application/json")
+    public ResponseEntity selectTileType(@PathVariable String gameId, @PathVariable TileType tileType, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+        mapEditor.setSelectedTileType(tileType);
+        mapEditor = mapEditorRepo.update(mapEditor);
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+    }
 
 }

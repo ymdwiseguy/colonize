@@ -78,11 +78,12 @@ class EditorFrame extends React.Component {
     }
 
     handleKeyDown(event) {
+
         let url = '/api/mapeditor/' + this.props.game.gameId + '/movecursor/';
 
         switch (event.keyCode) {
             case 32: // space
-                this.updateState('/api/mapeditor/' + this.props.game.gameId + '/activetile', PUT);
+                this.updateState('/api/mapeditor/' + this.props.game.gameId + '/activetile', 'PUT');
                 break;
             case 37: // left
                 this.updateState(url + 'LEFT', 'PUT');
@@ -200,6 +201,7 @@ class EditorFrame extends React.Component {
                 switch (this.state.game.sideMenu.type) {
                     case 'EDITOR_SELECT_TILES':
                         sidebar = <SideMenuSelectTiles sidebar={this.state.game.sideMenu}
+                                                       selected={this.state.game.selectedTileType}
                                                        onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>;
                         break;
                     default:

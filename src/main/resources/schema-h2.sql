@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS game_state (
     game_screen VARCHAR,
     world_map_id VARCHAR,
     cursor_x INT,
-    cursor_y INT
+    cursor_y INT,
+    tile_type VARCHAR
 );
 
 

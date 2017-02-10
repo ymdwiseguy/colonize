@@ -10,14 +10,15 @@ class SideMenuSelectTiles extends React.Component {
         this.handleSideBarClick = this.handleSideBarClick.bind(this);
     }
 
-    handleSideBarClick(event) {
-        this.props.onClickFrame(event);
+    handleSideBarClick(event, method) {
+        this.props.onClickFrame(event, method);
     }
 
     render() {
         if (this.props.sidebar) {
             let entries = this.props.sidebar.entries.map((entry, i) => {
-                return <SelectableTiles entry={entry} key={i} onClickSubmenu={this.handleSideBarClick}/>
+                return <SelectableTiles entry={entry} selected={this.props.selected} key={i}
+                                        onClickSubmenu={(e, m) => this.handleSideBarClick(e, m)}/>
             });
 
             return (
