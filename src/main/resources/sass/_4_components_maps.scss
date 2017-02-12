@@ -74,6 +74,84 @@
     width: 100px;
     height: 100px;
 
+
+    &__LAND_ARCTIC {
+        background-image: url("/assets/img/land_arctic.jpg");
+    }
+
+    &__LAND_BOREAL_FOREST {
+        background-image: url("/assets/img/land_boreal_forest.jpg");
+    }
+
+    &__LAND_BROADLEAF_FOREST {
+        background-image: url("/assets/img/land_broadleaf_forest.jpg");
+    }
+
+    &__LAND_CONIFER_FOREST {
+        background-image: url("/assets/img/land_conifer_forest.jpg");
+    }
+
+    &__LAND_DESERT {
+        background-image: url("/assets/img/land_desert.jpg");
+    }
+
+    &__LAND_GRASS {
+        background-color: #6fbd14;
+        background-image: url("/assets/img/land_grass.jpg");
+    }
+
+    &__LAND_HILLS {
+        background-image: url("/assets/img/land_hills.jpg");
+    }
+
+    &__LAND_MARSH {
+        background-image: url("/assets/img/land_marsh.jpg");
+    }
+
+    &__LAND_MIXED_FOREST {
+        background-image: url("/assets/img/land_mixed_forest.jpg");
+    }
+
+    &__LAND_MOUNTAINS {
+        background-image: url("/assets/img/land_mountains.jpg");
+    }
+
+    &__LAND_PLAINS {
+        background-image: url("/assets/img/land_plains.jpg");
+    }
+
+    &__LAND_PRAIRIE {
+        background-image: url("/assets/img/land_prairie.jpg");
+    }
+
+    &__LAND_RAIN_FOREST {
+        background-image: url("/assets/img/land_rain_forest.jpg");
+    }
+
+    &__LAND_SAVANNAH {
+        background-image: url("/assets/img/land_savannah.jpg");
+    }
+
+    &__LAND_SCRUB_FOREST {
+        background-image: url("/assets/img/land_scrub_forest.jpg");
+    }
+
+    &__LAND_SWAMP {
+        background-image: url("/assets/img/land_swamp.jpg");
+    }
+
+    &__LAND_TROPICAL_FOREST {
+        background-image: url("/assets/img/land_tropical_forest.jpg");
+    }
+
+    &__LAND_TUNDRA {
+        background-image: url("/assets/img/land_tundra.jpg");
+    }
+
+    &__LAND_WETLAND_FOREST {
+        background-image: url("/assets/img/land_wetland_forest.jpg");
+    }
+
     &__OCEAN_SHALLOW {
         background-image: url("/assets/img/ocean_shallow.svg");
     }
@@ -82,9 +160,5 @@
         background-image: url("/assets/img/ocean_dark.svg");
     }
 
-    &__LAND_GRASS {
-        background-color: #6fbd14;
-        background-image: url("/assets/img/land_grass.jpg");
-    }
 
 }

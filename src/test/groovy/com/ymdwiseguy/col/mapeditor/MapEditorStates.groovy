@@ -6,8 +6,11 @@ import com.ymdwiseguy.col.menu.structure.GameMenu
 import com.ymdwiseguy.col.menu.structure.PopupMenu
 import com.ymdwiseguy.col.menu.structure.SideMenu
 import com.ymdwiseguy.col.worldmap.WorldMap
+import com.ymdwiseguy.col.worldmap.tile.Tile
 
 import static com.ymdwiseguy.col.GameScreen.MAPEDITOR
+import static com.ymdwiseguy.col.worldmap.tile.TileType.LAND_GRASS
+import static com.ymdwiseguy.col.worldmap.tile.TileType.OCEAN_DEEP
 
 trait MapEditorStates {
 
@@ -57,19 +60,30 @@ trait MapEditorStates {
     Game mapEditorWithLoadedMap() {
         Game mapEditor = initalMapEditorWithId()
         mapEditor.setWorldMap(aWorldMap())
+        mapEditor.setSelectedTileType(LAND_GRASS)
         return mapEditor
     }
 
     Game mapEditorWithLoadedMapAndCursor() {
         Game mapEditor = initalMapEditorWithId()
         mapEditor.setWorldMap(aWorldMap())
+        mapEditor.setSelectedTileType(LAND_GRASS)
         mapEditor.setCursor(new Cursor(2, 1))
         return mapEditor
     }
 
     WorldMap aWorldMap() {
         WorldMap worldMap = new WorldMap(MAP_ID, MAP_TITLE, MAP_NAME, MAP_WIDTH, MAP_HEIGHT)
+        List<Tile> tiles = new ArrayList<>()
+        tiles.add(aTile('1', 1, 1))
+        tiles.add(aTile('2', 2, 1))
+        worldMap.setTiles(tiles)
         return worldMap
+    }
+
+    Tile aTile(String id, int x, int y) {
+        Tile tile = new Tile(id, MAP_ID, x, y, OCEAN_DEEP)
+        return tile
     }
 
     FormData formData() {
@@ -143,7 +157,7 @@ trait MapEditorStates {
             '  "sideMenu" : ' + sideMenuJson() + ',\n' +
             '  "popupMenu" : null,\n' +
             '  "cursor" : ' + cursorJson() + ',\n' +
-            '  "selectedTileType" : null\n' +
+            '  "selectedTileType" : "LAND_GRASS"\n' +
             '}'
     }
 
@@ -160,7 +174,7 @@ trait MapEditorStates {
             '    "xPosition" : 2,\n' +
             '    "yPosition" : 1\n' +
             '  },\n' +
-            '  "selectedTileType" : null\n' +
+            '  "selectedTileType" : "LAND_GRASS"\n' +
             '}'
     }
 
@@ -199,10 +213,26 @@ trait MapEditorStates {
             '    "worldMapId" : "mapId",\n' +
             '    "title" : "a map",\n' +
             '    "worldMapName" : "testSandbox",\n' +
-            '    "tiles" : null,\n' +
+            '    "tiles" : ' + tilesJson() + ',\n' +
             '    "units" : null,\n' +
             '    "width" : 5,\n' +
             '    "height" : 5\n' +
             '  }'
+    }
+
+    String tilesJson() {
+        '[ {\n' +
+            '      "tileId" : "1",\n' +
+            '      "worldMapId" : "mapId",\n' +
+            '      "xCoordinate" : 1,\n' +
+            '      "yCoordinate" : 1,\n' +
+            '      "type" : "OCEAN_DEEP"\n' +
+            '    }, {\n' +
+            '      "tileId" : "2",\n' +
+            '      "worldMapId" : "mapId",\n' +
+            '      "xCoordinate" : 2,\n' +
+            '      "yCoordinate" : 1,\n' +
+            '      "type" : "OCEAN_DEEP"\n' +
+            '    } ]'
     }
 }

@@ -24,12 +24,15 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
     TileRepo tileRepo
 
     Game expectedUpdateResult
+    String ANOTER_GAME_UUID
 
     def setup() {
+        ANOTER_GAME_UUID = UUID.randomUUID().toString()
         mapEditorService = Mock(MapEditorService)
 
         mapEditorService.initGame(null, null) >> initialMapEditor()
         mapEditorService.initGame(GAME_UUID, null) >> initalMapEditorWithId()
+        mapEditorService.initGame(ANOTER_GAME_UUID, null) >> mapEditorWithLoadedMap()
         mapEditorService.initGame(null, GENERATE_MAP) >> initialMapEditorWithPopup()
         mapEditorService.initGame(GAME_UUID, GENERATE_MAP) >> initalMapEditorWithIdWithPopup()
 
@@ -182,14 +185,19 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
     }
 
     def "updating a tile with a new type"() {
-        given: "a game with a generated map"
-        Game mapEditor = mapEditorWithLoadedMap()
+        given: "a preparated mock"
+        Game expectedResult = mapEditorWithLoadedMap()
+        expectedResult.setSelectedTileType(LAND_GRASS)
+        expectedResult.getWorldMap().getTileByCoordinates(1,1).setType(LAND_GRASS)
 
         when: "the activetile endpoint is called"
-        // TODO
+        def result = mapEditorController.setActiveTile(ANOTER_GAME_UUID, null)
 
-        then: "a modified map is returned"
-        // TODO
+        then: "the tile is updated in the DB"
+        1 * tileRepo.updateTile(_)
+
+        and: "a modified map is returned"
+        result.body == expectedResult.toJson()
     }
 }
 

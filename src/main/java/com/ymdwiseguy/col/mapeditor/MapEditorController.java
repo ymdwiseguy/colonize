@@ -128,7 +128,6 @@ public class MapEditorController {
     @RequestMapping(value = "/api/mapeditor/{gameId}/activetile", method = PUT, produces = "application/json")
     public ResponseEntity setActiveTile(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
-        // Todo: get Cursor Position
         int cursorX = mapEditor.getCursor().getxPosition();
         int cursorY = mapEditor.getCursor().getyPosition();
         List<Tile> tiles = mapEditor.getWorldMap().getTiles();
