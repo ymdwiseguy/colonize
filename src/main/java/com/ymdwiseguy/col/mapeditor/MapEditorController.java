@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -130,15 +129,9 @@ public class MapEditorController {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
         int cursorX = mapEditor.getCursor().getxPosition();
         int cursorY = mapEditor.getCursor().getyPosition();
-        List<Tile> tiles = mapEditor.getWorldMap().getTiles();
-        for (Tile tile : tiles) {
-            if(tile.getxCoordinate() == cursorX && tile.getyCoordinate() == cursorY){
-                tile.setType(mapEditor.getSelectedTileType());
-                tileRepo.updateTile(tile);
-            }
-        }
-        mapEditor.getWorldMap().setTiles(tiles);
-
+        Tile tile = mapEditor.getWorldMap().getTileByCoordinates(cursorX, cursorY);
+        tile.setType(mapEditor.getSelectedTileType());
+        tileRepo.updateTile(tile);
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 

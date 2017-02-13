@@ -3,8 +3,8 @@ package com.ymdwiseguy.col.mapeditor;
 import com.ymdwiseguy.col.Game;
 import com.ymdwiseguy.col.GameRepo;
 import com.ymdwiseguy.col.cursor.Cursor;
-import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
 import com.ymdwiseguy.col.menu.implementation.GenerateMapPopup;
+import com.ymdwiseguy.col.menu.implementation.SaveGamePopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupMenu;
 import com.ymdwiseguy.col.menu.structure.PopupType;
 import com.ymdwiseguy.col.worldmap.WorldMap;
@@ -69,9 +69,7 @@ public class MapEditorService {
         if (!Objects.equals(mapEditor.getWorldMap().getWorldMapName(), mapName)) {
             return null;
         }
-        if (!mapFileRepo.fileExists(mapName)) {
-            return null;
-        }
+        // Removed existence check.. TODO: add security check
 
         if (mapFileRepo.updateWorldMap(mapName, mapEditor.getWorldMap())) {
             mapEditor = mapEditorRepo.update(mapEditor);

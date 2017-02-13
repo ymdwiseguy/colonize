@@ -168,20 +168,6 @@ class MapEditorServiceSpec extends Specification implements GameStateAssertions 
         updatedEditor == null
     }
 
-    def "saving to an non existing file fails"() {
-        given: "a map"
-        Game mapEditor = mapEditorService.loadMap(GAME_UUID, MAP_NAME)
-
-        when: "the map is saved"
-        Game updatedEditor = mapEditorService.updateMap(mapEditor, MAP_NAME)
-
-        then: "checking file existence fails"
-        1 * mapFileRepo.fileExists(MAP_NAME) >> false
-
-        and: "no map editor is returned"
-        updatedEditor == null
-    }
-
     def "updating in repo fails"() {
         given: "a map"
         Game mapEditor = mapEditorService.loadMap(GAME_UUID, MAP_NAME)
