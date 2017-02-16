@@ -1,28 +1,17 @@
-package com.ymdwiseguy.col.mapeditor
+package com.ymdwiseguy.col
 
-import com.ymdwiseguy.col.Game
 import com.ymdwiseguy.col.cursor.Cursor
+import com.ymdwiseguy.col.mapeditor.FormData
 import com.ymdwiseguy.col.menu.structure.GameMenu
 import com.ymdwiseguy.col.menu.structure.PopupMenu
 import com.ymdwiseguy.col.menu.structure.SideMenu
-import com.ymdwiseguy.col.worldmap.WorldMap
-import com.ymdwiseguy.col.worldmap.tile.Tile
 
 import static com.ymdwiseguy.col.GameScreen.MAPEDITOR
 import static com.ymdwiseguy.col.worldmap.tile.TileType.LAND_GRASS
-import static com.ymdwiseguy.col.worldmap.tile.TileType.OCEAN_DEEP
 
-trait MapEditorStates {
+trait MapEditorStates implements WorldMaps {
 
     String GAME_UUID = "4ad885e1-50a1-4c3f-914d-4e12b099dbf0"
-
-    String MAP_NAME = 'testSandbox'
-    String MAP_ID = 'mapId'
-    String MAP_TITLE = 'a map'
-
-    int MAP_WIDTH = 5
-    int MAP_HEIGHT = 5
-
     Cursor CURSOR = new Cursor(1, 1)
 
     Game initialMapEditor() {
@@ -70,20 +59,6 @@ trait MapEditorStates {
         mapEditor.setSelectedTileType(LAND_GRASS)
         mapEditor.setCursor(new Cursor(2, 1))
         return mapEditor
-    }
-
-    WorldMap aWorldMap() {
-        WorldMap worldMap = new WorldMap(MAP_ID, MAP_TITLE, MAP_NAME, MAP_WIDTH, MAP_HEIGHT)
-        List<Tile> tiles = new ArrayList<>()
-        tiles.add(aTile('1', 1, 1))
-        tiles.add(aTile('2', 2, 1))
-        worldMap.setTiles(tiles)
-        return worldMap
-    }
-
-    Tile aTile(String id, int x, int y) {
-        Tile tile = new Tile(id, MAP_ID, x, y, OCEAN_DEEP)
-        return tile
     }
 
     FormData formData() {
@@ -206,33 +181,5 @@ trait MapEditorStates {
             '    "entries" : null,\n' +
             '    "type" : null\n' +
             '  }'
-    }
-
-    String worldMapJson() {
-        '{\n' +
-            '    "worldMapId" : "mapId",\n' +
-            '    "title" : "a map",\n' +
-            '    "worldMapName" : "testSandbox",\n' +
-            '    "tiles" : ' + tilesJson() + ',\n' +
-            '    "units" : null,\n' +
-            '    "width" : 5,\n' +
-            '    "height" : 5\n' +
-            '  }'
-    }
-
-    String tilesJson() {
-        '[ {\n' +
-            '      "tileId" : "1",\n' +
-            '      "worldMapId" : "mapId",\n' +
-            '      "xCoordinate" : 1,\n' +
-            '      "yCoordinate" : 1,\n' +
-            '      "type" : "OCEAN_DEEP"\n' +
-            '    }, {\n' +
-            '      "tileId" : "2",\n' +
-            '      "worldMapId" : "mapId",\n' +
-            '      "xCoordinate" : 2,\n' +
-            '      "yCoordinate" : 1,\n' +
-            '      "type" : "OCEAN_DEEP"\n' +
-            '    } ]'
     }
 }

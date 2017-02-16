@@ -101,27 +101,44 @@ public class TileRepo {
         }
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+    public List<Tile> getTilesLimited(String worldMapId, int limitXLower, int limitXUpper, int limitYLower, int limitYUpper) {
+        final String sql = "SELECT * FROM tile " +
+            "WHERE world_map_id=? " +
+            "AND x_coordinate<=? AND x_coordinate>=? " +
+            "AND y_coordinate<=? AND y_coordinate>=? " +
+            "ORDER BY y_coordinate, x_coordinate ASC ";
+
+        try {
+            LOGGER.info("Fetched tiles with world_map_id '{}'", worldMapId);
+            return jdbcTemplate.query(sql, getRowmapper(), worldMapId, limitXUpper, limitXLower, limitYUpper, limitYLower);
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("Tile with id {} was not found in the database.", worldMapId);
+            return new ArrayList<>();
+        }
+    }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
     public List<Tile> getTiles(String worldMapId) {
         final String sql = "SELECT * FROM tile WHERE world_map_id=? ORDER BY y_coordinate, x_coordinate ASC ";
 
-        RowMapper<Tile> tileRowMapper = (resultSet, rowNum) -> new Tile(
+        try {
+            LOGGER.info("Fetched tiles with world_map_id '{}'", worldMapId);
+            return jdbcTemplate.query(sql, getRowmapper(), worldMapId);
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.info("Tile with id {} was not found in the database.", worldMapId);
+            return new ArrayList<>();
+        }
+    }
+
+    private RowMapper<Tile> getRowmapper() {
+        return (resultSet, rowNum) -> new Tile(
             resultSet.getString("tile_id"),
             resultSet.getString("world_map_id"),
             resultSet.getInt("x_coordinate"),
             resultSet.getInt("y_coordinate"),
             TileType.valueOf(resultSet.getString("type"))
         );
-
-        try {
-            LOGGER.info("Fetched tiles with world_map_id '{}'", worldMapId);
-            List<Tile> tileList = jdbcTemplate.query(sql, tileRowMapper, worldMapId);
-            return tileList;
-        } catch (EmptyResultDataAccessException e) {
-            LOGGER.info("Tile with id {} was not found in the database.", worldMapId);
-            return new ArrayList<>();
-        }
     }
 
 
@@ -173,4 +190,5 @@ public class TileRepo {
         post.setString(5, tile.getType().toString());
 
     }
+
 }

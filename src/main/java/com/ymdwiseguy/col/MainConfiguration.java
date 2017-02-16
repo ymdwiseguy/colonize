@@ -60,8 +60,13 @@ public class MainConfiguration {
     }
 
     @Bean
+    int limitRadius(){
+        return 10;
+    }
+
+    @Bean
     public WorldMapService WorldMapService(){
-        return new WorldMapService(worldMapRepo(), tileRepo(), unitRepo());
+        return new WorldMapService(worldMapRepo(), tileRepo(), unitRepo(), limitRadius());
     }
 
     @Bean

@@ -44,7 +44,7 @@ public class MapEditorRepo {
     public Game update(Game mapEditor) {
         Optional<Game> savedGame = gameRepo.updateGame(mapEditor);
 
-        if(savedGame.isPresent()){
+        if (savedGame.isPresent()) {
             Game sg = savedGame.get();
             sg.setGameMenu(editorMainMenu.create(sg));
             mapEditor.setSideMenu(sideMenuSelectTiles.create(mapEditor));
@@ -62,7 +62,10 @@ public class MapEditorRepo {
         }
         String worldMapId = mapEditor.getWorldMap().getWorldMapId();
         if (worldMapId != null) {
-            mapEditor.setWorldMap(worldMapService.getWorldMap(worldMapId));
+//            mapEditor.setWorldMap(worldMapService.getWorldMap(worldMapId));
+            mapEditor.setWorldMap(worldMapService.getWorldMapLimited(worldMapId,
+                mapEditor.getCursor().getxPosition(),
+                mapEditor.getCursor().getyPosition()));
         }
         return mapEditor;
     }

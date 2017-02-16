@@ -26,11 +26,14 @@ public class WorldMapService {
     private final TileRepo tileRepo;
     private final UnitRepo unitRepo;
 
+    private final int limitRadius;
+
     @Autowired
-    public WorldMapService(final WorldMapRepo WorldMapRepo, TileRepo tileRepo, UnitRepo unitRepo) {
+    public WorldMapService(final WorldMapRepo WorldMapRepo, TileRepo tileRepo, UnitRepo unitRepo, int limitRadius) {
         this.worldMapRepo = WorldMapRepo;
         this.tileRepo = tileRepo;
         this.unitRepo = unitRepo;
+        this.limitRadius = limitRadius;
     }
 
 
@@ -45,6 +48,46 @@ public class WorldMapService {
             return worldMap;
         }
         return null;
+    }
+
+    public WorldMap getWorldMapLimited(String worldMapId, int x, int y) {
+        Optional<WorldMap> worldMapOptional = worldMapRepo.getWorldmap(worldMapId);
+        if (worldMapOptional.isPresent()) {
+            WorldMap worldMap = worldMapOptional.get();
+            List<Tile> tiles = tileRepo.getTilesLimited(
+                worldMap.getWorldMapId(),
+                limitLowerValue(worldMap.getWidth(), x),
+                limitUpperValue(worldMap.getWidth(), x),
+                limitLowerValue(worldMap.getHeight(), y),
+                limitUpperValue(worldMap.getHeight(), y));
+            worldMap.setTiles(tiles);
+            List<Unit> units = unitRepo.getUnits(worldMap.getWorldMapId());
+            worldMap.setUnits(units);
+            return worldMap;
+        }
+        return null;
+    }
+
+    private int limitLowerValue(int upperBoarder, int cursorPosition) {
+        int limitXLower = cursorPosition - limitRadius;
+        if (cursorPosition <= limitRadius || upperBoarder <= limitRadius) {
+            limitXLower = 1;
+        }
+        if (cursorPosition >= (upperBoarder - limitRadius)) {
+            limitXLower = upperBoarder - 2 * limitRadius;
+        }
+        return limitXLower;
+    }
+
+    private int limitUpperValue(int upperBoarder, int cursorPosition) {
+        int limitXUpper = cursorPosition + limitRadius;
+        if (cursorPosition <= limitRadius || upperBoarder <= limitRadius) {
+            limitXUpper = 1 + 2 * limitRadius;
+        }
+        if (cursorPosition > (upperBoarder - limitRadius)) {
+            limitXUpper = upperBoarder;
+        }
+        return limitXUpper;
     }
 
     public WorldMap generateMap(int width, int height) {
@@ -78,7 +121,7 @@ public class WorldMapService {
         WorldMap worldMap = null;
         try {
             worldMap = new WorldMap().fromJson(worldMapData);
-            if(worldMap.getWorldMapId() == null){
+            if (worldMap.getWorldMapId() == null) {
                 worldMap.setWorldMapId(UUID.randomUUID().toString());
             }
             worldMap = saveNewWorldMap(worldMap);
@@ -104,8 +147,8 @@ public class WorldMapService {
         return null;
     }
 
-    private List<Tile> saveTiles(List<Tile> tiles, String mapId){
-        if(tiles == null){
+    private List<Tile> saveTiles(List<Tile> tiles, String mapId) {
+        if (tiles == null) {
             return null;
         }
         for (Tile tile : tiles) {
@@ -118,8 +161,8 @@ public class WorldMapService {
         return tiles;
     }
 
-    private List<Unit> saveUnits(List<Unit> units, String mapId){
-        if(units == null){
+    private List<Unit> saveUnits(List<Unit> units, String mapId) {
+        if (units == null) {
             return null;
         }
         for (Unit unit : units) {

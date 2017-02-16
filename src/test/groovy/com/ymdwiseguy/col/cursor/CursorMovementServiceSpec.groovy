@@ -1,7 +1,7 @@
 package com.ymdwiseguy.col.cursor
 
 import com.ymdwiseguy.col.Game
-import com.ymdwiseguy.col.mapeditor.MapEditorStates
+import com.ymdwiseguy.col.MapEditorStates
 import com.ymdwiseguy.col.worldmap.movement.UnitDirection
 import spock.lang.Specification
 import spock.lang.Subject
