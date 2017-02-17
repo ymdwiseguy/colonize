@@ -3,7 +3,9 @@ package com.ymdwiseguy.col.worldmap
 import com.ymdwiseguy.col.WorldMaps
 import com.ymdwiseguy.col.worldmap.tile.Tile
 import com.ymdwiseguy.col.worldmap.tile.TileRepo
+import com.ymdwiseguy.col.worldmap.unit.Unit
 import com.ymdwiseguy.col.worldmap.unit.UnitRepo
+import com.ymdwiseguy.col.worldmap.unit.UnitType
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -27,6 +29,7 @@ class WorldMapServiceSpec extends Specification implements WorldMaps {
 
         worldMapRepo = Mock(WorldMapRepo)
         worldMapRepo.getWorldmap(MAP_ID) >> Optional.of(WORLD_MAP)
+        worldMapRepo.createWorldmap(_) >> MAP_ID
 
         tileRepo = Mock(TileRepo)
         tileRepo.getTiles(MAP_ID) >> someTiles()
@@ -94,9 +97,69 @@ class WorldMapServiceSpec extends Specification implements WorldMaps {
         resultJson == WORLD_MAP_1To5_1To5().toJson()
     }
 
-    def "generating a map"(){
-        expect: false;
-        // TODO: continue writing tests for WorldMapService
+    def "generating a map"() {
+        when: "map is generated"
+        WorldMap worldMap = worldMapService.generateMap(5, 5)
+
+        then: "it has the expected size"
+        worldMap.getHeight() == 5
+        worldMap.getWidth() == 5
+        worldMap.getTiles().size() == 25
+
+        and: "the expected parameters"
+        worldMap.getTitle() == "new Map"
+    }
+
+    def "saving a new map"() {
+        given: "a world map with tiles and units"
+        List<Unit> units = new ArrayList<Unit>()
+        Unit unit = new Unit('unit_id', MAP_ID, UnitType.KARAVELLE, false, 1, 1)
+        WORLD_MAP.setUnits(units)
+
+        when: "a map is saved"
+        WorldMap result = worldMapService.saveNewWorldMap(WORLD_MAP)
+
+        then: "it is returned unchanged"
+        result.toJson() == WORLD_MAP.toJson()
+
+        and: "the repos are called to update the elements"
+        1 * worldMapRepo.createWorldmap(_)
+        1 * tileRepo.createTiles(_)
+        1 * unitRepo.createUnits(_)
+    }
+
+    def "saving a map from json"() {
+        given: "a world map with tiles and units"
+        WORLD_MAP.setUnits(new ArrayList<Unit>())
+        WorldMapService worldMapService = new WorldMapService(worldMapRepo, tileRepo, unitRepo, LIMIT_RADIUS)
+
+        when: "a map is saved"
+        WorldMap result = worldMapService.saveWorldMapFromJson(WORLD_MAP.toJson())
+
+        then: "it is returned unchanged"
+        result.toJson() == WORLD_MAP.toJson()
+
+        and: "the repos are called to update the elements"
+        1 * worldMapRepo.createWorldmap(_) >> MAP_ID
+        1 * tileRepo.createTiles(_)
+        1 * unitRepo.createUnits(_)
+    }
+
+    def "updating a world map"() {
+        given: "a world map"
+        WORLD_MAP.setUnits(new ArrayList<Unit>())
+        WorldMapService worldMapService = new WorldMapService(worldMapRepo, tileRepo, unitRepo, LIMIT_RADIUS)
+
+        when: "the map is updated"
+        def result = worldMapService.updateWorldMap(WORLD_MAP)
+
+        then: "the updated map is returned"
+        result.toJson() == WORLD_MAP.toJson()
+
+        and: "the repos are called to update the elements"
+        1 * worldMapRepo.updateWorldmap(WORLD_MAP) >> Optional.of(WORLD_MAP)
+        1 * tileRepo.updateTiles(_) >> someTiles()
+        1 * unitRepo.updateUnits(_) >> new ArrayList<Unit>()
     }
 
     WorldMap WORLD_MAP_1To5_1To5() {
@@ -105,7 +168,7 @@ class WorldMapServiceSpec extends Specification implements WorldMaps {
         return worldMap
     }
 
-    List<Tile> tiles_1To5_1To5(){
+    List<Tile> tiles_1To5_1To5() {
         List<Tile> tiles = new ArrayList<Tile>()
         for (int x = 1; x <= 5; x++) {
             for (int y = 1; y <= 5; y++) {
