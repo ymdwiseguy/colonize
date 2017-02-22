@@ -67,13 +67,23 @@
 
     background-size: cover;
     display: inline-block;
-    float: left;
     margin: 0;
     padding: 0;
-    position: relative;
+    position: absolute;
     width: 100px;
     height: 100px;
 
+    @for $i from 1 through 120 {
+        &__x-#{$i} {
+            left: calc((#{$i} * 100px) - 100px);
+        }
+    }
+
+    @for $i from 1 through 120 {
+        &__y-#{$i} {
+            top: calc((#{$i} * 100px) - 100px);
+        }
+    }
 
     &__LAND_ARCTIC {
         background-image: url("/assets/img/land_arctic.jpg");

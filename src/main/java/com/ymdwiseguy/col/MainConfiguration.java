@@ -61,7 +61,7 @@ public class MainConfiguration {
 
     @Bean
     int limitRadius(){
-        return 10;
+        return 7;
     }
 
     @Bean
