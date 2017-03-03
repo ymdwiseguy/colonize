@@ -56,7 +56,7 @@ public class MapEditorService {
     Game loadMap(String gameId, String mapName) {
         Game mapEditor = mapEditorRepo.getMapEditor(gameId);
 
-        WorldMap worldMap = getMap(mapName);
+        WorldMap worldMap = loadMapFromFile(mapName);
         mapEditor.setWorldMap(worldMap);
 
         mapEditor = mapEditorRepo.update(mapEditor);
@@ -65,17 +65,18 @@ public class MapEditorService {
     }
 
     // UPDATE
-    Game updateMap(Game mapEditor, String mapName) {
-        if (!Objects.equals(mapEditor.getWorldMap().getWorldMapName(), mapName)) {
+    Game updateMap(Game mapEditorWithPartialMap, String mapName) {
+        if (!Objects.equals(mapEditorWithPartialMap.getWorldMap().getWorldMapName(), mapName)) {
             return null;
         }
         // Removed existence check.. TODO: add security check
 
-        if (mapFileRepo.updateWorldMap(mapName, mapEditor.getWorldMap())) {
-            mapEditor = mapEditorRepo.update(mapEditor);
-            mapEditor.setPopupMenu(null);
-            return mapEditor;
+        WorldMap fullMap = worldMapService.getWorldMap(mapEditorWithPartialMap.getWorldMap().getWorldMapId());
 
+        if (mapFileRepo.updateWorldMap(mapName, fullMap)) {
+            mapEditorWithPartialMap = mapEditorRepo.update(mapEditorWithPartialMap);
+            mapEditorWithPartialMap.setPopupMenu(null);
+            return mapEditorWithPartialMap;
         }
         return null;
     }
@@ -108,7 +109,7 @@ public class MapEditorService {
         return mapEditor;
     }
 
-    private WorldMap getMap(String mapName) {
+    private WorldMap loadMapFromFile(String mapName) {
         WorldMap worldMap = mapFileRepo.getWorldmap(mapName);
         if (worldMap.getWorldMapId() == null) {
             String worldMapId = worldMapService.saveNewWorldMap(worldMap).getWorldMapId();

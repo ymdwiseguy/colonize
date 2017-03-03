@@ -3,22 +3,24 @@ package com.ymdwiseguy.col.mapeditor
 import com.ymdwiseguy.col.Game
 import com.ymdwiseguy.col.GameRepo
 import com.ymdwiseguy.col.GameStateAssertions
+import com.ymdwiseguy.col.MapEditorStates
 import com.ymdwiseguy.col.cursor.Cursor
 import com.ymdwiseguy.col.menu.structure.GameMenu
 import com.ymdwiseguy.col.menu.structure.PopupType
 import com.ymdwiseguy.col.menu.structure.SideMenu
 import com.ymdwiseguy.col.worldmap.WorldMap
 import com.ymdwiseguy.col.worldmap.WorldMapService
+import com.ymdwiseguy.col.worldmap.tile.Tile
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 
 import static com.ymdwiseguy.col.GameScreen.MAPEDITOR
-import static com.ymdwiseguy.col.menu.structure.PopupType.GENERATE_MAP
-import static com.ymdwiseguy.col.menu.structure.PopupType.SAVE_MAPEDITOR
-import static com.ymdwiseguy.col.menu.structure.PopupType.SHOW_MAPLIST
+import static com.ymdwiseguy.col.menu.structure.PopupType.*
+import static com.ymdwiseguy.col.menu.structure.SideMenuType.DEFAULT
+import static com.ymdwiseguy.col.worldmap.tile.TileType.LAND_GRASS
 
-class MapEditorServiceSpec extends Specification implements GameStateAssertions {
+class MapEditorServiceSpec extends Specification implements GameStateAssertions, MapEditorStates {
 
     @Subject
     MapEditorService mapEditorService
@@ -31,8 +33,6 @@ class MapEditorServiceSpec extends Specification implements GameStateAssertions 
     GameMenu gameMenu = Mock(GameMenu)
     SideMenu sideMenu = Mock(SideMenu)
 
-    String GAME_UUID
-    String MAP_NAME = 'testSandbox'
     String MAP_ID = 'mapId'
     String MAP_TITLE = 'a map'
     int MAP_HEIGHT = 5
@@ -43,8 +43,9 @@ class MapEditorServiceSpec extends Specification implements GameStateAssertions 
 
 
     def setup() {
-        GAME_UUID = UUID.randomUUID().toString()
-        WORLD_MAP = new WorldMap(MAP_ID, MAP_TITLE, MAP_NAME, MAP_WIDTH, MAP_HEIGHT)
+        WORLD_MAP = aWorldMap()
+
+        sideMenu.type >> DEFAULT
 
         mapFileRepo = Mock(MapFileRepo)
         mapFileRepo.getWorldmap(MAP_NAME) >> WORLD_MAP
@@ -56,6 +57,7 @@ class MapEditorServiceSpec extends Specification implements GameStateAssertions 
 
         worldMapService = Mock(WorldMapService)
         worldMapService.generateMap(MAP_WIDTH, MAP_HEIGHT) >> WORLD_MAP
+        worldMapService.getWorldMap(MAP_ID) >> WORLD_MAP
 
         mapEditorRepo = Mock(MapEditorRepo)
         mapEditorRepo.getMapEditor(GAME_UUID) >> mapEditorWithMenu()
@@ -202,7 +204,38 @@ class MapEditorServiceSpec extends Specification implements GameStateAssertions 
 
         then: "nothing is returned"
         mapEditorWithGeneratedMap == null
+    }
 
+
+    def "saving uses full map from db and not partial state from json"(){
+        given: "a full map in the db"
+        Game fullMapEditor = mapEditorWithLoadedMap()
+
+        and: "a partial map json"
+        Game partialMapEditor = mapEditorWithPartialMap()
+
+        when: "the map is saved"
+        Game updatedEditor = mapEditorService.updateMap(partialMapEditor, MAP_NAME)
+
+        then: "the map editor with the full map is returned"
+        1 * mapFileRepo.updateWorldMap(MAP_NAME, WORLD_MAP) >> true
+        updatedEditor != null
+        updatedEditor.toJson() == fullMapEditor.toJson()
+    }
+
+    Game mapEditorWithPartialMap() {
+        Game mapEditor = initalMapEditorWithId()
+        mapEditor.setWorldMap(aPartialWorldMap())
+        mapEditor.setSelectedTileType(LAND_GRASS)
+        return mapEditor
+    }
+
+    WorldMap aPartialWorldMap() {
+        WorldMap worldMap = new WorldMap(MAP_ID, MAP_TITLE, MAP_NAME, MAP_WIDTH, MAP_HEIGHT)
+        List<Tile> tiles = new ArrayList<>()
+        tiles.add(aTile('1',1,1))
+        worldMap.setTiles(tiles)
+        return worldMap
     }
 
     Game mapEditor() {
@@ -219,6 +252,7 @@ class MapEditorServiceSpec extends Specification implements GameStateAssertions 
     Game mapEditorWithMenuAndWorldMap() {
         Game mapEditor = mapEditorWithMenu()
         mapEditor.setWorldMap(WORLD_MAP)
+        mapEditor.setSelectedTileType(LAND_GRASS)
         return mapEditor
     }
 
