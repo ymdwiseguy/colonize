@@ -100,7 +100,7 @@ class MovementServiceSpec extends Specification {
 
     def "a ship can not move over land tiles"() {
         given: "a map with a land tile and a ship"
-        Tile tile = new Tile(UUID.randomUUID().toString(), MAP_ID, 2, 2, TileType.LAND_GRASS)
+        Tile tile = new Tile(UUID.randomUUID().toString(), MAP_ID, 2, 2, TileType.LAND_GRASS, null)
         WorldMap worldMap = aWorldmap(tile)
 
         when: "the ship tries to move onto the land tile"
@@ -137,7 +137,7 @@ class MovementServiceSpec extends Specification {
                 if (specialTile && specialTile.getxCoordinate() == xCoord && specialTile.getyCoordinate() == yCoord) {
                     tileList.add(specialTile)
                 } else {
-                    Tile newTile = new Tile(UUID.randomUUID().toString(), worldmapId, xCoord, yCoord, TileType.OCEAN_DEEP)
+                    Tile newTile = new Tile(UUID.randomUUID().toString(), worldmapId, xCoord, yCoord, TileType.OCEAN_DEEP, null)
                     tileList.add(newTile)
                 }
             }

@@ -2,6 +2,7 @@ package com.ymdwiseguy.col.worldmap
 
 import com.ymdwiseguy.Colonization
 import com.ymdwiseguy.col.worldmap.tile.Tile
+import com.ymdwiseguy.col.worldmap.tile.TileAssets
 import com.ymdwiseguy.col.worldmap.tile.TileRepo
 import com.ymdwiseguy.col.worldmap.tile.TileType
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,44 +24,61 @@ class TileRepoSpec extends Specification {
     @Subject
     TileRepo tileRepo
 
+    String WORLD_MAP_ID
+
     Tile TILE
     Tile TILE2
     Tile TILE3
-    String WORLD_MAP_ID
+    Tile TILE4
+
     String TILE_ID
     String TILE_ID2
     String TILE_ID3
+    String TILE_ID4
+
+    TileAssets TILE_ASSETS
+
     int X_COORDINATE
     int Y_COORDINATE
+
     TileType TILE_TYPE
 
     def setup() {
+
         TILE_ID = UUID.randomUUID().toString()
         TILE_ID2 = UUID.randomUUID().toString()
         TILE_ID3 = UUID.randomUUID().toString()
+        TILE_ID4 = UUID.randomUUID().toString()
+
         WORLD_MAP_ID = UUID.randomUUID().toString()
         X_COORDINATE = 5
         Y_COORDINATE = 6
+
+        TILE_ASSETS = new TileAssets()
+        TILE_ASSETS.setForest(true)
+        TILE_ASSETS.setRiver(true)
+
         TILE_TYPE = TileType.OCEAN_DEEP
-        TILE = new Tile(TILE_ID, WORLD_MAP_ID, X_COORDINATE, Y_COORDINATE, TILE_TYPE)
-        TILE2 = new Tile(TILE_ID2, WORLD_MAP_ID, X_COORDINATE, Y_COORDINATE, TILE_TYPE)
-        TILE3 = new Tile(TILE_ID3, WORLD_MAP_ID, X_COORDINATE, Y_COORDINATE, TILE_TYPE)
+        TILE = new Tile(TILE_ID, WORLD_MAP_ID, X_COORDINATE, Y_COORDINATE, TILE_TYPE, null)
+        TILE2 = new Tile(TILE_ID2, WORLD_MAP_ID, X_COORDINATE, Y_COORDINATE, TILE_TYPE, null)
+        TILE3 = new Tile(TILE_ID3, WORLD_MAP_ID, X_COORDINATE, Y_COORDINATE, TILE_TYPE, null)
+        TILE4 = new Tile(TILE_ID4, WORLD_MAP_ID, X_COORDINATE, Y_COORDINATE, TILE_TYPE, TILE_ASSETS)
 
         tileRepo = new TileRepo(jdbcTemplate)
     }
 
-    def "Tile CRUD"() {
+    def "Tile CRUD with Assets"() {
         when: "the tile is saved"
-        String tileId = tileRepo.createTile(TILE)
+        String tileId = tileRepo.createTile(TILE4)
 
         then: "a tile id is returned"
-        tileId == TILE_ID
+        tileId == TILE_ID4
 
         when: "the tile is fetched"
         Optional<Tile> fetchedTile = tileRepo.getTile(tileId)
 
         then: "it has the expected parameters"
-        assertTile(fetchedTile)
+        assertTile(fetchedTile, TILE4)
 
         when: "the tile is changed"
         Tile updatedTile = fetchedTile.get()
@@ -72,7 +90,7 @@ class TileRepoSpec extends Specification {
         tileRepo.updateTile(updatedTile)
 
         and: "the changed tile is fetched"
-        Optional<Tile> fetchedUpdatedTile = tileRepo.getTile(TILE_ID)
+        Optional<Tile> fetchedUpdatedTile = tileRepo.getTile(TILE_ID4)
 
         then: "it has the expected parameters"
         assertTile(fetchedUpdatedTile, updatedTile)
@@ -80,7 +98,7 @@ class TileRepoSpec extends Specification {
 
     def "save several new Tiles"() {
         given: "a list of tiles"
-        ArrayList<Tile> tiles = [TILE, TILE2, TILE3]
+        ArrayList<Tile> tiles = [TILE, TILE2, TILE3, TILE4]
 
         when: "the list is beeing saved"
         tileRepo.createTiles(tiles)
@@ -89,10 +107,12 @@ class TileRepoSpec extends Specification {
         List<Tile> fetchedTileList = tileRepo.getTiles(WORLD_MAP_ID)
 
         then: "the items can be called from the db"
-        fetchedTileList.size() == 3
+        fetchedTileList.size() == 4
         fetchedTileList.get(0).getTileId() == TILE.getTileId()
         fetchedTileList.get(1).getTileId() == TILE2.getTileId()
         fetchedTileList.get(2).getTileId() == TILE3.getTileId()
+        fetchedTileList.get(3).getTileId() == TILE4.getTileId()
+        fetchedTileList.get(3).toJson() == TILE4.toJson()
     }
 
     def "getting a limited number of tiles by radius"() {
@@ -138,9 +158,10 @@ class TileRepoSpec extends Specification {
         for (int y = 1; y <= width; y++) {
             for (int x = 1; x <= width; x++) {
                 Tile tile = new Tile(
-                    'tile'+x.toString()+y.toString(), worldMapId,
+                    'tile' + x.toString() + y.toString(), worldMapId,
                     x, y,
-                    TILE_TYPE
+                    TILE_TYPE,
+                    null
                 )
                 tiles.add(tile)
             }
@@ -152,11 +173,7 @@ class TileRepoSpec extends Specification {
 
     def assertTile(Optional<Tile> result, Tile comparator = TILE) {
         assert result.isPresent()
-        Tile resultTile = result.get()
-        assert resultTile.getTileId() == comparator.getTileId()
-        assert resultTile.getxCoordinate() == comparator.getxCoordinate()
-        assert resultTile.getyCoordinate() == comparator.getyCoordinate()
-        assert resultTile.getType() == comparator.getType()
+        assert result.get().toJson() == comparator.toJson()
         return true
     }
 }

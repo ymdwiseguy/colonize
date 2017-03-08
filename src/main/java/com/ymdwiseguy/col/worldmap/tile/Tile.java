@@ -3,16 +3,11 @@ package com.ymdwiseguy.col.worldmap.tile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ymdwiseguy.col.worldmap.WorldMap;
-import org.slf4j.Logger;
 
 import java.io.IOException;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
 public class Tile {
 
-
-    private static final Logger LOGGER = getLogger(Tile.class);
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private String tileId;
@@ -20,17 +15,19 @@ public class Tile {
     private int xCoordinate;
     private int yCoordinate;
     private TileType type;
+    private TileAssets assets;
 
     public Tile(){
 
     }
 
-    public Tile(String tile_id, String world_map_id, int x_coordinate, int y_coordinate, TileType type) {
+    public Tile(String tile_id, String world_map_id, int x_coordinate, int y_coordinate, TileType type, TileAssets assets) {
         this.setTileId(tile_id);
         this.setWorldMapId(world_map_id);
         this.setxCoordinate(x_coordinate);
         this.setyCoordinate(y_coordinate);
         this.setType(type);
+        this.setAssets(assets);
     }
 
     public String getTileId() {
@@ -71,6 +68,14 @@ public class Tile {
 
     public void setType(TileType type) {
         this.type = type;
+    }
+
+    public TileAssets getAssets() {
+        return assets;
+    }
+
+    public void setAssets(TileAssets assets) {
+        this.assets = assets;
     }
 
     public String toJson() {

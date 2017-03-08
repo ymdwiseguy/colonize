@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS tile (
     world_map_id VARCHAR,
     x_coordinate INT,
     y_coordinate INT,
-    type VARCHAR
+    type VARCHAR,
+    assets VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS unit (

@@ -28,7 +28,7 @@ trait WorldMaps {
     }
 
     Tile aTile(String id, int x, int y) {
-        Tile tile = new Tile(id, MAP_ID, x, y, OCEAN_DEEP)
+        Tile tile = new Tile(id, MAP_ID, x, y, OCEAN_DEEP, null)
         return tile
     }
 
@@ -50,13 +50,15 @@ trait WorldMaps {
             '      "worldMapId" : "mapId",\n' +
             '      "xCoordinate" : 1,\n' +
             '      "yCoordinate" : 1,\n' +
-            '      "type" : "OCEAN_DEEP"\n' +
+            '      "type" : "OCEAN_DEEP",\n' +
+            '      "assets" : null\n' +
             '    }, {\n' +
             '      "tileId" : "2",\n' +
             '      "worldMapId" : "mapId",\n' +
             '      "xCoordinate" : 2,\n' +
             '      "yCoordinate" : 1,\n' +
-            '      "type" : "OCEAN_DEEP"\n' +
+            '      "type" : "OCEAN_DEEP",\n' +
+            '      "assets" : null\n' +
             '    } ]'
     }
 }

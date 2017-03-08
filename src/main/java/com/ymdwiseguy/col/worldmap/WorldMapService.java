@@ -101,7 +101,7 @@ public class WorldMapService {
         List<Tile> tileList = new ArrayList<>();
         for (int rowCount = 1; rowCount <= height; rowCount++) {
             for (int tileCount = 1; tileCount <= width; tileCount++) {
-                Tile newTile = new Tile(UUID.randomUUID().toString(), mapId, tileCount, rowCount, TileType.OCEAN_DEEP);
+                Tile newTile = new Tile(UUID.randomUUID().toString(), mapId, tileCount, rowCount, TileType.OCEAN_DEEP, null);
                 tileList.add(newTile);
             }
         }

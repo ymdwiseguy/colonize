@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class TileRepo {
         if (tile.getTileId() == null) {
             tile.setTileId(UUID.randomUUID().toString());
         }
-        final String sql = "INSERT INTO tile (tile_id,world_map_id,x_coordinate,y_coordinate,type) VALUES (?,?,?,?,?)";
+        final String sql = "INSERT INTO tile (tile_id,world_map_id,x_coordinate,y_coordinate,type,assets) VALUES (?,?,?,?,?,?)";
 
         try {
             jdbcTemplate.update(sql, post -> {
@@ -52,7 +53,7 @@ public class TileRepo {
     @Transactional(propagation = Propagation.REQUIRED)
     public void createTiles(List<Tile> tiles) {
 
-        final String sql = "INSERT INTO tile (tile_id,world_map_id,x_coordinate,y_coordinate,type) VALUES (?,?,?,?,?)";
+        final String sql = "INSERT INTO tile (tile_id,world_map_id,x_coordinate,y_coordinate,type,assets) VALUES (?,?,?,?,?,?)";
 
         try {
             jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
@@ -67,6 +68,7 @@ public class TileRepo {
                     ps.setInt(3, tile.getxCoordinate());
                     ps.setInt(4, tile.getyCoordinate());
                     ps.setString(5, tile.getType().toString());
+                    ps.setString(6, (tile.getAssets() == null ? null : tile.getAssets().toJson()));
                 }
 
                 @Override
@@ -85,13 +87,27 @@ public class TileRepo {
     public Optional<Tile> getTile(String tileId) {
         final String sql = "SELECT * FROM tile WHERE tile_id=?";
 
-        RowMapper<Tile> tileRowMapper = (resultSet, rowNum) -> new Tile(
-            resultSet.getString("tile_id"),
-            resultSet.getString("world_map_id"),
-            resultSet.getInt("x_coordinate"),
-            resultSet.getInt("y_coordinate"),
-            TileType.valueOf(resultSet.getString("type"))
-        );
+        RowMapper<Tile> tileRowMapper = (resultSet, rowNum) -> {
+            try {
+                return new Tile(
+                    resultSet.getString("tile_id"),
+                    resultSet.getString("world_map_id"),
+                    resultSet.getInt("x_coordinate"),
+                    resultSet.getInt("y_coordinate"),
+                    TileType.valueOf(resultSet.getString("type")),
+                    new TileAssets().fromJson(resultSet.getString("assets"))
+                );
+            } catch (IOException | NullPointerException e) {
+                return new Tile(
+                    resultSet.getString("tile_id"),
+                    resultSet.getString("world_map_id"),
+                    resultSet.getInt("x_coordinate"),
+                    resultSet.getInt("y_coordinate"),
+                    TileType.valueOf(resultSet.getString("type")),
+                    null
+                );
+            }
+        };
         try {
             LOGGER.info("Fetched tile with tile_id '{}'", tileId);
             return Optional.ofNullable(jdbcTemplate.queryForObject(sql, tileRowMapper, tileId));
@@ -132,24 +148,38 @@ public class TileRepo {
     }
 
     private RowMapper<Tile> getRowmapper() {
-        return (resultSet, rowNum) -> new Tile(
-            resultSet.getString("tile_id"),
-            resultSet.getString("world_map_id"),
-            resultSet.getInt("x_coordinate"),
-            resultSet.getInt("y_coordinate"),
-            TileType.valueOf(resultSet.getString("type"))
-        );
+        return (resultSet, rowNum) -> {
+            try {
+                return new Tile(
+                    resultSet.getString("tile_id"),
+                    resultSet.getString("world_map_id"),
+                    resultSet.getInt("x_coordinate"),
+                    resultSet.getInt("y_coordinate"),
+                    TileType.valueOf(resultSet.getString("type")),
+                    new TileAssets().fromJson(resultSet.getString("assets"))
+                );
+            } catch (IOException | NullPointerException e) {
+                return new Tile(
+                    resultSet.getString("tile_id"),
+                    resultSet.getString("world_map_id"),
+                    resultSet.getInt("x_coordinate"),
+                    resultSet.getInt("y_coordinate"),
+                    TileType.valueOf(resultSet.getString("type")),
+                    new TileAssets()
+                );
+            }
+        };
     }
 
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void updateTile(Tile tile) {
-        final String sql = "UPDATE tile SET tile_id = ?, world_map_id = ?, x_coordinate = ?, y_coordinate = ?, type = ? WHERE tile_id = ?";
+        final String sql = "UPDATE tile SET tile_id = ?, world_map_id = ?, x_coordinate = ?, y_coordinate = ?, type = ?, assets = ? WHERE tile_id = ?";
 
         try {
             jdbcTemplate.update(sql, post -> {
                 populateTileStatement(tile, post);
-                post.setString(6, tile.getTileId());
+                post.setString(7, tile.getTileId());
             });
             LOGGER.info("Updated tile '{} {}'", tile.getxCoordinate(), tile.getyCoordinate());
         } catch (ConstraintViolationException cve) {
@@ -159,7 +189,7 @@ public class TileRepo {
     }
 
     public List<Tile> updateTiles(List<Tile> tiles) {
-        final String sql = "UPDATE tile SET tile_id = ?, world_map_id = ?, x_coordinate = ?, y_coordinate = ?, type = ? WHERE tile_id = ?";
+        final String sql = "UPDATE tile SET tile_id = ?, world_map_id = ?, x_coordinate = ?, y_coordinate = ?, type = ?, assets = ? WHERE tile_id = ?";
 
         try {
             jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
@@ -167,7 +197,7 @@ public class TileRepo {
                 public void setValues(PreparedStatement ps, int i) throws SQLException {
                     Tile tile = tiles.get(i);
                     populateTileStatement(tile, ps);
-                    ps.setString(6, tile.getTileId());
+                    ps.setString(7, tile.getTileId());
                 }
 
                 @Override
@@ -188,7 +218,7 @@ public class TileRepo {
         post.setInt(3, tile.getxCoordinate());
         post.setInt(4, tile.getyCoordinate());
         post.setString(5, tile.getType().toString());
-
+        post.setString(6, (tile.getAssets() != null ? tile.getAssets().toJson() : null));
     }
 
 }
