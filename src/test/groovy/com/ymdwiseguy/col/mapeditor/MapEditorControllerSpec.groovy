@@ -57,7 +57,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         def result = mapEditorController.startMapEditorJson(null)
 
         then: "a map json is returned"
-        result.body == initialMapEditorJson()
+        result.body == initialMapEditorJson(GAME_UUID)
     }
 
     def "initializing a map editor with popup"() {
@@ -68,7 +68,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         def result = mapEditorController.startMapEditorJson(popupType)
 
         then: "a map json is returned"
-        result.body == initialMapEditorJsonWithPopup()
+        result.body == initialMapEditorJsonWithPopup(GAME_UUID)
     }
 
     def "initializing a map editor with ID"() {
@@ -76,7 +76,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         def result = mapEditorController.getMapEditorDataJson(GAME_UUID, null)
 
         then: "a map json is returned"
-        result.body == initalMapEditorWithIdJson()
+        result.body == initalMapEditorWithIdJson(GAME_UUID)
     }
 
     def "initializing a map editor with ID with popup"() {
@@ -87,7 +87,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         def result = mapEditorController.getMapEditorDataJson(GAME_UUID, popupType)
 
         then: "a map json is returned"
-        result.body == initalMapEditorWithIdWithPopupJson()
+        result.body == initalMapEditorWithIdWithPopupJson(GAME_UUID)
     }
 
     def "get map returns a map from file"() {
@@ -98,7 +98,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         def result = mapEditorController.loadMap(GAME_UUID, MAP_NAME)
 
         then: "a map is returned"
-        result.body == mapEditorWithLoadedMapJson()
+        result.body == mapEditorWithLoadedMapJson(GAME_UUID)
     }
 
     def "generating a map"() {
@@ -109,7 +109,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         def result = mapEditorController.generateMap(GAME_UUID, formData().toJson())
 
         then: "a game state including a new map is returned"
-        result.body == mapEditorWithLoadedMapJson()
+        result.body == mapEditorWithLoadedMapJson(GAME_UUID)
     }
 
     def "trying to generate a map with invalid json data"() {
@@ -125,13 +125,13 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
     def "updating a map"() {
         when: "the update method is called"
-        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(), MAP_NAME)
+        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(GAME_UUID), MAP_NAME)
 
         then: "the service has updated the map successfully"
         1 * mapEditorService.updateMap(_, MAP_NAME) >> mapEditorWithLoadedMap()
 
         and: "the map is updated and returned"
-        result.body == mapEditorWithLoadedMapJson()
+        result.body == mapEditorWithLoadedMapJson(GAME_UUID)
     }
 
     def "trying to update a map with invalid json"() {
@@ -147,7 +147,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
     def "failing update if map is not found"() {
         when: "the update method is called for a unknown map"
-        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(), 'unknown map')
+        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(GAME_UUID), 'unknown map')
 
         then: "the map editor service returns null"
         1 * mapEditorService.updateMap(_, 'unknown map') >> null
@@ -158,7 +158,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
     def "moving the cursor"() {
         given: "an existing game with a cursor position"
-        mapEditorWithLoadedMapJson()
+        mapEditorWithLoadedMapJson(GAME_UUID)
 
         when: "the cursor movement method is called"
         def result = mapEditorController.moveCursor(GAME_UUID, RIGHT, null)
@@ -167,7 +167,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         1 * cursorMovementService.moveCursor(_, RIGHT) >> mapEditorWithLoadedMapAndCursor()
 
         and: "the cursor gets a new position"
-        result.body == mapEditorWithLoadedMapAndCursorJson()
+        result.body == mapEditorWithLoadedMapAndCursorJson(GAME_UUID)
     }
 
     def "setting the active tile type"() {

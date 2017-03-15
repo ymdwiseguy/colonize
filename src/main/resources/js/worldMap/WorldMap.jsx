@@ -1,6 +1,6 @@
 import React from 'react';
 import Unit from '../unit.jsx';
-import Tile from '../tile.jsx';
+import Tile from './Tile.jsx';
 import Cursor from './Cursor.jsx';
 
 

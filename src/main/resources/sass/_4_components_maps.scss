@@ -3,7 +3,6 @@
 // Filename: _4_components_maps.scss
 // **********************************************
 
-
 @keyframes cursorblink {
     0% {
         opacity: 1;
@@ -72,6 +71,16 @@
     position: absolute;
     width: 100px;
     height: 100px;
+
+    .forest {
+        background-image: url("/assets/img/trees.svg");
+        background-size: cover;
+        height: 100px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100px;
+    }
 
     @for $i from 1 through 120 {
         &__x-#{$i} {
@@ -169,6 +178,5 @@
     &__OCEAN_DEEP {
         background-image: url("/assets/img/ocean_dark.svg");
     }
-
 
 }

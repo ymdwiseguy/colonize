@@ -2,6 +2,7 @@ package com.ymdwiseguy.servicetests
 
 import com.ymdwiseguy.Colonization
 import com.ymdwiseguy.col.Game
+import com.ymdwiseguy.col.MapEditorStates
 import com.ymdwiseguy.col.menu.structure.MenuEntry
 import com.ymdwiseguy.col.menu.structure.PopupMenu
 import org.springframework.beans.factory.annotation.Value
@@ -19,43 +20,54 @@ import static org.springframework.http.HttpStatus.OK
 
 @SpringApplicationConfiguration(classes = Colonization.class)
 @WebIntegrationTest("server.port:0")
-class MapEditorServiceSpec extends Specification {
+class MapEditorServiceSpec extends Specification implements MapEditorStates {
 
 
     RestTemplate restTemplate = new TestRestTemplate();
 
     @Value('${local.server.port}')
-    int port = 9090
+    int PORT = 9090
 
 
-    String URL_MAPEDITOR
-    String URL_SHOW_MAPLIST
+    String URL_MAP_EDITOR
+    String URL_MAP_EDITOR_WITH_UUID
     String URL_LOAD_MAP
 
     Game GAME
-    String GAME_ID
     String MAP_NAME
 
     def setup() {
-        URL_MAPEDITOR = "http://localhost:$port/api/mapeditor"
+        URL_MAP_EDITOR = "http://localhost:$PORT/api/mapeditor"
     }
 
+    def createInitialGame() {
+        ResponseEntity<String> initialResponse = getResponseEntity(HttpMethod.GET, URL_MAP_EDITOR)
+        assert initialResponse.statusCode == OK
 
-    def "starting a 'game' from type mapeditor"() {
-        when: "GET is performed"
-        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR)
+        GAME = new Game().fromJson(initialResponse.body)
+        GAME_UUID = GAME.getGameId()
+        assert GAME_UUID != null
 
-        then: "Status is 200 (OK)"
-        responseEntity.statusCode == OK
+        URL_MAP_EDITOR_WITH_UUID = "http://localhost:$PORT/api/mapeditor/$GAME_UUID"
+    }
 
-        and: "response body is not empty"
-        responseEntity.body != ''
+    def "User journey for the map editor"() {
+        when: "program is started (later initial menu)"
+        createInitialGame()
 
-        when: "a game is created from the json"
+        then: "the retrieved JSON is correct"
+        GAME.toJson() == initialMapEditorJson(GAME_UUID)
+
+        when: "the map editor is loaded"
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAP_EDITOR_WITH_UUID)
         GAME = new Game().fromJson(responseEntity.body)
 
-        then: "an id can be retrieved"
-        GAME.getGameId() != ''
+        then: "menus are set"
+        responseEntity.body == initialMapEditorJsonWithMenus(GAME_UUID)
+
+        //TODO: generate a map
+        //TODO: save a map
+
     }
 
     def "loading a 'game' from type mapeditor"() {
@@ -63,11 +75,11 @@ class MapEditorServiceSpec extends Specification {
         createInitialGame()
 
         when: "the mapeditor is called"
-        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR + '/' + GAME_ID)
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAP_EDITOR + '/' + GAME_UUID)
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
         then: "the initiated data is known"
-        editorInstance.getGameId() == GAME_ID
+        editorInstance.getGameId() == GAME_UUID
     }
 
     def "getting a menu"() {
@@ -75,7 +87,7 @@ class MapEditorServiceSpec extends Specification {
         createInitialGame()
 
         when: "the load button is clicked"
-        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR + '/?showPopup=SHOW_MAPLIST')
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAP_EDITOR + '/?showPopup=SHOW_MAPLIST')
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
         then: "a list of maps is returned"
@@ -106,21 +118,14 @@ class MapEditorServiceSpec extends Specification {
         return false
     }
 
-    def createInitialGame() {
-        ResponseEntity<String> initialResponse = getResponseEntity(HttpMethod.GET, URL_MAPEDITOR)
-        GAME = new Game().fromJson(initialResponse.body)
-        GAME_ID = GAME.getGameId()
-        URL_SHOW_MAPLIST = "http://localhost:$port/api/mapeditor/$GAME_ID"
-    }
-
     def getAGameAndGetAMapName() {
         createInitialGame()
 
-        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_SHOW_MAPLIST + '/?showPopup=SHOW_MAPLIST')
+        ResponseEntity<String> responseEntity = getResponseEntity(HttpMethod.GET, URL_MAP_EDITOR_WITH_UUID + '/?showPopup=SHOW_MAPLIST')
         Game editorInstance = new Game().fromJson(responseEntity.body)
 
         MAP_NAME = editorInstance.getPopupMenu().getEntries().get(0).getEntryName()
-        URL_LOAD_MAP = URL_SHOW_MAPLIST + '/maps/' + MAP_NAME
+        URL_LOAD_MAP = URL_MAP_EDITOR_WITH_UUID + '/maps/' + MAP_NAME
     }
 
     ResponseEntity getResponseEntity(HttpMethod method, String url, String body = "nothing here") {
@@ -131,23 +136,5 @@ class MapEditorServiceSpec extends Specification {
         return responseEntity
     }
 
-    String getGameJson() {
-        return """
-    {
-      "gameId" : "94199ef2-33f9-4448-ab27-433f5023cc86",
-      "gameScreen" : "MAPEDITOR",
-      "gameMenu" : {
-        "submenus" : [ {
-          "entryName" : "Editor",
-          "entries" : [ {
-            "entryName" : "Load Map",
-            "endpointUrl" : "/mapeditor/94199ef2-33f9-4448-ab27-433f5023cc86/maps/"
-          } ]
-        } ]
-      },
-      "worldMap" : null,
-      "sideMenu" : null
-    }
-    """
-    }
+
 }
