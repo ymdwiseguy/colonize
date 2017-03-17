@@ -1,6 +1,9 @@
 package com.ymdwiseguy.col
 
-trait MapEditorJsonStates {
+import com.ymdwiseguy.col.worldmap.WorldMap
+import com.ymdwiseguy.col.worldmap.tile.Tile
+
+trait MapEditorJsonStates implements WorldMaps {
 
     String initialMapEditorJson(String gameUuid) {
         '{\n' +
@@ -67,6 +70,62 @@ trait MapEditorJsonStates {
             '}'
     }
 
+    String wolrdMapJson(WorldMap worldMap) {
+        String worldMapId = worldMap.getWorldMapId()
+        assert (worldMapId != null)
+        List<Tile> tiles = worldMap.getTiles()
+
+        '{\n' +
+            '    "worldMapId" : "' + worldMapId + '",\n' +
+            '    "title" : "Generated Test Map in User Journey",\n' +
+            '    "worldMapName" : "generatedtestmap",\n' +
+            '    "tiles" : [ ' + tilesJson(worldMapId, tiles) + ' ],\n' +
+            '    "units" : [ ],\n' +
+            '    "width" : 2,\n' +
+            '    "height" : 2\n' +
+            '  }'
+    }
+
+    String tilesJson(String worldMapId, List<Tile> tiles) {
+
+        String tilesJson = '';
+        int tileCount = 0
+        for (Tile tile : tiles) {
+            tilesJson += '{\n' +
+                '      "tileId" : "' + tile.getTileId() + '",\n' +
+                '      "worldMapId" : "' + worldMapId + '",\n' +
+                '      "xCoordinate" : ' + tile.getxCoordinate() + ',\n' +
+                '      "yCoordinate" : ' + tile.getyCoordinate() + ',\n' +
+                '      "type" : "OCEAN_DEEP",\n' +
+                '      "assets" : {\n' +
+                '        "extra" : null,\n' +
+                '        "forest" : null,\n' +
+                '        "hill" : null,\n' +
+                '        "river" : null,\n' +
+                '        "road" : null\n' +
+                '      }\n' +
+                '    }'
+            tileCount++
+            if (tileCount < tiles.size()) {
+                tilesJson += ', '
+            }
+        }
+        return tilesJson
+    }
+
+    String mapEditorWithGeneratedMapJson(String gameUuid, WorldMap worldMap, String popup = 'null') {
+        '{\n' +
+            '  "gameId" : "' + gameUuid + '",\n' +
+            '  "gameScreen" : "MAPEDITOR",\n' +
+            '  "gameMenu" : ' + gameMainMenuJson(gameUuid) + ',\n' +
+            '  "worldMap" : ' + wolrdMapJson(worldMap) + ',\n' +
+            '  "sideMenu" : ' + sideMenuJson(gameUuid) + ',\n' +
+            '  "popupMenu" : ' + popup + ',\n' +
+            '  "cursor" : ' + cursorJson() + ',\n' +
+            '  "selectedTileType" : null\n' +
+            '}'
+    }
+
     String mapEditorWithLoadedMapJson(String gameUuid) {
         '{\n' +
             '  "gameId" : "' + gameUuid + '",\n' +
@@ -88,7 +147,7 @@ trait MapEditorJsonStates {
             '  "worldMap" : ' + worldMapJson() + ',\n' +
             '  "sideMenu" : ' + mockedSideMenuJson() + ',\n' +
             '  "popupMenu" : null,\n' +
-            '  "cursor" : ' + cursorJson("2","1","true") + ',\n' +
+            '  "cursor" : ' + cursorJson("2", "1", "true") + ',\n' +
             '  "selectedTileType" : "LAND_GRASS"\n' +
             '}'
     }
@@ -174,6 +233,42 @@ trait MapEditorJsonStates {
             '    "header" : null,\n' +
             '    "entries" : null,\n' +
             '    "type" : null\n' +
+            '  }'
+    }
+
+    String saveMapPopup(String gameUuid) {
+        '{\n' +
+            '    "header" : "Overwrite map \'generatedtestmap\'?",\n' +
+            '    "entries" : [ {\n' +
+            '      "entryName" : "Save",\n' +
+            '      "endpointUrl" : "/api/mapeditor/' + gameUuid + '/maps/generatedtestmap",\n' +
+            '      "method" : "PUT",\n' +
+            '      "active" : false\n' +
+            '    }, {\n' +
+            '      "entryName" : "Abort",\n' +
+            '      "endpointUrl" : "/api/mapeditor/' + gameUuid + '",\n' +
+            '      "method" : "GET",\n' +
+            '      "active" : false\n' +
+            '    } ],\n' +
+            '    "type" : "SAVE_MAPEDITOR"\n' +
+            '  }'
+    }
+
+    String loadMapPopup(String gameUuid) {
+        '{\n' +
+            '    "header" : "Load map...",\n' +
+            '    "entries" : [ {\n' +
+            '      "entryName" : "generatedtestmap",\n' +
+            '      "endpointUrl" : "/api/mapeditor/' + gameUuid + '/maps/generatedtestmap",\n' +
+            '      "method" : "GET",\n' +
+            '      "active" : false\n' +
+            '    }, {\n' +
+            '      "entryName" : "testSandbox",\n' +
+            '      "endpointUrl" : "/api/mapeditor/' + gameUuid + '/maps/testSandbox",\n' +
+            '      "method" : "GET",\n' +
+            '      "active" : false\n' +
+            '    } ],\n' +
+            '    "type" : "SHOW_MAPLIST"\n' +
             '  }'
     }
 

@@ -68,7 +68,7 @@ public class MapFileRepo {
         return mapFileHandler.writeDataToFile(mapid, mapData);
     }
 
-    private WorldMap copyWorldMapWithoutIds(WorldMap worldMap) {
+    private static WorldMap copyWorldMapWithoutIds(WorldMap worldMap) {
         WorldMap worldMapCopy = new WorldMap(null);
 
         List<Tile> strippedTiles = new ArrayList<>();
@@ -77,6 +77,7 @@ public class MapFileRepo {
             strippedTile.setType(tile.getType());
             strippedTile.setxCoordinate(tile.getxCoordinate());
             strippedTile.setyCoordinate(tile.getyCoordinate());
+            strippedTile.setAssets(tile.getAssets());
             strippedTiles.add(strippedTile);
         }
         worldMapCopy.setTiles(strippedTiles);

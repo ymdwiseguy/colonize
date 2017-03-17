@@ -99,13 +99,16 @@ public class MapEditorController {
 
     // PUT MAP - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/maps/{mapName}", method = PUT)
-    public ResponseEntity updateMap(@RequestBody String gameJson, @PathVariable String mapName) {
+    public ResponseEntity updateMap(@RequestBody String gameJson, @PathVariable String mapName, @PathVariable String gameId) {
         Game game;
         try {
             game = new Game().fromJson(gameJson);
         } catch (IOException e) {
             LOGGER.info("Invalid json data: {}", e);
             return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
+        }
+        if(!Objects.equals(game.getGameId(), gameId)){
+            return new ResponseEntity<>("{}", HttpStatus.FORBIDDEN);
         }
         Game mapEditor = mapEditorService.updateMap(game, mapName);
         if (mapEditor == null) {
@@ -123,7 +126,16 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // PUT Set Tile - JSON
+    // PUT Set active Tile - JSON
+    @RequestMapping(value = "/api/mapeditor/{gameId}/selecttiletype/{tileType}", method = PUT, produces = "application/json")
+    public ResponseEntity selectTileType(@PathVariable String gameId, @PathVariable TileType tileType, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+        mapEditor.setSelectedTileType(tileType);
+        mapEditor = mapEditorRepo.update(mapEditor);
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+    }
+
+    // PUT Overwrite Tile - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/activetile", method = PUT, produces = "application/json")
     public ResponseEntity setActiveTile(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
@@ -132,15 +144,6 @@ public class MapEditorController {
         Tile tile = mapEditor.getWorldMap().getTileByCoordinates(cursorX, cursorY);
         tile.setType(mapEditor.getSelectedTileType());
         tileRepo.updateTile(tile);
-        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
-    }
-
-    // PUT Set Tile - JSON
-    @RequestMapping(value = "/api/mapeditor/{gameId}/selecttiletype/{tileType}", method = PUT, produces = "application/json")
-    public ResponseEntity selectTileType(@PathVariable String gameId, @PathVariable TileType tileType, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
-        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
-        mapEditor.setSelectedTileType(tileType);
-        mapEditor = mapEditorRepo.update(mapEditor);
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 

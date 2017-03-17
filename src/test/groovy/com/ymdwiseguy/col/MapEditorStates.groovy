@@ -10,7 +10,7 @@ import com.ymdwiseguy.col.worldmap.WorldMap
 import static com.ymdwiseguy.col.GameScreen.MAPEDITOR
 import static com.ymdwiseguy.col.worldmap.tile.TileType.LAND_GRASS
 
-trait MapEditorStates implements MapEditorJsonStates, WorldMaps {
+trait MapEditorStates implements MapEditorJsonStates {
 
     String GAME_UUID = "4ad885e1-50a1-4c3f-914d-4e12b099dbf0"
     Cursor CURSOR = new Cursor(1, 1)
@@ -80,12 +80,12 @@ trait MapEditorStates implements MapEditorJsonStates, WorldMaps {
         return mapEditor
     }
 
-    FormData formData() {
+    FormData formData(String name = MAP_NAME, String title = MAP_TITLE, int width = 5, int height = 5) {
         FormData formData = new FormData()
-        formData.setName(MAP_NAME)
-        formData.setTitle(MAP_TITLE)
-        formData.setWidth(5)
-        formData.setHeight(5)
+        formData.setName(name)
+        formData.setTitle(title)
+        formData.setWidth(width)
+        formData.setHeight(height)
 
         return formData
     }

@@ -125,7 +125,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
     def "updating a map"() {
         when: "the update method is called"
-        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(GAME_UUID), MAP_NAME)
+        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(GAME_UUID), MAP_NAME, GAME_UUID)
 
         then: "the service has updated the map successfully"
         1 * mapEditorService.updateMap(_, MAP_NAME) >> mapEditorWithLoadedMap()
@@ -136,7 +136,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
     def "trying to update a map with invalid json"() {
         when: "the update method is called"
-        def result = mapEditorController.updateMap('{ bla }', MAP_NAME)
+        def result = mapEditorController.updateMap('{ bla }', MAP_NAME, GAME_UUID)
 
         then: "status BAD_REQUEST is returned"
         result.statusCode == BAD_REQUEST
@@ -147,7 +147,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
     def "failing update if map is not found"() {
         when: "the update method is called for a unknown map"
-        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(GAME_UUID), 'unknown map')
+        def result = mapEditorController.updateMap(mapEditorWithLoadedMapJson(GAME_UUID), 'unknown map', GAME_UUID)
 
         then: "the map editor service returns null"
         1 * mapEditorService.updateMap(_, 'unknown map') >> null

@@ -61,7 +61,7 @@ public class FormData {
         }
     }
 
-    public FormData fromJson(String popupMenu) throws IOException {
-        return mapper.reader().forType(FormData.class).readValue(popupMenu);
+    public FormData fromJson(String jsonData) throws IOException {
+        return mapper.reader().forType(FormData.class).readValue(jsonData);
     }
 }
