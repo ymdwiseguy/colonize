@@ -98,11 +98,9 @@ trait MapEditorJsonStates implements WorldMaps {
                 '      "yCoordinate" : ' + tile.getyCoordinate() + ',\n' +
                 '      "type" : "OCEAN_DEEP",\n' +
                 '      "assets" : {\n' +
-                '        "extra" : null,\n' +
-                '        "forest" : null,\n' +
-                '        "hill" : null,\n' +
-                '        "river" : null,\n' +
-                '        "road" : null\n' +
+                '        "forest" : false,\n' +
+                '        "hill" : false,\n' +
+                '        "river" : false\n' +
                 '      }\n' +
                 '    }'
             tileCount++

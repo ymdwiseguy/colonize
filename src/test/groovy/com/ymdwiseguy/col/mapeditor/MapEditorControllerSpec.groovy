@@ -4,6 +4,7 @@ import com.ymdwiseguy.col.Game
 import com.ymdwiseguy.col.MapEditorStates
 import com.ymdwiseguy.col.cursor.CursorMovementService
 import com.ymdwiseguy.col.menu.structure.PopupType
+import com.ymdwiseguy.col.worldmap.tile.TileAssetToggler
 import com.ymdwiseguy.col.worldmap.tile.TileRepo
 import spock.lang.Specification
 import spock.lang.Subject
@@ -23,6 +24,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
     CursorMovementService cursorMovementService
     MapEditorRepo mapEditorRepo
     TileRepo tileRepo
+    TileAssetToggler tileAssetToggler
 
     Game expectedUpdateResult
     String ANOTER_GAME_UUID
@@ -49,7 +51,9 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
         tileRepo = Mock(TileRepo)
 
-        mapEditorController = new MapEditorController(mapEditorView, mapEditorService, cursorMovementService, mapEditorRepo, tileRepo)
+        tileAssetToggler = Mock(TileAssetToggler)
+
+        mapEditorController = new MapEditorController(mapEditorView, mapEditorService, cursorMovementService, mapEditorRepo, tileRepo, tileAssetToggler)
     }
 
     def "initializing a map editor"() {

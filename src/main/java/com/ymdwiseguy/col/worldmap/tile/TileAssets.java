@@ -9,18 +9,17 @@ public class TileAssets {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    private Boolean extra;
-    private Boolean forest;
-    private Boolean hill;
-    private Boolean river;
-    private Boolean road;
+    private Boolean forest = false;
+    private Boolean hill = false;
+    private Boolean river = false;
 
-    public Boolean getExtra() {
-        return extra;
+    public TileAssets() {
     }
 
-    public void setExtra(Boolean extra) {
-        this.extra = extra;
+    public TileAssets(Boolean forest, Boolean hill, Boolean river) {
+        this.forest = forest;
+        this.hill = hill;
+        this.river = river;
     }
 
     public Boolean getForest() {
@@ -45,14 +44,6 @@ public class TileAssets {
 
     public void setRiver(Boolean river) {
         this.river = river;
-    }
-
-    public Boolean getRoad() {
-        return road;
-    }
-
-    public void setRoad(Boolean road) {
-        this.road = road;
     }
 
     public String toJson() {

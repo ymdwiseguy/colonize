@@ -5,6 +5,8 @@ import com.ymdwiseguy.col.cursor.CursorMovementService;
 import com.ymdwiseguy.col.menu.structure.PopupType;
 import com.ymdwiseguy.col.worldmap.movement.UnitDirection;
 import com.ymdwiseguy.col.worldmap.tile.Tile;
+import com.ymdwiseguy.col.worldmap.tile.TileAssetToggler;
+import com.ymdwiseguy.col.worldmap.tile.TileAssetType;
 import com.ymdwiseguy.col.worldmap.tile.TileRepo;
 import com.ymdwiseguy.col.worldmap.tile.TileType;
 import org.slf4j.Logger;
@@ -35,35 +37,37 @@ public class MapEditorController {
     private final CursorMovementService cursorMovementService;
     private final MapEditorRepo mapEditorRepo;
     private final TileRepo tileRepo;
+    private final TileAssetToggler tileAssetToggler;
 
     @Inject
-    public MapEditorController(MapEditorView mapEditorView, MapEditorService mapEditorService, CursorMovementService cursorMovementService, MapEditorRepo mapEditorRepo, TileRepo tileRepo) {
+    public MapEditorController(MapEditorView mapEditorView, MapEditorService mapEditorService, CursorMovementService cursorMovementService, MapEditorRepo mapEditorRepo, TileRepo tileRepo, TileAssetToggler tileAssetToggler) {
         this.mapEditorView = mapEditorView;
         this.mapEditorService = mapEditorService;
         this.cursorMovementService = cursorMovementService;
         this.mapEditorRepo = mapEditorRepo;
         this.tileRepo = tileRepo;
+        this.tileAssetToggler = tileAssetToggler;
     }
 
-    // GET - HTML initial
+    // GET - map editor HTML initial
     @RequestMapping(value = "/mapeditor", method = GET)
     public ResponseEntity startMapEditor(@RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         return initMapEditor(null, null, showPopup);
     }
 
-    // GET - HTML with ID
+    // GET - map editor HTML with ID
     @RequestMapping(value = "/mapeditor/{gameId}", method = GET)
     public ResponseEntity getMapEditorData(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         return initMapEditor(gameId, null, showPopup);
     }
 
-    // GET - JSON initial
+    // GET - map editor JSON initial
     @RequestMapping(value = "/api/mapeditor", method = GET, produces = "application/json")
     public ResponseEntity startMapEditorJson(@RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         return initMapEditor(null, "application/json", showPopup);
     }
 
-    // GET - JSON with ID
+    // GET - map editor JSON with ID
     @RequestMapping(value = "/api/mapeditor/{gameId}", method = GET, produces = "application/json")
     public ResponseEntity getMapEditorDataJson(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         return initMapEditor(gameId, "application/json", showPopup);
@@ -107,7 +111,7 @@ public class MapEditorController {
             LOGGER.info("Invalid json data: {}", e);
             return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
         }
-        if(!Objects.equals(game.getGameId(), gameId)){
+        if (!Objects.equals(game.getGameId(), gameId)) {
             return new ResponseEntity<>("{}", HttpStatus.FORBIDDEN);
         }
         Game mapEditor = mapEditorService.updateMap(game, mapName);
@@ -117,7 +121,7 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // PUT Cursor - JSON
+    // PUT cursor - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/movecursor/{direction}", method = PUT, produces = "application/json")
     public ResponseEntity moveCursor(@PathVariable String gameId, @PathVariable UnitDirection direction, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
@@ -126,7 +130,7 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // PUT Set active Tile - JSON
+    // PUT Set active tile - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/selecttiletype/{tileType}", method = PUT, produces = "application/json")
     public ResponseEntity selectTileType(@PathVariable String gameId, @PathVariable TileType tileType, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
@@ -135,16 +139,33 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // PUT Overwrite Tile - JSON
+    // PUT Overwrite tile - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/activetile", method = PUT, produces = "application/json")
     public ResponseEntity setActiveTile(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
         int cursorX = mapEditor.getCursor().getxPosition();
         int cursorY = mapEditor.getCursor().getyPosition();
+
         Tile tile = mapEditor.getWorldMap().getTileByCoordinates(cursorX, cursorY);
         tile.setType(mapEditor.getSelectedTileType());
         tileRepo.updateTile(tile);
+
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
+    // PUT toggle tile asset
+    @RequestMapping(value = "/api/mapeditor/{gameId}/toggleasset/{tileAssetType}", method = PUT, produces = "application/json")
+    public ResponseEntity toggleTileAsset(@PathVariable String gameId, @PathVariable TileAssetType tileAssetType, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+        int cursorX = mapEditor.getCursor().getxPosition();
+        int cursorY = mapEditor.getCursor().getyPosition();
+
+        Tile tile = mapEditor.getWorldMap().getTileByCoordinates(cursorX, cursorY);
+        tile = tileAssetToggler.toggleAsset(tile, tileAssetType);
+        tileRepo.updateTile(tile);
+
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+    }
 }

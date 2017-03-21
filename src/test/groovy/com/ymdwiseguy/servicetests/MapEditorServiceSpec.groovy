@@ -40,6 +40,7 @@ class MapEditorServiceSpec extends Specification implements MapEditorStates {
     String URL_MOVE_CURSOR
     String URL_SET_ACTIVE_TILE_TYPE
     String URL_OVERWRITE_ACTIVE_TILE
+    String URL_TOGGLE_TILE_ASSET
 
     Game GAME
 
@@ -61,6 +62,7 @@ class MapEditorServiceSpec extends Specification implements MapEditorStates {
         URL_MOVE_CURSOR = "http://localhost:$PORT/api/mapeditor/$GAME_UUID/movecursor/"
         URL_SET_ACTIVE_TILE_TYPE = "http://localhost:$PORT/api/mapeditor/$GAME_UUID/selecttiletype/"
         URL_OVERWRITE_ACTIVE_TILE = "http://localhost:$PORT/api/mapeditor/$GAME_UUID/activetile"
+        URL_TOGGLE_TILE_ASSET = "http://localhost:$PORT/api/mapeditor/$GAME_UUID/toggleasset/"
     }
 
     def "User journey for the map editor"() {
@@ -134,10 +136,18 @@ class MapEditorServiceSpec extends Specification implements MapEditorStates {
 
         when: "the active tile is overwritten"
         ResponseEntity<String> entityChangedActiveTile = getResponseEntity(PUT, URL_OVERWRITE_ACTIVE_TILE)
-        GAME.getWorldMap().getTileByCoordinates(2,1).setType(LAND_GRASS)
+        GAME.getWorldMap().getTileByCoordinates(2, 1).setType(LAND_GRASS)
 
         then: "the tile has changed"
         entityChangedActiveTile.body == GAME.toJson()
+
+        when: "the asset of a tile is toggled"
+        ResponseEntity<String> entityToggledTileAsset = getResponseEntity(PUT, URL_TOGGLE_TILE_ASSET + 'FOREST')
+        GAME.getWorldMap().getTileByCoordinates(2, 1).getAssets().setForest(true)
+
+        then: "the chosen tile now has forest for example"
+        entityToggledTileAsset.body == GAME.toJson()
+
     }
 
     ResponseEntity getResponseEntity(HttpMethod method, String url, String body = "nothing here", String contentType = "application/json; charset=utf-8") {
