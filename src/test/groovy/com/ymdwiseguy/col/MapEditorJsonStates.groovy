@@ -186,24 +186,16 @@ trait MapEditorJsonStates implements WorldMaps {
             '    "header" : "Select Tiles",\n' +
             '    "entries" : [ ' +
             selectTileMenuEntryJson(gameUuid, "LAND_ARCTIC") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_BOREAL_FOREST") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_BROADLEAF_FOREST") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_CONIFER_FOREST") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_DESERT") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_GRASS") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_HILLS") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_MARSH") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_MIXED_FOREST") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_MOUNTAINS") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_PLAINS") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_PRAIRIE") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_RAIN_FOREST") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_SAVANNAH") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_SCRUB_FOREST") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_SWAMP") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_TROPICAL_FOREST") + ', ' +
             selectTileMenuEntryJson(gameUuid, "LAND_TUNDRA") + ', ' +
-            selectTileMenuEntryJson(gameUuid, "LAND_WETLAND_FOREST") + ', ' +
             selectTileMenuEntryJson(gameUuid, "OCEAN_DEEP") + ', ' +
             selectTileMenuEntryJson(gameUuid, "OCEAN_SHALLOW") +
             ' ]\n' +

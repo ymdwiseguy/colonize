@@ -16,6 +16,9 @@ public class TileAssetToggler {
         }
 
         TileAssets tA = tile.getAssets();
+        if(tA == null){
+            tA = new TileAssets();
+        }
         switch (assetType) {
             case FOREST:
                 if (tA.getForest()) {
