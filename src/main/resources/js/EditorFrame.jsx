@@ -79,23 +79,34 @@ class EditorFrame extends React.Component {
 
     handleKeyDown(event) {
 
-        let url = '/api/mapeditor/' + this.props.game.gameId + '/movecursor/';
+        let putTileUrl = '/api/mapeditor/' + this.props.game.gameId + '/movecursor/';
+        let putAssetUrl = '/api/mapeditor/' + this.props.game.gameId + '/toggleasset/';
 
         switch (event.keyCode) {
             case 32: // space
                 this.updateState('/api/mapeditor/' + this.props.game.gameId + '/activetile', 'PUT');
                 break;
             case 37: // left
-                this.updateState(url + 'LEFT', 'PUT');
+                this.updateState(putTileUrl + 'LEFT', 'PUT');
                 break;
             case 38: // up
-                this.updateState(url + 'UP', 'PUT');
+                this.updateState(putTileUrl + 'UP', 'PUT');
                 break;
             case 39: // right
-                this.updateState(url + 'RIGHT', 'PUT');
+                this.updateState(putTileUrl + 'RIGHT', 'PUT');
                 break;
             case 40: // down
-                this.updateState(url + 'DOWN', 'PUT');
+                this.updateState(putTileUrl + 'DOWN', 'PUT');
+                break;
+
+            case 70: // f
+                this.updateState(putAssetUrl + 'FOREST', 'PUT');
+                break;
+            case 72: // h
+                this.updateState(putAssetUrl + 'HILL', 'PUT');
+                break;
+            case 82: // r
+                this.updateState(putAssetUrl + 'RIVER', 'PUT');
                 break;
         }
     }

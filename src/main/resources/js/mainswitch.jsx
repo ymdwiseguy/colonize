@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import EditorFrame from './editorframe.jsx';
+import EditorFrame from './EditorFrame.jsx';
 import GameFrame from './gameframe.jsx';
 
 class MainSwitch extends React.Component {

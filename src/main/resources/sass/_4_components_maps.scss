@@ -72,14 +72,23 @@
     width: 100px;
     height: 100px;
 
-    .forest {
-        background-image: url("/assets/img/trees.svg");
+    .tileasset {
         background-size: cover;
         height: 100px;
         left: 0;
         position: absolute;
         top: 0;
         width: 100px;
+
+        &_forest {
+            background-image: url("/assets/img/trees.svg");
+        }
+        &_hill {
+            background-image: url("/assets/img/hills.svg");
+        }
+        &_river {
+            background-image: url("/assets/img/river.svg");
+        }
     }
 
     @for $i from 1 through 120 {
