@@ -1408,7 +1408,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -1419,7 +1419,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -1991,7 +1991,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2002,7 +2002,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2013,7 +2013,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2024,7 +2024,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2145,7 +2145,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2189,7 +2189,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2200,7 +2200,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2651,7 +2651,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2662,7 +2662,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2750,7 +2750,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2761,7 +2761,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2794,7 +2794,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -2805,7 +2805,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -3256,7 +3256,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -3267,7 +3267,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -3850,7 +3850,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -3861,7 +3861,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -3872,7 +3872,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -4433,7 +4433,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -4444,7 +4444,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -4466,7 +4466,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -5247,7 +5247,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -5852,7 +5852,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -5863,7 +5863,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -6468,7 +6468,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -7073,7 +7073,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -7084,17 +7084,17 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 29,
         "yCoordinate" : 12,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_PLAINS",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -7689,7 +7689,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -7718,10 +7718,10 @@
         "worldMapId" : null,
         "xCoordinate" : 30,
         "yCoordinate" : 13,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_PLAINS",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -8195,7 +8195,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -8206,7 +8206,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -8327,7 +8327,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -8822,7 +8822,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -8833,7 +8833,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -8910,7 +8910,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -8943,7 +8943,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -9449,7 +9449,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -9460,7 +9460,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -9471,7 +9471,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -9522,10 +9522,10 @@
         "worldMapId" : null,
         "xCoordinate" : 26,
         "yCoordinate" : 16,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -9533,10 +9533,10 @@
         "worldMapId" : null,
         "xCoordinate" : 27,
         "yCoordinate" : 16,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -9559,7 +9559,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10032,7 +10032,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10043,7 +10043,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10054,7 +10054,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10087,7 +10087,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10120,17 +10120,17 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 25,
         "yCoordinate" : 17,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -10138,10 +10138,10 @@
         "worldMapId" : null,
         "xCoordinate" : 26,
         "yCoordinate" : 17,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -10670,7 +10670,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10681,7 +10681,7 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10692,40 +10692,40 @@
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 21,
         "yCoordinate" : 18,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 22,
         "yCoordinate" : 18,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 23,
         "yCoordinate" : 18,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10736,17 +10736,17 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 25,
         "yCoordinate" : 18,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -10754,9 +10754,9 @@
         "worldMapId" : null,
         "xCoordinate" : 26,
         "yCoordinate" : 18,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -10769,7 +10769,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -10780,7 +10780,7 @@
         "assets" : {
             "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -11227,7 +11227,7 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -11238,7 +11238,7 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -11249,33 +11249,33 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -11293,7 +11293,7 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -11304,7 +11304,7 @@
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -11315,9 +11315,9 @@
         "worldMapId" : null,
         "xCoordinate" : 21,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -11326,20 +11326,20 @@
         "worldMapId" : null,
         "xCoordinate" : 22,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 23,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -11348,10 +11348,10 @@
         "worldMapId" : null,
         "xCoordinate" : 24,
         "yCoordinate" : 19,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -11370,9 +11370,9 @@
         "worldMapId" : null,
         "xCoordinate" : 26,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -11381,9 +11381,9 @@
         "worldMapId" : null,
         "xCoordinate" : 27,
         "yCoordinate" : 19,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -11831,6 +11831,39 @@
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 12,
+        "yCoordinate" : 20,
+        "type" : "LAND_DESERT",
+        "assets" : {
+            "forest" : false,
+            "hill" : true,
+            "river" : false
+        }
+    }, {
+        "tileId" : null,
+        "worldMapId" : null,
+        "xCoordinate" : 13,
+        "yCoordinate" : 20,
+        "type" : "LAND_DESERT",
+        "assets" : {
+            "forest" : false,
+            "hill" : false,
+            "river" : false
+        }
+    }, {
+        "tileId" : null,
+        "worldMapId" : null,
+        "xCoordinate" : 14,
+        "yCoordinate" : 20,
+        "type" : "LAND_DESERT",
+        "assets" : {
+            "forest" : false,
+            "hill" : false,
+            "river" : false
+        }
+    }, {
+        "tileId" : null,
+        "worldMapId" : null,
+        "xCoordinate" : 15,
         "yCoordinate" : 20,
         "type" : "LAND_SAVANNAH",
         "assets" : {
@@ -11841,42 +11874,9 @@
     }, {
         "tileId" : null,
         "worldMapId" : null,
-        "xCoordinate" : 13,
-        "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
-        "assets" : {
-            "forest" : false,
-            "hill" : false,
-            "river" : false
-        }
-    }, {
-        "tileId" : null,
-        "worldMapId" : null,
-        "xCoordinate" : 14,
-        "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
-        "assets" : {
-            "forest" : false,
-            "hill" : false,
-            "river" : false
-        }
-    }, {
-        "tileId" : null,
-        "worldMapId" : null,
-        "xCoordinate" : 15,
-        "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
-        "assets" : {
-            "forest" : false,
-            "hill" : false,
-            "river" : false
-        }
-    }, {
-        "tileId" : null,
-        "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -11887,75 +11887,75 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 21,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 22,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 23,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -11964,10 +11964,10 @@
         "worldMapId" : null,
         "xCoordinate" : 24,
         "yCoordinate" : 20,
-        "type" : "LAND_HILLS",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -11975,9 +11975,9 @@
         "worldMapId" : null,
         "xCoordinate" : 25,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -11986,9 +11986,9 @@
         "worldMapId" : null,
         "xCoordinate" : 26,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -11997,9 +11997,9 @@
         "worldMapId" : null,
         "xCoordinate" : 27,
         "yCoordinate" : 20,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -12404,10 +12404,10 @@
         "worldMapId" : null,
         "xCoordinate" : 8,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -12415,7 +12415,7 @@
         "worldMapId" : null,
         "xCoordinate" : 9,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -12426,7 +12426,7 @@
         "worldMapId" : null,
         "xCoordinate" : 10,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -12437,7 +12437,7 @@
         "worldMapId" : null,
         "xCoordinate" : 11,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -12448,7 +12448,7 @@
         "worldMapId" : null,
         "xCoordinate" : 12,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -12459,10 +12459,10 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -12470,7 +12470,7 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -12481,7 +12481,7 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -12492,7 +12492,7 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -12503,9 +12503,9 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -12514,9 +12514,9 @@
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -12525,9 +12525,9 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -12536,9 +12536,9 @@
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -12547,9 +12547,9 @@
         "worldMapId" : null,
         "xCoordinate" : 21,
         "yCoordinate" : 21,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -13031,7 +13031,7 @@
         "worldMapId" : null,
         "xCoordinate" : 9,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13042,7 +13042,7 @@
         "worldMapId" : null,
         "xCoordinate" : 10,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13053,7 +13053,7 @@
         "worldMapId" : null,
         "xCoordinate" : 11,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13064,7 +13064,7 @@
         "worldMapId" : null,
         "xCoordinate" : 12,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13075,7 +13075,7 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13086,29 +13086,29 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13119,7 +13119,7 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13130,9 +13130,9 @@
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -13141,9 +13141,9 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -13152,9 +13152,9 @@
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -13163,9 +13163,9 @@
         "worldMapId" : null,
         "xCoordinate" : 21,
         "yCoordinate" : 22,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -13647,10 +13647,10 @@
         "worldMapId" : null,
         "xCoordinate" : 9,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -13658,7 +13658,7 @@
         "worldMapId" : null,
         "xCoordinate" : 10,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13669,7 +13669,7 @@
         "worldMapId" : null,
         "xCoordinate" : 11,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13680,7 +13680,7 @@
         "worldMapId" : null,
         "xCoordinate" : 12,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13691,7 +13691,7 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13702,7 +13702,7 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13713,40 +13713,40 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13757,7 +13757,7 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -13768,9 +13768,9 @@
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 23,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_GRASS",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -14274,9 +14274,9 @@
         "worldMapId" : null,
         "xCoordinate" : 10,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -14285,7 +14285,7 @@
         "worldMapId" : null,
         "xCoordinate" : 11,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14296,9 +14296,9 @@
         "worldMapId" : null,
         "xCoordinate" : 12,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -14307,7 +14307,7 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14318,7 +14318,7 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14329,7 +14329,7 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14340,7 +14340,7 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14351,18 +14351,18 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_PRAIRIE",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14373,9 +14373,9 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 24,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -14912,9 +14912,9 @@
         "worldMapId" : null,
         "xCoordinate" : 12,
         "yCoordinate" : 25,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -14923,9 +14923,9 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 25,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -14934,7 +14934,7 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 25,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14945,7 +14945,7 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 25,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14956,7 +14956,7 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 25,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -14967,22 +14967,22 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 25,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_DESERT",
         "assets" : {
             "forest" : false,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 25,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
-            "river" : false
+            "river" : true
         }
     }, {
         "tileId" : null,
@@ -15539,9 +15539,9 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 26,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -15550,9 +15550,9 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 26,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -15561,9 +15561,9 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 26,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -15572,10 +15572,10 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 26,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -15583,9 +15583,9 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 26,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -15594,9 +15594,9 @@
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 26,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -16155,9 +16155,9 @@
         "worldMapId" : null,
         "xCoordinate" : 13,
         "yCoordinate" : 27,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -16166,9 +16166,9 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 27,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -16177,7 +16177,7 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 27,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -16188,9 +16188,9 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 27,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -16199,9 +16199,9 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 27,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -16210,9 +16210,9 @@
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 27,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -16782,7 +16782,7 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 28,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -16793,7 +16793,7 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 28,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -16804,9 +16804,9 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 28,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -16815,10 +16815,10 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 28,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -16826,7 +16826,7 @@
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 28,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -16837,9 +16837,9 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 28,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -17398,7 +17398,7 @@
         "worldMapId" : null,
         "xCoordinate" : 14,
         "yCoordinate" : 29,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -17409,9 +17409,9 @@
         "worldMapId" : null,
         "xCoordinate" : 15,
         "yCoordinate" : 29,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -17420,7 +17420,7 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 29,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -17431,9 +17431,9 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 29,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -17442,10 +17442,10 @@
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 29,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
             "forest" : false,
-            "hill" : false,
+            "hill" : true,
             "river" : false
         }
     }, {
@@ -17453,9 +17453,9 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 29,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -17464,9 +17464,9 @@
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 29,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -18036,7 +18036,7 @@
         "worldMapId" : null,
         "xCoordinate" : 16,
         "yCoordinate" : 30,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -18047,7 +18047,7 @@
         "worldMapId" : null,
         "xCoordinate" : 17,
         "yCoordinate" : 30,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -18058,9 +18058,9 @@
         "worldMapId" : null,
         "xCoordinate" : 18,
         "yCoordinate" : 30,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -18069,7 +18069,7 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 30,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -18080,9 +18080,9 @@
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 30,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -18091,9 +18091,9 @@
         "worldMapId" : null,
         "xCoordinate" : 21,
         "yCoordinate" : 30,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_SAVANNAH",
         "assets" : {
-            "forest" : false,
+            "forest" : true,
             "hill" : false,
             "river" : false
         }
@@ -18685,7 +18685,7 @@
         "worldMapId" : null,
         "xCoordinate" : 19,
         "yCoordinate" : 31,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -18696,7 +18696,7 @@
         "worldMapId" : null,
         "xCoordinate" : 20,
         "yCoordinate" : 31,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
@@ -18707,7 +18707,7 @@
         "worldMapId" : null,
         "xCoordinate" : 21,
         "yCoordinate" : 31,
-        "type" : "OCEAN_DEEP",
+        "type" : "LAND_MOUNTAINS",
         "assets" : {
             "forest" : false,
             "hill" : false,
