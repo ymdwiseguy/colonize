@@ -19,6 +19,7 @@ section > h2 {
 .col-body {
     height: 100%;
     min-height: 650px;
+    max-height:1435px;
     padding: 0;
     width:100%;
 }
@@ -58,6 +59,7 @@ section > h2 {
     float: left;
     height: calc(100% - 43px);
     margin: 4px;
+    max-height: 1400px;
     overflow: hidden;
     position: relative;
     width: calc(70% - 8px);

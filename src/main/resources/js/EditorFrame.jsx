@@ -69,10 +69,23 @@ class EditorFrame extends React.Component {
     }
 
     static unitOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop, cursorWidth, cursorHeight) {
-        let rightOutside = ((frameWidth - (mapLeft + cursorLeft)) < (cursorWidth));
-        let leftOuside = (cursorLeft <= (cursorWidth - mapLeft));
-        let topOuside = (cursorTop <= (cursorHeight - mapTop));
-        let bottomOuside = ((frameHeight - (mapTop + cursorTop)) < (cursorHeight));
+
+        const maxPaddingHorizontal = 7 * cursorWidth;
+        let paddingHorizontal = 2 * cursorWidth;
+        while ((frameWidth / 2 - cursorWidth) > paddingHorizontal && paddingHorizontal < maxPaddingHorizontal) {
+            paddingHorizontal += cursorWidth;
+        }
+
+        const maxPaddingVertical = 7 * cursorWidth;
+        let paddingVertical = cursorHeight * 2;
+        while ((frameHeight / 2 - cursorHeight) > paddingVertical && paddingVertical < maxPaddingVertical) {
+            paddingVertical += cursorWidth;
+        }
+
+        const rightOutside = ((frameWidth - (mapLeft + cursorLeft)) < (paddingHorizontal));
+        const leftOuside = (cursorLeft <= (paddingHorizontal - mapLeft));
+        const topOuside = (cursorTop <= (paddingVertical - mapTop));
+        const bottomOuside = ((frameHeight - (mapTop + cursorTop)) < (paddingVertical));
 
         return (rightOutside || leftOuside || topOuside || bottomOuside);
     }
