@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CursorMovementService {
-    public Game moveCursor(Game mapEditor, UnitDirection direction) {
 
+    public Game moveCursor(Game mapEditor, UnitDirection direction) {
         int cursorX = mapEditor.getCursor().getxPosition();
         int cursorY = mapEditor.getCursor().getyPosition();
 
@@ -30,6 +30,12 @@ public class CursorMovementService {
         Cursor cursor = validatePosition(cursorX, cursorY, mapEditor.getWorldMap());
         mapEditor.setCursor(cursor);
 
+        return mapEditor;
+    }
+
+    public Game putCursor(Game mapEditor, int cursorX, int cursorY) {
+        Cursor cursor = validatePosition(cursorX, cursorY, mapEditor.getWorldMap());
+        mapEditor.setCursor(cursor);
         return mapEditor;
     }
 

@@ -54,11 +54,11 @@ trait MapEditorStates implements MapEditorJsonStates {
         return mapEditor
     }
 
-    Game mapEditorWithLoadedMapAndCursor() {
+    Game mapEditorWithLoadedMapAndCursor(cursorX = 2, cursorY = 1) {
         Game mapEditor = initalMapEditorWithId()
         mapEditor.setWorldMap(aWorldMap())
         mapEditor.setSelectedTileType(LAND_GRASS)
-        mapEditor.setCursor(new Cursor(2, 1))
+        mapEditor.setCursor(new Cursor(cursorX, cursorY))
         return mapEditor
     }
 

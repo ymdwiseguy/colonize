@@ -65,6 +65,30 @@ class CursorMovementServiceSpec extends Specification implements MapEditorStates
         result.cursor.yPosition == 5
     }
 
+    def "setting the cursor to a position directly"(){
+        given: "a cursor position 1x1"
+        mapEditorWithLoadedMap()
+
+        when: "putting is called"
+        def result = cursorMovementService.putCursor(mapEditorWithLoadedMap(), 2, 2)
+
+        then: "the cursor was set to 2x2"
+        result.cursor.xPosition == 2
+        result.cursor.yPosition == 2
+    }
+
+    def "setting the cursor to an invalid position puts it inside the bounds"(){
+        given: "a cursor position 1x1"
+        mapEditorWithLoadedMap()
+
+        when: "putting is called"
+        def result = cursorMovementService.putCursor(mapEditorWithLoadedMap(), 7, -7)
+
+        then: "the cursor does not surpass the edges of the map (5x5)"
+        result.cursor.xPosition == 5
+        result.cursor.yPosition == 1
+    }
+
     def Game moveXTimes(Game mapEditor, int times, UnitDirection direction){
         for (int i = 0 ; i < times; i++) {
             mapEditor = cursorMovementService.moveCursor(mapEditor, direction)

@@ -137,7 +137,7 @@ trait MapEditorJsonStates implements WorldMaps {
             '}'
     }
 
-    String mapEditorWithLoadedMapAndCursorJson(String gameUuid) {
+    String mapEditorWithLoadedMapAndCursorJson(String gameUuid, cursorX = "2", cursorY = "1") {
         '{\n' +
             '  "gameId" : "' + gameUuid + '",\n' +
             '  "gameScreen" : "MAPEDITOR",\n' +
@@ -145,7 +145,7 @@ trait MapEditorJsonStates implements WorldMaps {
             '  "worldMap" : ' + worldMapJson() + ',\n' +
             '  "sideMenu" : ' + mockedSideMenuJson() + ',\n' +
             '  "popupMenu" : null,\n' +
-            '  "cursor" : ' + cursorJson("2", "1", "true") + ',\n' +
+            '  "cursor" : ' + cursorJson(cursorX, cursorY, "true") + ',\n' +
             '  "selectedTileType" : "LAND_GRASS"\n' +
             '}'
     }

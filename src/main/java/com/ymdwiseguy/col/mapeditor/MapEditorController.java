@@ -121,7 +121,7 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // PUT cursor - JSON
+    // PUT move cursor - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/movecursor/{direction}", method = PUT, produces = "application/json")
     public ResponseEntity moveCursor(@PathVariable String gameId, @PathVariable UnitDirection direction, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
@@ -130,7 +130,16 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // PUT Set active tile - JSON
+    // PUT put cursor to position - JSON
+    @RequestMapping(value = "/api/mapeditor/{gameId}/movecursor/{xPosition}/{yPosition}", method = PUT, produces = "application/json")
+    public ResponseEntity putCursor(@PathVariable String gameId, @PathVariable int xPosition, @PathVariable int yPosition, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
+        Game mapEditor = mapEditorService.initGame(gameId, showPopup);
+        mapEditor = cursorMovementService.putCursor(mapEditor, xPosition, yPosition);
+        mapEditor = mapEditorRepo.update(mapEditor);
+        return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
+    }
+
+    // PUT Menu click - set active tile type - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/selecttiletype/{tileType}", method = PUT, produces = "application/json")
     public ResponseEntity selectTileType(@PathVariable String gameId, @PathVariable TileType tileType, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
         Game mapEditor = mapEditorService.initGame(gameId, showPopup);
@@ -139,7 +148,7 @@ public class MapEditorController {
         return new ResponseEntity<>(mapEditor.toJson(), HttpStatus.OK);
     }
 
-    // PUT Overwrite tile - JSON
+    // PUT Overwrite tile with active tile type - JSON
     @RequestMapping(value = "/api/mapeditor/{gameId}/activetile", method = PUT, produces = "application/json")
     public ResponseEntity setActiveTile(@PathVariable String gameId, @RequestParam(value = "showPopup", required = false) PopupType showPopup) {
 

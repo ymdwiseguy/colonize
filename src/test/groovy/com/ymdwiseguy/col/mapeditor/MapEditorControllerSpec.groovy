@@ -160,7 +160,7 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
         result.statusCode == NOT_FOUND
     }
 
-    def "moving the cursor"() {
+    def "moving the cursor in a direction"() {
         given: "an existing game with a cursor position"
         mapEditorWithLoadedMapJson(GAME_UUID)
 
@@ -169,6 +169,20 @@ class MapEditorControllerSpec extends Specification implements MapEditorStates {
 
         then: "the movement service does its job"
         1 * cursorMovementService.moveCursor(_, RIGHT) >> mapEditorWithLoadedMapAndCursor()
+
+        and: "the cursor gets a new position"
+        result.body == mapEditorWithLoadedMapAndCursorJson(GAME_UUID)
+    }
+
+    def "putting the cursor to a position"() {
+        given: "an existing game with a cursor position"
+        mapEditorWithLoadedMapJson(GAME_UUID)
+
+        when: "the cursor putting method is called"
+        def result = mapEditorController.putCursor(GAME_UUID, 2, 1, null)
+
+        then: "the movement service does its job"
+        1 * cursorMovementService.putCursor(_, 2, 1) >> mapEditorWithLoadedMapAndCursor()
 
         and: "the cursor gets a new position"
         result.body == mapEditorWithLoadedMapAndCursorJson(GAME_UUID)
