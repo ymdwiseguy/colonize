@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 class Cursor extends React.Component {
 
@@ -9,7 +8,7 @@ class Cursor extends React.Component {
 
     render() {
         let className = 'cursor cursor-x' + this.props.cursorX + ' cursor-y' + this.props.cursorY;
-        if(this.props.cursorActive == true){
+        if(this.props.cursorActive === true){
             className += ' cursor--active';
         }
         return (

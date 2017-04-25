@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 import EditorFrame from './EditorFrame.jsx';
 import GameFrame from './gameframe.jsx';

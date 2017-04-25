@@ -1,12 +1,12 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import MenuEntry from './MenuEntry/MenuEntry.jsx';
+import MenuEntry from './Components/MenuEntry/MenuEntry.jsx';
 
 class GenerateMapPopup extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handlePopupClick = this.handlePopupClick.bind(this);
     }
 
     handlePopupClick(event, method) {
@@ -23,7 +23,8 @@ class GenerateMapPopup extends React.Component {
             return (
                 <div className={className}>
                     <label>{input.title}</label>
-                    <input name={input.name} onChange={(e, fieldName) => this.handleInputChange(e, input.name)}/>
+                    <input name={input.name}
+                           onChange={(e, fieldName) => this.handleInputChange(e, input.name)}/>
                 </div>
             )
         });
@@ -33,7 +34,7 @@ class GenerateMapPopup extends React.Component {
                 <h2>{this.props.game.popupMenu.header}</h2>
                 {inputs}
                 <MenuEntry entry={this.props.game.popupMenu.submitButton}
-                           onClickSubmenu={(e, m) => this.handlePopupClick(e, m)}/>
+                           onClickSubmenu={this.handlePopupClick}/>
             </div>
         )
 

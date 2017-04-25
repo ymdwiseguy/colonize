@@ -3,7 +3,6 @@ import Unit from '../unit.jsx';
 import Tile from './Tile.jsx';
 import Cursor from './Cursor.jsx';
 
-
 class Map extends React.Component {
 
     render() {

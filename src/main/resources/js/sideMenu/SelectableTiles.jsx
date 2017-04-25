@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 class SelectableTiles extends React.Component {
 
@@ -12,7 +11,7 @@ class SelectableTiles extends React.Component {
     }
 
     render() {
-        let isActive = (this.props.selected == this.props.entry.entryName);
+        let isActive = (this.props.selected === this.props.entry.entryName);
         let className = "tile map-tile__" + this.props.entry.entryName + (isActive ? ' active' : '');
         return (
             <li className={className}>

@@ -1,12 +1,12 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import MenuEntry from '../MenuEntry/MenuEntry.jsx';
+import MenuEntry from '../Components/MenuEntry/MenuEntry.jsx';
 
-class Popup extends React.Component {
+
+class LoadGamePopup extends React.Component {
     constructor(props) {
         super(props);
-        this.handlePopupClick = this.handlePopupClick.bind(this);
+        // this.handlePopupClick = this.handlePopupClick.bind(this);
     }
 
     handlePopupClick(event, method) {
@@ -16,7 +16,12 @@ class Popup extends React.Component {
     render() {
         if (this.props.game.popupMenu.entries.length > 0) {
             let menuentries = this.props.game.popupMenu.entries.map((entry, i) => {
-                return <MenuEntry entry={entry} key={i} onClickSubmenu={this.handlePopupClick}/>
+                return <MenuEntry
+                    entry={entry}
+                    key={i}
+                    onClickSubmenu={
+                        (e, m) => this.handlePopupClick(e, entry.method)
+                    }/>
             });
 
             return (
@@ -31,4 +36,4 @@ class Popup extends React.Component {
     }
 }
 
-export default Popup;
+export default LoadGamePopup;

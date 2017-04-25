@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 import Submenu from './submenu.jsx';
 
@@ -16,7 +15,11 @@ class GameMenu extends React.Component {
     render() {
         if (this.props.menu) {
             let submenus = this.props.menu.submenus.map((submenu, i) => {
-                return <Submenu submenu={submenu} key={i} onClickMainMenu={(e, m) => this.handleGameMenuClick(e, m)}/>
+                return <Submenu
+                    submenu={submenu}
+                    key={i}
+                    onClickMainMenu={(e, m) => this.handleGameMenuClick(e, m)}
+                />
             });
 
             return (

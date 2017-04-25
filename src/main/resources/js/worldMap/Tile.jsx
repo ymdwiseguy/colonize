@@ -1,6 +1,4 @@
 import React from 'react';
-import TileAssets from './TileAssets.jsx';
-
 
 class Tile extends React.Component {
     render() {
@@ -10,7 +8,7 @@ class Tile extends React.Component {
         let forest = '';
         let hill = '';
         let river = '';
-        if(this.props.tile.assets != null){
+        if(this.props.tile.assets !== null){
             if(this.props.tile.assets.hill){
                 hill = <span className="tileasset tileasset_hill"/>;
             }

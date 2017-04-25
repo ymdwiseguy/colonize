@@ -1,12 +1,12 @@
 import React from 'react';
-import {render} from 'react-dom';
 
-import MenuEntry from './MenuEntry/MenuEntry.jsx';
+import MenuEntry from './Components/MenuEntry/MenuEntry.jsx';
 
 class Submenu extends React.Component {
 
     constructor(props) {
         super(props);
+        // this.handleSubmenuClick = this.handleSubmenuClick.bind(this)
     }
 
     handleSubmenuClick(event, method) {
@@ -15,7 +15,10 @@ class Submenu extends React.Component {
 
     render() {
         let menuentries = this.props.submenu.entries.map((entry, i) => {
-            return <MenuEntry entry={entry} key={i} onClickSubmenu={(e, m) => this.handleSubmenuClick(e, m)}/>
+            return <MenuEntry
+                entry={entry} key={i}
+                onClickSubmenu={(e, m) => this.handleSubmenuClick(e, entry.method)}
+            />
         });
 
         return (

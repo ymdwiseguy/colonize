@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 
 import Map from './worldMap/WorldMap.jsx';
 
@@ -8,14 +7,14 @@ import GameMenu from './gamemenu.jsx';
 import SideBar from './sidebar.jsx';
 import SideMenuSelectTiles from './sideMenu/SideMenuSelectTiles.jsx';
 
-import Popup from './Popup/Popup.jsx';
+import LoadGamePopup from './Popups/LoadGamePopup.jsx';
 import SaveGamePopup from './savegamepopup.jsx';
 import GenerateMapPopup from './generateMapPopup.jsx';
 
 class EditorFrame extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {};
         this.handleClickFrame = this.handleClickFrame.bind(this);
         this.updateFormData = this.updateFormData.bind(this);
@@ -27,7 +26,7 @@ class EditorFrame extends React.Component {
         let mapFrame = $('.map-outer-wrapper');
         let mapInner = $('.map-main-wrapper');
 
-        if (cursor.length == 1) {
+        if (cursor.length === 1) {
             let cursorWidth = parseInt(cursor.css('width'));
             let cursorLeft = parseInt(cursor.css('left'));
             let frameWidth = parseInt(mapFrame.css('width'));
@@ -187,7 +186,7 @@ class EditorFrame extends React.Component {
             method: method,
             dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
-            data: (method == 'GET' ? '' : gameJson),
+            data: (method === 'GET' ? '' : gameJson),
             cache: false,
             success: function (restData) {
                 this.setState({game: restData});
@@ -203,7 +202,7 @@ class EditorFrame extends React.Component {
         if (this.state.game) {
 
             let popup = null;
-            if (this.state.game.popupMenu != null) {
+            if (this.state.game.popupMenu !== null) {
                 switch (this.state.game.popupMenu.type) {
                     case 'GENERATE_MAP' :
                         popup = <GenerateMapPopup formSubmit={(e) => this.formSubmit(e)}
@@ -216,14 +215,14 @@ class EditorFrame extends React.Component {
                                                game={this.state.game}/>;
                         break;
                     case 'SHOW_MAPLIST' :
-                        popup = <Popup onClickFrame={this.handleClickFrame}
+                        popup = <LoadGamePopup onClickFrame={this.handleClickFrame}
                                                game={this.state.game}/>;
                         break;
                 }
             }
 
             let sidebar = null;
-            if (this.state.game.sideMenu != null) {
+            if (this.state.game.sideMenu !== null) {
                 switch (this.state.game.sideMenu.type) {
                     case 'EDITOR_SELECT_TILES':
                         sidebar = <SideMenuSelectTiles sidebar={this.state.game.sideMenu}

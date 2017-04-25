@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 class TileAssets extends React.Component {
     render() {
         let className = 'map-tile map-tile__' + this.props.tile.type +
