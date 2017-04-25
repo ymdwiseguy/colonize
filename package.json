@@ -1,52 +1,52 @@
 {
-  "name": "col",
-  "version": "1.0.0",
-  "private": true,
-  "description": "a remake of the classic Colonization game",
-  "main": "index.js",
-  "author": "ymdwiseguy",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ymdwiseguy/colonize.git"
-  },
-  "dependencies": {
-    "normalize.css": "^4.2.0"
-  },
-  "devDependencies": {
-      "babel-core": "^6.18.2",
-      "babel-loader": "^6.2.7",
-      "babel-preset-es2015": "^6.18.0",
-      "babel-preset-react": "^6.16.0",
-      "concurrently": "^2.2.0",
-      "node-sass": "^3.9.3",
-      "nodemon": "^1.10.2",
-      "react": "^15.3.2",
-      "react-dom": "^15.3.2",
-      "webpack": "^1.13.3"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
-  },
-  "scripts": {
-      "clean:static": "rm -rf src/main/resources/static/assets/*",
-      "css:dev": "node-sass src/main/resources/sass/layout.scss src/main/resources/static/assets/css/layout.css --output-style expanded --source-map true",
-      "css:prod": "node-sass src/main/resources/sass/layout.scss src/main/resources/static/assets/css/layout.css --output-style compressed",
-      "js:dev": "webpack -d",
-      "js:prod": "webpack -p",
-      "copy:images": "mkdir -p src/main/resources/static/assets/img/ && cp src/main/resources/img/* src/main/resources/static/assets/img/",
-      "copy:assets": "npm run copy:images",
-      "watch:css": "nodemon -e scss -x 'npm run css:dev'",
-      "watch:js": "webpack --watch -d",
-      "dev": "npm run clean:static && npm run copy:assets && concurrently --kill-others 'npm run watch:css' 'npm run watch:js'",
-      "build:dev": "npm run clean:static && npm run copy:assets && npm run css:dev && npm run js:dev",
-      "build:prod": "npm run clean:static && npm run copy:assets && npm run css:prod && npm run js:prod",
-      "start": "npm run dev"
-  },
-  "workingPaths": {
-    "static": "./target/classes/static/assets/"
-  }
+    "name": "col",
+    "version": "1.0.0",
+    "private": true,
+    "description": "a remake of the classic Colonization game",
+    "main": "index.js",
+    "author": "ymdwiseguy",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ymdwiseguy/colonize.git"
+    },
+    "dependencies": {
+        "react": "^15.3.2",
+        "react-dom": "^15.3.2",
+        "normalize.css": "^4.2.0"
+    },
+    "devDependencies": {
+        "babel-core": "^6.18.2",
+        "babel-loader": "^6.2.7",
+        "babel-preset-es2015": "^6.18.0",
+        "babel-preset-react": "^6.16.0",
+        "concurrently": "^2.2.0",
+        "node-sass": "^4.5.2",
+        "nodemon": "^1.10.2",
+        "webpack": "^1.13.3"
+    },
+    "babel": {
+        "presets": [
+            "es2015",
+            "react"
+        ]
+    },
+    "scripts": {
+        "clean:static": "rm -rf src/main/resources/static/assets/*",
+        "css:dev": "node-sass src/main/resources/sass/layout.scss src/main/resources/static/assets/css/layout.css --output-style expanded --source-map true",
+        "css:prod": "node-sass src/main/resources/sass/layout.scss src/main/resources/static/assets/css/layout.css --output-style compressed",
+        "js:dev": "webpack -d",
+        "js:prod": "webpack -p",
+        "copy:images": "mkdir -p src/main/resources/static/assets/img/ && cp src/main/resources/img/* src/main/resources/static/assets/img/",
+        "copy:assets": "npm run copy:images",
+        "watch:css": "nodemon -e scss -x 'npm run css:dev'",
+        "watch:js": "webpack --watch -d",
+        "dev": "npm run clean:static && npm run copy:assets && concurrently --kill-others 'npm run watch:css' 'npm run watch:js'",
+        "build:dev": "npm run clean:static && npm run copy:assets && npm run css:dev && npm run js:dev",
+        "build:prod": "npm run clean:static && npm run copy:assets && npm run css:prod && npm run js:prod",
+        "start": "npm run dev"
+    },
+    "workingPaths": {
+        "static": "./target/classes/static/assets/"
+    }
 }

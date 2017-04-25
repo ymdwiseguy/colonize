@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import MenuEntry from './menuentry.jsx';
+import MenuEntry from './MenuEntry/MenuEntry.jsx';
 
 class Submenu extends React.Component {
 

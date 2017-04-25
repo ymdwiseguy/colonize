@@ -8,7 +8,7 @@ import GameMenu from './gamemenu.jsx';
 import SideBar from './sidebar.jsx';
 import SideMenuSelectTiles from './sideMenu/SideMenuSelectTiles.jsx';
 
-import LoadGamePopup from './loadgamepopup.jsx';
+import Popup from './Popup/Popup.jsx';
 import SaveGamePopup from './savegamepopup.jsx';
 import GenerateMapPopup from './generateMapPopup.jsx';
 
@@ -17,6 +17,8 @@ class EditorFrame extends React.Component {
     constructor() {
         super();
         this.state = {};
+        this.handleClickFrame = this.handleClickFrame.bind(this);
+        this.updateFormData = this.updateFormData.bind(this);
     }
 
 
@@ -205,16 +207,16 @@ class EditorFrame extends React.Component {
                 switch (this.state.game.popupMenu.type) {
                     case 'GENERATE_MAP' :
                         popup = <GenerateMapPopup formSubmit={(e) => this.formSubmit(e)}
-                                                  onChangeFrame={(v, f) => this.updateFormData(v, f)}
+                                                  onChangeFrame={this.updateFormData}
                                                   game={this.state.game}
                         />;
                         break;
                     case 'SAVE_MAPEDITOR':
-                        popup = <SaveGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}
+                        popup = <SaveGamePopup onClickFrame={this.handleClickFrame}
                                                game={this.state.game}/>;
                         break;
                     case 'SHOW_MAPLIST' :
-                        popup = <LoadGamePopup onClickFrame={(e, m) => this.handleClickFrame(e, m)}
+                        popup = <Popup onClickFrame={this.handleClickFrame}
                                                game={this.state.game}/>;
                         break;
                 }
@@ -226,11 +228,11 @@ class EditorFrame extends React.Component {
                     case 'EDITOR_SELECT_TILES':
                         sidebar = <SideMenuSelectTiles sidebar={this.state.game.sideMenu}
                                                        selected={this.state.game.selectedTileType}
-                                                       onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>;
+                                                       onClickFrame={this.handleClickFrame}/>;
                         break;
                     default:
                         sidebar = <SideBar sidebar={this.state.game.sideMenu}
-                                           onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>;
+                                           onClickFrame={this.handleClickFrame}/>;
                         break;
 
                 }
@@ -238,7 +240,7 @@ class EditorFrame extends React.Component {
 
             return (
                 <div className="frame" onKeyDown={this.handleKeyDown}>
-                    <GameMenu menu={this.state.game.gameMenu} onClickFrame={(e, m) => this.handleClickFrame(e, m)}/>
+                    <GameMenu menu={this.state.game.gameMenu} onClickFrame={this.handleClickFrame}/>
                     <div className="map-outer-wrapper">
                         <Map data={this.state.game.worldMap} cursor={this.state.game.cursor}/>
                     </div>
