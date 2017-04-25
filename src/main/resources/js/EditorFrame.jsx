@@ -7,9 +7,9 @@ import GameMenu from './gamemenu.jsx';
 import SideBar from './sidebar.jsx';
 import SideMenuSelectTiles from './sideMenu/SideMenuSelectTiles.jsx';
 
-import LoadGamePopup from './Popups/LoadGamePopup.jsx';
-import SaveGamePopup from './savegamepopup.jsx';
-import GenerateMapPopup from './generateMapPopup.jsx';
+import LoadGamePopup from './Components/Popups/LoadGamePopup.jsx';
+import SaveGamePopup from './Components/Popups/SaveGamePopup.jsx';
+import GenerateMapPopup from './Components/Popups/GenerateMapPopup.jsx';
 
 class EditorFrame extends React.Component {
 
@@ -207,8 +207,7 @@ class EditorFrame extends React.Component {
                     case 'GENERATE_MAP' :
                         popup = <GenerateMapPopup formSubmit={(e) => this.formSubmit(e)}
                                                   onChangeFrame={this.updateFormData}
-                                                  game={this.state.game}
-                        />;
+                                                  game={this.state.game}/>;
                         break;
                     case 'SAVE_MAPEDITOR':
                         popup = <SaveGamePopup onClickFrame={this.handleClickFrame}

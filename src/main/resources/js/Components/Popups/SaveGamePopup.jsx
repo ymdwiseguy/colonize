@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MenuEntry from './Components/MenuEntry/MenuEntry.jsx';
+import MenuEntry from '../MenuEntry/MenuEntry.jsx';
 
 class SaveGamePopup extends React.Component {
 
