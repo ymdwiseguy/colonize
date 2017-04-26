@@ -17,7 +17,7 @@ class SideMenuSelectTiles extends React.Component {
         if (this.props.sidebar) {
             let entries = this.props.sidebar.entries.map((entry, i) => {
                 return <SelectableTiles entry={entry} selected={this.props.selected} key={i}
-                                        onClickSubmenu={(e, m) => this.handleSideBarClick(e, m)}/>
+                                        onClickSubmenu={(e, m) => this.handleSideBarClick(e, entry.method)}/>
             });
 
             return (
