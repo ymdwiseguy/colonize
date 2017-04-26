@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Map from './worldMap/WorldMap.jsx';
+import WorldMap from './Components/WorldMap/WorldMap.jsx';
 
 import GameMenu from './gamemenu.jsx';
 
@@ -240,7 +240,7 @@ class EditorFrame extends React.Component {
                 <div className="frame" onKeyDown={this.handleKeyDown}>
                     <GameMenu menu={this.state.game.gameMenu} onClickFrame={this.handleClickFrame}/>
                     <div className="map-outer-wrapper">
-                        <Map data={this.state.game.worldMap} cursor={this.state.game.cursor}/>
+                        <WorldMap data={this.state.game.worldMap} cursor={this.state.game.cursor}/>
                     </div>
                     {sidebar}
                     {popup}

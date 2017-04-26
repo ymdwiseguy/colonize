@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Map from './worldMap/WorldMap.jsx';
+import WorldMap from './Components/WorldMap/WorldMap.jsx';
 
 class GameFrame extends React.Component {
 
@@ -96,7 +96,7 @@ class GameFrame extends React.Component {
                         </ul>
                     </div>
                     <div className="map-outer-wrapper">
-                        <Map data={this.state.mapdata}/>
+                        <WorldMap data={this.state.mapdata}/>
                     </div>
                     <div className="sidebar">
                         Sidebar
