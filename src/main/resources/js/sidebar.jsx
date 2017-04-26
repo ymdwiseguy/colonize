@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MenuEntry from './Components/MenuEntry/MenuEntry.jsx';
+import MenuEntry from './Components/Menus/MenuEntry/MenuEntry.jsx';
 
 class SideBar extends React.Component {
 

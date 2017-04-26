@@ -5,11 +5,11 @@ import Map from './worldMap/WorldMap.jsx';
 import GameMenu from './gamemenu.jsx';
 
 import SideBar from './sidebar.jsx';
-import SideMenuSelectTiles from './sideMenu/SideMenuSelectTiles.jsx';
+import SideMenuSelectTiles from './Components/Menus/sideMenu/SideMenuSelectTiles.jsx';
 
-import LoadGamePopup from './Components/Popups/LoadGamePopup.jsx';
-import SaveGamePopup from './Components/Popups/SaveGamePopup.jsx';
-import GenerateMapPopup from './Components/Popups/GenerateMapPopup.jsx';
+import LoadGamePopup from './Components/Menus/Popups/LoadGamePopup.jsx';
+import SaveGamePopup from './Components/Menus/Popups/SaveGamePopup.jsx';
+import GenerateMapPopup from './Components/Menus/Popups/GenerateMapPopup.jsx';
 
 class EditorFrame extends React.Component {
 
