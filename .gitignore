@@ -3,7 +3,6 @@
 target
 .idea
 .mvn
-/target/
 .DS_Store
 *.log.0
 
