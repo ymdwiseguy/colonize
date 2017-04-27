@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Unit from '../../unit.jsx';
 import Tile from './Tile.jsx';
 import Cursor from './Cursor.jsx';
 
 const WorldMap = ({data, cursor}) => {
 
-    if(data === null){
-        return null;
+    if (data === null) {
+        return <div className="map-main-wrapper">&nbsp;</div>;
     }
 
     let units = '';
@@ -38,6 +39,10 @@ const WorldMap = ({data, cursor}) => {
             {cursorElement}
         </div>
     )
+};
+
+WorldMap.propTypes = {
+    data: PropTypes.object
 };
 
 export default WorldMap;

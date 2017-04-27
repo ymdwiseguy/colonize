@@ -2,7 +2,7 @@ import React from 'react';
 
 import WorldMap from './Components/WorldMap/WorldMap.jsx';
 
-import GameMenu from './gamemenu.jsx';
+import GameMenu from './Components/Menus/GameMenu/GameMenu.jsx';
 
 import SideBar from './sidebar.jsx';
 import SideMenuSelectTiles from './Components/Menus/sideMenu/SideMenuSelectTiles.jsx';

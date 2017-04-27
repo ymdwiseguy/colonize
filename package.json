@@ -11,6 +11,7 @@
         "url": "https://github.com/ymdwiseguy/colonize.git"
     },
     "dependencies": {
+        "prop-types": "^15.5.8",
         "react": "^15.3.2",
         "react-dom": "^15.3.2",
         "normalize.css": "^4.2.0"
