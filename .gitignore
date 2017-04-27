@@ -12,3 +12,4 @@ target
 .project
 node_modules/
 /src/main/resources/static/assets/
+yarn.lock
