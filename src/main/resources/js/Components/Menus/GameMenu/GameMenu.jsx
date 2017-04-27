@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Submenu from '../../../submenu.jsx';
+import SubMenu from './SubMenu.jsx';
 
 const GameMenu = ({menu, onClickFrame}) => {
     if (!menu) {
         return <div className="main-menu">&nbsp;</div>;
     }
     let submenus = menu.submenus.map((submenu, i) => {
-        return <Submenu
+        return <SubMenu
             submenu={submenu}
             key={i}
             onClickMainMenu={onClickFrame}

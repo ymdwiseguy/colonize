@@ -4,7 +4,7 @@ import WorldMap from './Components/WorldMap/WorldMap.jsx';
 
 import GameMenu from './Components/Menus/GameMenu/GameMenu.jsx';
 
-import SideBar from './sidebar.jsx';
+import MapEditorSidebar from './Components/Menus/SideMenu/MapEditorSidebar.jsx';
 import SideMenuSelectTiles from './Components/Menus/sideMenu/SideMenuSelectTiles.jsx';
 
 import LoadGamePopup from './Components/Menus/Popups/LoadGamePopup.jsx';
@@ -229,8 +229,8 @@ class EditorFrame extends React.Component {
                                                        onClickFrame={this.handleClickFrame}/>;
                         break;
                     default:
-                        sidebar = <SideBar sidebar={this.state.game.sideMenu}
-                                           onClickFrame={this.handleClickFrame}/>;
+                        sidebar = <MapEditorSidebar sidebar={this.state.game.sideMenu}
+                                                    onClickFrame={this.handleClickFrame}/>;
                         break;
 
                 }
