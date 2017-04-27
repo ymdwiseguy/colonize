@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Unit from '../../unit.jsx';
+import Unit from '../Units/Unit.jsx';
 import Tile from './Tile.jsx';
 import Cursor from './Cursor.jsx';
 
