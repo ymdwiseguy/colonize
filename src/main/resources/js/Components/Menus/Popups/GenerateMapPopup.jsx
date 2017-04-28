@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Link from '../../BaseComponents/Link.jsx';
 import MenuEntry from '../MenuEntry/MenuEntry.jsx';
 
 class GenerateMapPopup extends React.Component {
@@ -29,12 +30,17 @@ class GenerateMapPopup extends React.Component {
             )
         });
 
+        const entry = this.props.game.popupMenu.submitButton;
         return (
+
             <div className="popup generateMapPopup">
                 <h2>{this.props.game.popupMenu.header}</h2>
                 {inputs}
-                <MenuEntry entry={this.props.game.popupMenu.submitButton}
-                           onClickSubmenu={this.handlePopupClick}/>
+                <Link
+                    href={entry.endpointUrl}
+                    method={entry.method}
+                    onClickFunction={this.handlePopupClick}>{entry.entryName}
+                </Link>
             </div>
         )
 

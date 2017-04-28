@@ -1,14 +1,14 @@
 import React from 'react';
-
+import Link from '../../BaseComponents/Link.jsx';
 
 const MenuEntry = ({entry, onClickSubmenu}) => {
     return (
         <li>
-            <a
+            <Link
                 href={entry.endpointUrl}
                 method={entry.method}
-                onClick={onClickSubmenu}>{entry.entryName}
-            </a>
+                onClickFunction={onClickSubmenu}>{entry.entryName}
+            </Link>
         </li>
     );
 };

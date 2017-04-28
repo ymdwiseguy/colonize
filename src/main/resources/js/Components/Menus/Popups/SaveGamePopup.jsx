@@ -23,7 +23,9 @@ class SaveGamePopup extends React.Component {
             return (
                 <div className="popup">
                     <h2>Overwrite map &quot;{mapName}&quot;</h2>
-                    {menuentries}
+                    <ul className="popup__entryList">
+                        {menuentries}
+                    </ul>
                 </div>
             )
         } else {

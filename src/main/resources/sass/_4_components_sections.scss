@@ -19,13 +19,13 @@ section > h2 {
 .col-body {
     height: 100%;
     min-height: 650px;
-    max-height:1435px;
+    max-height: 1435px;
     padding: 0;
-    width:100%;
+    width: 100%;
 }
 
 .frame {
-    background:$color-black;
+    background: $color-black;
     display: inline-block;
     float: left;
     height: 100%;
@@ -34,27 +34,48 @@ section > h2 {
     width: 100%;
 }
 
-.popup{
+.popup {
     background: white;
     box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.4);
     height: 300px;
-    left: calc(100vw/2 - 250px);
+    left: calc(100vw / 2 - 250px);
     max-height: 90vh;
     max-width: 90vw;
     position: absolute;
-    top: calc(100vh/2 - 150px);
+    top: calc(100vh / 2 - 150px);
     transition: all 1s ease;
     width: 500px;
     z-index: 10;
 
-    h2{
+    h2 {
         border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-        padding: 5px 10px;
-        margin: 0 0 15px 0;
+        color: $color-bandicoot;
+        margin: 0 0 25px 0;
+        padding: 10px 15px;
+        text-transform: uppercase;
         width: 100%;
     }
+    .popup__entryList {
+        width: 90%;
+
+        li {
+            list-style: none;
+        }
+        .link {
+            background: $color-turquoise-light;
+            color: $color-bandicoot;
+            display:block;
+            font-size: 20px;
+            margin:0 0 20px;
+            padding: 5px 8px;
+            text-decoration: none;
+            text-transform: uppercase;
+            width: 100%;
+        }
+    }
 }
-.map-outer-wrapper{
+
+.map-outer-wrapper {
     display: inline-block;
     float: left;
     height: calc(100% - 43px);

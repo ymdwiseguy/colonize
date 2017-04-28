@@ -215,7 +215,7 @@ class EditorFrame extends React.Component {
                         break;
                     case 'SHOW_MAPLIST' :
                         popup = <LoadGamePopup onClickFrame={this.handleClickFrame}
-                                               game={this.state.game}/>;
+                                               popupMenu={this.state.game.popupMenu}/>;
                         break;
                 }
             }
