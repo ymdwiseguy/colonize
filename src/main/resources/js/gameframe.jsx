@@ -40,7 +40,7 @@ class GameFrame extends React.Component {
         let mapFrame = $('.map-outer-wrapper');
         let mapInner = $('.map-main-wrapper');
 
-        if (activeUnit.length == 1) {
+        if (activeUnit.length === 1) {
             let unitWidth = parseInt(activeUnit.css('width'));
             let unitLeft = parseInt(activeUnit.css('left'));
             let frameWidth = parseInt(mapFrame.css('width'));
