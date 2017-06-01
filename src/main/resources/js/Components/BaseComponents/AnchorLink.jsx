@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Link = ({href, method, onClickFunction, classname, children}) => {
+const AnchorLink = ({href, method, onClickFunction, classname, children}) => {
     return (
         <a
             href={href}
@@ -12,12 +12,12 @@ const Link = ({href, method, onClickFunction, classname, children}) => {
     )
 };
 
-Link.propTypes = {
+AnchorLink.propTypes = {
     classname: PropTypes.string
 };
 
-Link.defaultProps = {
+AnchorLink.defaultProps = {
    classname: 'link'
 };
 
-export default Link;
+export default AnchorLink;

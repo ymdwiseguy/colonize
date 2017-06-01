@@ -1,14 +1,14 @@
 import React from 'react';
-import Link from '../../BaseComponents/Link.jsx';
+import AnchorLink from '../../BaseComponents/AnchorLink.jsx';
 
 const MenuEntry = ({entry, onClickSubmenu}) => {
     return (
         <li>
-            <Link
+            <AnchorLink
                 href={entry.endpointUrl}
                 method={entry.method}
                 onClickFunction={onClickSubmenu}>{entry.entryName}
-            </Link>
+            </AnchorLink>
         </li>
     );
 };

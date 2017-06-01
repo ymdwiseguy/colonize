@@ -1,7 +1,5 @@
 import React from 'react';
-
-import Link from '../../BaseComponents/Link.jsx';
-import MenuEntry from '../MenuEntry/MenuEntry.jsx';
+import AnchorLink from '../../BaseComponents/AnchorLink.jsx';
 
 class GenerateMapPopup extends React.Component {
 
@@ -36,11 +34,11 @@ class GenerateMapPopup extends React.Component {
             <div className="popup generateMapPopup">
                 <h2>{this.props.game.popupMenu.header}</h2>
                 {inputs}
-                <Link
+                <AnchorLink
                     href={entry.endpointUrl}
                     method={entry.method}
                     onClickFunction={this.handlePopupClick}>{entry.entryName}
-                </Link>
+                </AnchorLink>
             </div>
         )
 
