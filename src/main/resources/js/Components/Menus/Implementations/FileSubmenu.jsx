@@ -2,19 +2,12 @@ import React from 'react';
 import {Provider, connect} from 'react-redux'
 
 import * as actions from '../../../Actions/Actions.jsx'
-import LinkListPopup from './LinkListPopup.jsx'
+import SubMenu from '../GameMenu/SubMenu.jsx'
 
 const entries = [{
-    entryName: "Start a new game",
-    action: "CHOOSE_FACTION"
-}, {
     entryName: "Load a game",
     action: "LOAD_GAME"
-}, {
-    entryName: "Map editor",
-    action: "MAP_EDITOR"
 }];
-
 
 const mapStateToProps = () => ({
     entries: entries,
@@ -27,7 +20,6 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
+const FileSubMenu = connect(mapStateToProps, mapDispatchToProps)(SubMenu);
 
-const InitialPopup = connect(mapStateToProps, mapDispatchToProps)(LinkListPopup);
-
-export default InitialPopup;
+export default FileSubMenu;

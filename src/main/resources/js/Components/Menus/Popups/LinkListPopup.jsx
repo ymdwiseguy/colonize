@@ -1,20 +1,13 @@
 import React from 'react';
-
-const MenuEntry = ({onClickFunction, classname, children}) => {
-    return (
-        <li
-            className={classname}
-            onClick={onClickFunction}>{children}
-        </li>
-    )
-};
+import MenuEntry from '../MenuEntry.jsx'
 
 
 const LinkListPopup = ({entries, header, onMenuItemClick}) => {
 
     let menuentries = entries.map((entry, i) => {
         return (
-            <MenuEntry key={i} onClickFunction={(e, t) => onMenuItemClick(entry.action)} classname="link">
+            <MenuEntry key={i}
+                       onClickFunction={(e, t) => onMenuItemClick(entry.action)}>
                 {entry.entryName}
             </MenuEntry>
         );

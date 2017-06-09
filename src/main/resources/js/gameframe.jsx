@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WorldMap from './Components/WorldMap/WorldMap.jsx';
+import WorldMap from './EditorComponents/WorldMap/WorldMap.jsx';
 
 class GameFrame extends React.Component {
 

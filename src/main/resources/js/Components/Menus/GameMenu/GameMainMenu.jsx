@@ -27,6 +27,7 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = (dispatch) => ({
     onMenuItemClick: (faction) => {
         dispatch(actions.chooseFaction(faction));
+        dispatch(actions.fetchMap('america'));
     }
 });
 

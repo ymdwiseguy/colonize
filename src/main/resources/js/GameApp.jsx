@@ -1,29 +1,28 @@
+import 'babel-polyfill'
 import React from 'react';
 import {render} from 'react-dom';
-import {createStore, combineReducers} from 'redux'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
 import {Provider, connect} from 'react-redux'
+import thunk from 'redux-thunk'
 
 import * as reducers from './Reducers/Reducers.jsx'
-import ChooseFactionPopup from './Components/Menus/Popups/ChooseFactionPopup.jsx'
-import InitialPopup from './Components/Menus/Popups/InitialPopup.jsx'
+import ChooseFactionPopup from './Components/Menus/Implementations/ChooseFactionPopup.jsx'
+import InitialPopup from './Components/Menus/Implementations/InitialPopup.jsx'
+import GameFrame from './Components/MainFrames/GameFrame.jsx'
 
-const mapGameStateToProps = (state) => ({
-    screen: state.screen,
-    faction: state.faction
+
+const mapMainFrameStateToProps = (state) => ({
+    screen: state.screen
 });
 
-const Game = () => {
-    return <div>Render game</div>
-};
-
-const MainFrameComponent = ({screen, faction}) => {
+const MainFrameComponent = ({screen}) => {
     let content = null;
     switch (screen) {
         case 'CHOOSE_FACTION':
             content = <ChooseFactionPopup />;
             break;
         case 'GAME':
-            content = <Game />;
+            content = <GameFrame />;
             break;
         default:
             content = <InitialPopup />;
@@ -35,23 +34,19 @@ const MainFrameComponent = ({screen, faction}) => {
     );
 };
 
-const ConnectedGame = connect(mapGameStateToProps, null)(MainFrameComponent);
-
-
-MainFrameComponent.propTypes = {
-    // data: PropTypes.object
-};
+const MainFrame = connect(mapMainFrameStateToProps, null)(MainFrameComponent);
 
 
 const store = createStore(
     combineReducers({
         ...reducers
-    })
+    }),
+    applyMiddleware(thunk)
 );
 
 
 render(
     <Provider store={store}>
-        <ConnectedGame />
+        <MainFrame />
     </Provider>, document.getElementById('col-body')
 );
