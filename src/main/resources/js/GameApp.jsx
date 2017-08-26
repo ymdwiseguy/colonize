@@ -28,7 +28,7 @@ const MainFrameComponent = ({screen}) => {
             content = <InitialPopup />;
     }
     return (
-        <div>
+        <div className="col-body">
             {content}
         </div>
     );

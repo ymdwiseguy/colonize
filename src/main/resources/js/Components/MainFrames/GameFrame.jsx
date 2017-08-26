@@ -17,7 +17,14 @@ const Game = ({worldMap}) => {
                     <FileSubmenu/>
                 </ul>
             </div>
-            Render game for map &quot;{worldMap.title}&quot;
+            <div className="map-outer-wrapper">
+                <WorldMap/>
+            </div>
+            <div className="sidebar">
+                <div className="sidebar--inner">
+                    <h2 className="sidebar__header">Sidebar</h2>
+                </div>
+            </div>
         </div>
     );
 };

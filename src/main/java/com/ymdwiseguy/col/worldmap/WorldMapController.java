@@ -104,19 +104,18 @@ public class WorldMapController {
         return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
     }
 
-    // GET - HTML
+    // GET - JSON
     @RequestMapping(value = "/maps/{name}")
     public ResponseEntity loadMapFromFile(@PathVariable String name) {
-//        mapConfigurationReader.setFilename(name);
-        String worldMapData = mapFileHandler.readDataFromFile(name).orElse("[]");// mapConfigurationReader.read();
-        WorldMap worldMap = worldMapService.saveWorldMapFromJson(worldMapData);
+        String worldMapData = mapFileHandler.readDataFromFile(name).orElse("[]");
 
+//        For now: just load the map data without initializing a game
+//        WorldMap worldMap = worldMapService.saveWorldMapFromJson(worldMapData);
+//        Game game = new Game();
+//        game.setGameScreen(WORLDMAP);
+//        game.setWorldMap(worldMap);
 
-        Game game = new Game();
-        game.setGameScreen(WORLDMAP);
-        game.setWorldMap(worldMap);
-
-        return new ResponseEntity<>(worldMapView.render(game.toJson()), HttpStatus.CREATED);
+        return new ResponseEntity<>(worldMapData, HttpStatus.CREATED);
     }
 
 
