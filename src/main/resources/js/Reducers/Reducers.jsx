@@ -34,6 +34,16 @@ export function faction(state = null, action) {
     }
 }
 
+export function cursor(state = {
+    cursorActive: true,
+    cursorX: 1,
+    cursorY: 1
+}, action) {
+    switch (action.type) {
+        default:
+            return state;
+    }
+}
 
 export function worldMap(state = {
     isFetching: false,

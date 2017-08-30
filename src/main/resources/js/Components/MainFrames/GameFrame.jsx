@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import FileSubmenu from '../Menus/Implementations/FileSubmenu.jsx'
-import WorldMap from '../../EditorComponents/WorldMap/WorldMap.jsx';
+import WorldMap from '../../Components/WorldMap/WorldMap.jsx';
 
 
 const mapGameStateToProps = (state) => ({
