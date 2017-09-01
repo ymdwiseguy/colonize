@@ -3,7 +3,8 @@ import {
     CHOOSE_FACTION,
     REQUEST_WORLD_MAP,
     RECEIVE_WORLD_MAP,
-    INVALIDATE_WORLD_MAP
+    INVALIDATE_WORLD_MAP,
+    CURSOR_MOVE
 } from '../ActionTypes/ActionTypes.jsx'
 
 export function screen(state = "START", action) {
@@ -16,7 +17,6 @@ export function screen(state = "START", action) {
             return state
     }
 }
-
 
 const factions = ['Netherlands', 'France', 'Spain', 'England'];
 
@@ -39,7 +39,22 @@ export function cursor(state = {
     cursorX: 1,
     cursorY: 1
 }, action) {
+    console.log(action);
     switch (action.type) {
+        case CURSOR_MOVE:
+            if (action.direction === 'RIGHT') {
+                return {...state, cursorX: state.cursorX + 1}
+            }
+            if (action.direction === 'LEFT') {
+                return {...state, cursorX: state.cursorX - 1}
+            }
+            if (action.direction === 'UP') {
+                return {...state, cursorY: state.cursorY - 1}
+            }
+            if (action.direction === 'DOWN') {
+                return {...state, cursorY: state.cursorY + 1}
+            }
+            return state;
         default:
             return state;
     }

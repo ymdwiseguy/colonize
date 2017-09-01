@@ -2,13 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
-    cursor: state.cursor
+    cursorActive: state.cursor.cursorActive,
+    cursorX: state.cursor.cursorX,
+    cursorY: state.cursor.cursorY
 });
 
-
-const Cursor = ({cursor}) => {
-    let className = 'cursor cursor-x' + cursor.cursorX + ' cursor-y' + cursor.cursorY;
-    if(cursor.cursorActive === true){
+const Cursor = ({cursorActive, cursorX, cursorY}) => {
+    let className = 'cursor cursor-x' + cursorX + ' cursor-y' + cursorY;
+    if(cursorActive === true){
         className += ' cursor--active';
     }
     return <div className={className}>&nbsp;</div>;

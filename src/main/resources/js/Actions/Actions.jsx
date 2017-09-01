@@ -3,14 +3,24 @@ import {
     CHOOSE_FACTION,
     REQUEST_WORLD_MAP,
     RECEIVE_WORLD_MAP,
-    INVALIDATE_WORLD_MAP
+    INVALIDATE_WORLD_MAP,
+    CURSOR_GOTO,
+    CURSOR_MOVE
 } from '../ActionTypes/ActionTypes.jsx'
+
 import fetch from 'isomorphic-fetch'
 
 export function goToPage(text) {
     return {
         type: GOTO_PAGE,
         text
+    }
+}
+
+export function cursorMove(direction) {
+    return {
+        type: CURSOR_MOVE,
+        direction
     }
 }
 
@@ -29,7 +39,6 @@ export function requestMap(map) {
 }
 
 export function receiveMap(worldMap, json) {
-    console.log(json);
     return {
         type: RECEIVE_WORLD_MAP,
         worldMap,
@@ -45,6 +54,7 @@ export function invalidateMap(worldMap) {
     }
 }
 
+// Asynchronous actions:
 export function fetchMap(worldMap) {
 
     return function (dispatch) {
