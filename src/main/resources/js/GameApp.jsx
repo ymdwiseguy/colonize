@@ -6,7 +6,6 @@ import {Provider, connect} from 'react-redux'
 import thunk from 'redux-thunk'
 
 import * as reducers from './Reducers/Reducers.jsx'
-import * as actions from './Actions/Actions.jsx'
 
 import ChooseFactionPopup from './Components/Menus/Implementations/ChooseFactionPopup.jsx'
 import InitialPopup from './Components/Menus/Implementations/InitialPopup.jsx'
@@ -17,42 +16,10 @@ const mapMainFrameStateToProps = (state) => ({
     screen: state.screen
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    keyPressAction: bindActionCreators(actions.cursorMove, dispatch)
-});
-
 class MainFrameComponent extends Component {
+
     constructor(){
         super();
-        this.handleKeyPress = this.handleKeyPress.bind(this);
-    }
-
-    handleKeyPress(event) {
-
-        switch (event.keyCode) {
-            case 37: // left
-                this.props.keyPressAction('LEFT');
-                break;
-            case 38: // up
-                this.props.keyPressAction('UP');
-                break;
-            case 39: // right
-                this.props.keyPressAction('RIGHT');
-                break;
-            case 40: // down
-                this.props.keyPressAction('DOWN');
-                break;
-        }
-
-    }
-
-    componentDidMount() {
-        document.addEventListener('keydown', this.handleKeyPress);
-
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleKeyPress);
     }
 
     render() {
@@ -78,7 +45,7 @@ class MainFrameComponent extends Component {
     }
 }
 
-const MainFrame = connect(mapMainFrameStateToProps, mapDispatchToProps)(MainFrameComponent);
+const MainFrame = connect(mapMainFrameStateToProps, null)(MainFrameComponent);
 
 const combinedReducers = combineReducers({...reducers});
 const middleWare = applyMiddleware(thunk);

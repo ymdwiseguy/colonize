@@ -10,3 +10,7 @@ export const INVALIDATE_WORLD_MAP = 'INVALIDATE_WORLD_MAP';
 // Cursor actions
 export const CURSOR_MOVE = 'CURSOR_MOVE';
 export const CURSOR_GOTO = 'CURSOR_GOTO';
+
+// Viewport actions
+export const VIEWPORT_SET_CANVAS_SIZE = 'VIEWPORT_SET_CANVAS_SIZE';
+export const ADJUST_VIEWPORT = 'ADJUST_VIEWPORT';

@@ -30,10 +30,24 @@
 
     transition: all 100ms ease;
 
-    $class-ext: --width !default;
+    $class-ext-width: --width !default;
     @for $i from 1 through 120 {
-        &#{$class-ext}-#{$i} {
+        &#{$class-ext-width}-#{$i} {
             width: calc(#{$i} * 100px);
+        }
+    }
+
+    $class-ext-left: --left !default;
+    @for $j from 1 through 120 {
+        &#{$class-ext-left}-#{$j} {
+            left: calc(#{$j} * -100px);
+        }
+    }
+
+    $class-ext-top: --top !default;
+    @for $k from 1 through 120 {
+        &#{$class-ext-top}-#{$k} {
+            top: calc(#{$k} * -100px);
         }
     }
 

@@ -5,7 +5,9 @@ import {
     RECEIVE_WORLD_MAP,
     INVALIDATE_WORLD_MAP,
     CURSOR_GOTO,
-    CURSOR_MOVE
+    CURSOR_MOVE,
+    VIEWPORT_SET_CANVAS_SIZE,
+    ADJUST_VIEWPORT
 } from '../ActionTypes/ActionTypes.jsx'
 
 import fetch from 'isomorphic-fetch'
@@ -21,6 +23,22 @@ export function cursorMove(direction) {
     return {
         type: CURSOR_MOVE,
         direction
+    }
+}
+
+export function viewPortChangeCanvasSize(canvasWidth, canvasHeight){
+    return {
+        type: VIEWPORT_SET_CANVAS_SIZE,
+        canvasWidth,
+        canvasHeight
+    }
+}
+
+export function adjustViewPort(cursorX, cursorY) {
+    return {
+        type: ADJUST_VIEWPORT,
+        cursorX,
+        cursorY
     }
 }
 

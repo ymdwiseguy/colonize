@@ -1,20 +1,59 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as actions from '../../Actions/Actions.jsx'
 
 const mapStateToProps = (state) => ({
-    cursorActive: state.cursor.cursorActive,
-    cursorX: state.cursor.cursorX,
-    cursorY: state.cursor.cursorY
+    cursorActive: state.viewPort.cursorActive,
+    cursorX: state.viewPort.cursorX,
+    cursorY: state.viewPort.cursorY
 });
 
-const Cursor = ({cursorActive, cursorX, cursorY}) => {
-    let className = 'cursor cursor-x' + cursorX + ' cursor-y' + cursorY;
-    if(cursorActive === true){
-        className += ' cursor--active';
+const mapDispatchToProps = (dispatch) => ({
+    viewPortUpdate: bindActionCreators(actions.viewPortChangeCanvasSize, dispatch),
+    adjustViewPort: bindActionCreators(actions.adjustViewPort, dispatch)
+});
+
+class Cursor extends Component {
+    constructor() {
+        super();
+        this.handleViewPortUpdate = this.handleViewPortUpdate.bind(this);
     }
-    return <div className={className}>&nbsp;</div>;
-};
 
-const ConnectedCursor = connect(mapStateToProps, null)(Cursor);
+    handleViewPortUpdate() {
+        this.getViewPortValues()
+    }
 
-export default ConnectedCursor;
+    getViewPortValues() {
+        let mapFrame = $('.map-outer-wrapper');
+        let frameWidth = parseInt(mapFrame.css('width'));
+        let frameHeight = parseInt(mapFrame.css('height'));
+        this.props.viewPortUpdate(frameWidth, frameHeight);
+    }
+
+    componentDidUpdate() {
+        this.props.adjustViewPort(this.props.cursorX, this.props.cursorY);
+    }
+
+    componentDidMount() {
+        this.handleViewPortUpdate();
+        window.addEventListener('resize', this.handleViewPortUpdate);
+
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleViewPortUpdate);
+    }
+
+    render(){
+        const {cursorActive, cursorX, cursorY} = this.props;
+
+        let className = 'cursor cursor-x' + cursorX + ' cursor-y' + cursorY;
+        if(cursorActive === true){
+            className += ' cursor--active';
+        }
+        return <div className={className}>&nbsp;</div>;
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cursor);

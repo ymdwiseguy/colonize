@@ -1,53 +1,95 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
+import {bindActionCreators} from 'redux'
 
 import Unit from '../../EditorComponents/Units/Unit.jsx';
-import Tile from '../../EditorComponents/WorldMap/Tile.jsx';
+import Tile from './Tile.jsx';
 import Cursor from './Cursor.jsx';
+import * as actions from '../../Actions/Actions.jsx'
 
 
 const mapGameStateToProps = (state) => ({
-    worldMap: state.worldMap.mapData
+    worldMap: state.worldMap.mapData,
+    viewPort: state.viewPort
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    keyPressAction: bindActionCreators(actions.cursorMove, dispatch)
 });
 
 
-const WorldMap = ({worldMap}) => {
+class WorldMap extends Component {
 
-    if (worldMap === null) {
-        return <div className="map-main-wrapper">&nbsp;</div>;
+    constructor() {
+        super();
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    let units = '';
-    let tileList;
+    handleKeyPress(event) {
 
-    if (worldMap.tiles) {
-        tileList = worldMap.tiles.map((tile, i) => {
-            let key = 'tile_' + tile.xCoordinate + '_' + tile.yCoordinate;
-            return <Tile tile={tile} key={key}/>
-        });
+        switch (event.keyCode) {
+            case 37: // left
+                this.props.keyPressAction('LEFT');
+                break;
+            case 38: // up
+                this.props.keyPressAction('UP');
+                break;
+            case 39: // right
+                this.props.keyPressAction('RIGHT');
+                break;
+            case 40: // down
+                this.props.keyPressAction('DOWN');
+                break;
+        }
+
     }
 
-    if (worldMap.units) {
-        units = worldMap.units.map((unit, i) => {
-            return <Unit unit={unit} key={i}/>
-        });
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleKeyPress);
     }
-    let classname = 'map-main-wrapper map-main-wrapper--width-' + worldMap.width;
-    return (
-        <div className={classname}>
-            {tileList}
-            {units}
-            <Cursor/>
-        </div>
-    )
-};
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyPress);
+    }
+
+    render() {
+        const {worldMap, viewPort} = this.props;
+
+        if (worldMap === null) {
+            return <div className="map-main-wrapper">&nbsp;</div>;
+        }
+
+        let tileList;
+        if (worldMap.tiles) {
+            tileList = worldMap.tiles.map((tile, i) => {
+                let key = 'tile_' + tile.xCoordinate + '_' + tile.yCoordinate;
+                return <Tile tile={tile} key={key}/>
+            });
+        }
+
+        let units = '';
+        if (worldMap.units) {
+            units = worldMap.units.map((unit, i) => {
+                return <Unit unit={unit} key={i}/>
+            });
+        }
+
+        let classname = 'map-main-wrapper map-main-wrapper--width-' + worldMap.width + ' ' +
+            'map-main-wrapper--left-' + viewPort.mapOffsetX + ' ' +
+            'map-main-wrapper--top-' + viewPort.mapOffsetY;
+        return (
+            <div className={classname}>
+                {tileList}
+                {units}
+                <Cursor/>
+            </div>
+        )
+    }
+}
 
 WorldMap.propTypes = {
     worldMap: PropTypes.object
 };
 
-const ConnectedWorldMap = connect(mapGameStateToProps, null)(WorldMap);
-
-
-export default ConnectedWorldMap;
+export default connect(mapGameStateToProps, mapDispatchToProps)(WorldMap);
