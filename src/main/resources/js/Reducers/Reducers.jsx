@@ -5,7 +5,6 @@ import {
     RECEIVE_WORLD_MAP,
     INVALIDATE_WORLD_MAP,
     CURSOR_MOVE,
-    ADJUST_VIEWPORT,
     VIEWPORT_SET_CANVAS_SIZE
 } from '../ActionTypes/ActionTypes.jsx'
 
@@ -76,79 +75,88 @@ export function viewPort(state = {
     mapOffsetY: 0
 }, action) {
     switch (action.type) {
+
         case VIEWPORT_SET_CANVAS_SIZE:
             return Object.assign({}, state, {
                 canvasWidth: action.canvasWidth,
                 canvasHeight: action.canvasHeight
             });
+
         case CURSOR_MOVE:
-            if (action.direction === 'RIGHT') {
-                return {...state, cursorX: state.cursorX + 1}
+            let newCursorX = state.cursorX;
+            let newCursorY = state.cursorY;
+
+            switch (action.direction) {
+                case 'RIGHT':
+                    newCursorX = state.cursorX + 1;
+                    break;
+                case 'LEFT':
+                    newCursorX = state.cursorX - 1;
+                    break;
+                case 'UP':
+                    newCursorY = state.cursorY - 1;
+                    break;
+                case 'DOWN':
+                    newCursorY = state.cursorY + 1;
+                    break;
             }
-            if (action.direction === 'LEFT') {
-                return {...state, cursorX: state.cursorX - 1}
-            }
-            if (action.direction === 'UP') {
-                return {...state, cursorY: state.cursorY - 1}
-            }
-            if (action.direction === 'DOWN') {
-                return {...state, cursorY: state.cursorY + 1}
-            }
-            return state;
-        case ADJUST_VIEWPORT:
-            let mapOffsets = getMapOffset(state);
-            return Object.assign({}, state, {
+
+            let mapOffsets = getMapOffset(state, newCursorX, newCursorY);
+            return {
+                ...state,
+                cursorX: newCursorX,
+                cursorY: newCursorY,
                 mapOffsetX: mapOffsets['xOffset'],
                 mapOffsetY: mapOffsets['yOffset']
-            });
+            };
+
         case RECEIVE_WORLD_MAP:
             return Object.assign({}, state, {
                 mapWith: action.mapData.width,
                 mapHeight: action.mapData.height
             });
+
         default:
             return state;
     }
 }
 
-function getMapOffset(state) {
+function getMapOffset(state, cursorLeft, cursorTop) {
 
     const GRID_FACTOR = 100;
 
-    const canvasWidth = state.canvasWidth;
-    const canvasHeight = state.canvasHeight;
-    const cursorLeft = state.cursorX * GRID_FACTOR;
-    const cursorTop = state.cursorY * GRID_FACTOR;
-    const mapWidth = state.mapWith * GRID_FACTOR;
-    const mapHeight = state.mapHeight * GRID_FACTOR;
-    let mapLeft = state.mapOffsetX * GRID_FACTOR;
-    let mapTop = state.mapOffsetY * GRID_FACTOR;
+    const canvasWidth = state.canvasWidth === 0 ? 0 : Math.floor(state.canvasWidth / GRID_FACTOR);
+    const canvasHeight = state.canvasHeight === 0 ? 0 : Math.floor(state.canvasHeight / GRID_FACTOR);
+    const mapWidth = state.mapWith;
+    const mapHeight = state.mapHeight;
+    let mapLeft = state.mapOffsetX;
+    let mapTop = state.mapOffsetY;
 
     if (cursorOutsideViewPort(canvasWidth, canvasHeight, mapLeft, mapTop, cursorLeft, cursorTop)) {
-        mapLeft = canvasWidth / 2 - cursorLeft - GRID_FACTOR / 2;
+        mapLeft = canvasWidth / 2 - cursorLeft - 0.5;
         mapLeft = limitHorizontally(mapLeft, mapWidth, canvasWidth);
-        mapTop = canvasHeight / 2 - cursorTop - GRID_FACTOR / 2;
+        mapTop = canvasHeight / 2 - cursorTop - 0.5;
         mapTop = limitVertically(mapTop, mapHeight, canvasHeight);
 
         return {
-            'xOffset': (mapLeft === 0 ? 0 : Math.floor(mapLeft / GRID_FACTOR) * -1),
-            'yOffset': (mapTop === 0 ? 0 : Math.floor(mapTop / GRID_FACTOR) * -1)
+            'xOffset': (mapLeft === 0 ? 0 : Math.floor(mapLeft) * -1),
+            'yOffset': (mapTop === 0 ? 0 : Math.floor(mapTop) * -1)
         };
     }
     return {'xOffset': state.mapOffsetX, 'yOffset': state.mapOffsetY};
 }
 
-function cursorOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop, GRID_FACTOR = 100) {
-    const maxPaddingHorizontal = 7 * GRID_FACTOR;
-    let paddingHorizontal = 2 * GRID_FACTOR;
-    while ((frameWidth / 2 - GRID_FACTOR) > paddingHorizontal && paddingHorizontal < maxPaddingHorizontal) {
-        paddingHorizontal += GRID_FACTOR;
+function cursorOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop) {
+    const MAX_PADDING = 7;
+
+    let paddingHorizontal = 2;
+    while ((frameWidth / 2 - 1) > paddingHorizontal && paddingHorizontal < MAX_PADDING) {
+        paddingHorizontal += 1;
     }
 
-    const maxPaddingVertical = 7 * GRID_FACTOR;
-    let paddingVertical = GRID_FACTOR * 2;
-    while ((frameHeight / 2 - GRID_FACTOR) > paddingVertical && paddingVertical < maxPaddingVertical) {
-        paddingVertical += GRID_FACTOR;
+    let paddingVertical = 2;
+    while ((frameHeight / 2 - 1) > paddingVertical && paddingVertical < MAX_PADDING) {
+        paddingVertical += 1;
     }
 
     const rightOutside = ((frameWidth - (mapLeft + cursorLeft)) < (paddingHorizontal));

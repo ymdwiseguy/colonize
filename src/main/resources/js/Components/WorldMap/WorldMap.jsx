@@ -15,7 +15,8 @@ const mapGameStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    keyPressAction: bindActionCreators(actions.cursorMove, dispatch)
+    keyPressAction: bindActionCreators(actions.cursorMove, dispatch),
+    viewPortUpdate: bindActionCreators(actions.viewPortChangeCanvasSize, dispatch)
 });
 
 
@@ -24,6 +25,7 @@ class WorldMap extends Component {
     constructor() {
         super();
         this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleViewPortUpdate = this.handleViewPortUpdate.bind(this);
     }
 
     handleKeyPress(event) {
@@ -45,11 +47,25 @@ class WorldMap extends Component {
 
     }
 
+    handleViewPortUpdate() {
+        this.getViewPortValues()
+    }
+
+    getViewPortValues() {
+        let mapFrame = $('.map-outer-wrapper');
+        let frameWidth = parseInt(mapFrame.css('width'));
+        let frameHeight = parseInt(mapFrame.css('height'));
+        this.props.viewPortUpdate(frameWidth, frameHeight);
+    }
+
     componentDidMount() {
+        this.handleViewPortUpdate();
+        window.addEventListener('resize', this.handleViewPortUpdate);
         document.addEventListener('keydown', this.handleKeyPress);
     }
 
     componentWillUnmount() {
+        window.removeEventListener('resize', this.handleViewPortUpdate);
         document.removeEventListener('keydown', this.handleKeyPress);
     }
 
