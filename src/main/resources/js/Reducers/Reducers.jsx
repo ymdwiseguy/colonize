@@ -133,58 +133,48 @@ function getMapOffset(state, cursorLeft, cursorTop) {
     let mapTop = state.mapOffsetY;
 
     if (cursorOutsideViewPort(canvasWidth, canvasHeight, mapLeft, mapTop, cursorLeft, cursorTop)) {
-        mapLeft = canvasWidth / 2 - cursorLeft - 0.5;
+        mapLeft = cursorLeft - canvasWidth / 2;
         mapLeft = limitHorizontally(mapLeft, mapWidth, canvasWidth);
-        mapTop = canvasHeight / 2 - cursorTop - 0.5;
+        mapTop = cursorTop - canvasHeight / 2;
         mapTop = limitVertically(mapTop, mapHeight, canvasHeight);
 
         return {
-            'xOffset': (mapLeft === 0 ? 0 : Math.floor(mapLeft) * -1),
-            'yOffset': (mapTop === 0 ? 0 : Math.floor(mapTop) * -1)
+            'xOffset': (mapLeft === 0 ? 0 : Math.floor(mapLeft)),
+            'yOffset': (mapTop === 0 ? 0 : Math.floor(mapTop))
         };
     }
     return {'xOffset': state.mapOffsetX, 'yOffset': state.mapOffsetY};
 }
 
 function cursorOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop) {
-    const MAX_PADDING = 7;
+    const PADDING = 2;
 
-    let paddingHorizontal = 2;
-    while ((frameWidth / 2 - 1) > paddingHorizontal && paddingHorizontal < MAX_PADDING) {
-        paddingHorizontal += 1;
-    }
-
-    let paddingVertical = 2;
-    while ((frameHeight / 2 - 1) > paddingVertical && paddingVertical < MAX_PADDING) {
-        paddingVertical += 1;
-    }
-
-    const rightOutside = ((frameWidth - (mapLeft + cursorLeft)) < (paddingHorizontal));
-    const leftOuside = (cursorLeft <= (paddingHorizontal - mapLeft));
-    const topOuside = (cursorTop <= (paddingVertical - mapTop));
-    const bottomOuside = ((frameHeight - (mapTop + cursorTop)) < (paddingVertical));
+    const rightOutside = (frameWidth + mapLeft - PADDING < cursorLeft);
+    const leftOuside = (cursorLeft <= (PADDING + mapLeft));
+    const topOuside = (cursorTop <= (PADDING + mapTop));
+    const bottomOuside = (frameHeight + mapTop - PADDING < cursorTop);
 
     return (rightOutside || leftOuside || topOuside || bottomOuside);
 }
 
 function limitHorizontally(mapLeft, mapWidth, frameWidth) {
-    if (mapLeft > 0) {
+    if (mapLeft < 0) {
         mapLeft = 0;
     }
-    let limitRight = (mapWidth + mapLeft);
+    let limitRight = (mapWidth - mapLeft);
     if (limitRight < frameWidth) {
-        mapLeft = -1 * (mapWidth - frameWidth);
+        mapLeft = mapWidth - frameWidth;
     }
     return mapLeft;
 }
 
 function limitVertically(mapTop, mapHeight, frameHeight) {
-    if (mapTop > 0) {
+    if (mapTop < 0) {
         mapTop = 0;
     }
-    let limitBottom = (mapHeight + mapTop);
+    let limitBottom = (mapHeight - mapTop);
     if (limitBottom < frameHeight) {
-        mapTop = -1 * (mapHeight - frameHeight);
+        mapTop = mapHeight - frameHeight;
     }
     return mapTop;
 }
