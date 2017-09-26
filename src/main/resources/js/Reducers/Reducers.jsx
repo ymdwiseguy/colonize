@@ -5,8 +5,9 @@ import {
     RECEIVE_WORLD_MAP,
     INVALIDATE_WORLD_MAP,
     CURSOR_MOVE,
+    CURSOR_GOTO,
     VIEWPORT_SET_CANVAS_SIZE
-} from '../ActionTypes/ActionTypes.jsx'
+} from '../ActionTypes/ActionTypes.jsx';
 
 export function screen(state = "START", action) {
     switch (action.type) {
@@ -64,7 +65,7 @@ export function worldMap(state = {
 }
 
 export function viewPort(state = {
-    mapWith: 0,
+    mapWidth: 0,
     mapHeight: 0,
     canvasWidth: 0,
     canvasHeight: 0,
@@ -74,6 +75,11 @@ export function viewPort(state = {
     mapOffsetX: 0,
     mapOffsetY: 0
 }, action) {
+
+    let newCursorGotoX;
+    let newCursorGotoY;
+    let mapOffsetsGoto;
+
     switch (action.type) {
 
         case VIEWPORT_SET_CANVAS_SIZE:
@@ -82,38 +88,70 @@ export function viewPort(state = {
                 canvasHeight: action.canvasHeight
             });
 
+        case CURSOR_GOTO:
+
+            newCursorGotoX = action.xPosition;
+            newCursorGotoY = action.yPosition;
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
+            return {
+                ...state,
+                cursorX: newCursorGotoX,
+                cursorY: newCursorGotoY,
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
+            };
+
         case CURSOR_MOVE:
-            let newCursorX = state.cursorX;
-            let newCursorY = state.cursorY;
+            newCursorGotoX = state.cursorX;
+            newCursorGotoY = state.cursorY;
 
             switch (action.direction) {
-                case 'RIGHT':
-                    newCursorX = state.cursorX + 1;
-                    break;
                 case 'LEFT':
-                    newCursorX = state.cursorX - 1;
+                    if (newCursorGotoX > 1) {
+                        newCursorGotoX = newCursorGotoX - 1;
+                    }
+                    break;
+                case 'RIGHT':
+                    if (newCursorGotoX < state.mapWidth) {
+                        newCursorGotoX = newCursorGotoX + 1;
+                    }
                     break;
                 case 'UP':
-                    newCursorY = state.cursorY - 1;
+                    if (newCursorGotoY > 1) {
+                        newCursorGotoY = newCursorGotoY - 1;
+                    }
                     break;
                 case 'DOWN':
-                    newCursorY = state.cursorY + 1;
+                    if (newCursorGotoY < state.mapHeight) {
+                        newCursorGotoY = newCursorGotoY + 1;
+                    }
                     break;
             }
 
-            let mapOffsets = getMapOffset(state, newCursorX, newCursorY);
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
             return {
                 ...state,
-                cursorX: newCursorX,
-                cursorY: newCursorY,
-                mapOffsetX: mapOffsets['xOffset'],
-                mapOffsetY: mapOffsets['yOffset']
+                cursorX: newCursorGotoX,
+                cursorY: newCursorGotoY,
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
             };
 
         case RECEIVE_WORLD_MAP:
-            return Object.assign({}, state, {
-                mapWith: action.mapData.width,
-                mapHeight: action.mapData.height
+            newCursorGotoX = 48;
+            newCursorGotoY = 33;
+
+            let newState = {... state, mapWidth: action.mapData.width, mapHeight: action.mapData.height };
+            mapOffsetsGoto = getMapOffset(newState, newCursorGotoX, newCursorGotoY);
+
+            return Object.assign({}, newState, {
+                mapWidth: action.mapData.width,
+                mapHeight: action.mapData.height,
+                cursorX: newCursorGotoX,
+                cursorY: newCursorGotoY,
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
             });
 
         default:
@@ -127,7 +165,7 @@ function getMapOffset(state, cursorLeft, cursorTop) {
 
     const canvasWidth = state.canvasWidth === 0 ? 0 : Math.floor(state.canvasWidth / GRID_FACTOR);
     const canvasHeight = state.canvasHeight === 0 ? 0 : Math.floor(state.canvasHeight / GRID_FACTOR);
-    const mapWidth = state.mapWith;
+    const mapWidth = state.mapWidth;
     const mapHeight = state.mapHeight;
     let mapLeft = state.mapOffsetX;
     let mapTop = state.mapOffsetY;

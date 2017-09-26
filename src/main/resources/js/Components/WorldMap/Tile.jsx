@@ -1,13 +1,34 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
+
+import {bindActionCreators} from 'redux'
+import * as actions from '../../Actions/Actions.jsx'
+
+
+const mapStateToProps = (state, ownProps) => {
+    return {ownProps}
+};
+
+
+const mapDispatchToProps = (dispatch) => ({
+    clickTileAction: bindActionCreators(actions.cursorGoto, dispatch)
+});
+
 
 class Tile extends Component {
 
     constructor(props) {
         super(props);
+        this.handleClickEvent = this.handleClickEvent.bind(this);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         return !Tile.tilesAreEqual(nextProps.tile, this.props.tile);
+    }
+
+    handleClickEvent() {
+        const {tile} = this.props;
+        this.props.clickTileAction(tile.xCoordinate, tile.yCoordinate);
     }
 
     static tilesAreEqual(tile1, tile2) {
@@ -43,7 +64,7 @@ class Tile extends Component {
         }
 
         return (
-            <div className={className}>
+            <div className={className} onClick={this.handleClickEvent}>
                 {hill}
                 {forest}
                 {river}
@@ -53,4 +74,4 @@ class Tile extends Component {
 
 }
 
-export default Tile;
+export default connect(mapStateToProps, mapDispatchToProps)(Tile);
