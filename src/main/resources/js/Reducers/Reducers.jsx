@@ -3,7 +3,8 @@ import {
     CHOOSE_FACTION,
     REQUEST_WORLD_MAP,
     RECEIVE_WORLD_MAP,
-    INVALIDATE_WORLD_MAP
+    INVALIDATE_WORLD_MAP,
+    UNIT_CLICKED
 } from '../ActionTypes/ActionTypes.jsx';
 
 export function screen(state = "START", action) {
@@ -61,4 +62,19 @@ export function worldMap(state = {
     }
 }
 
-
+export function units(state = [
+    {
+        "unitType": "KARAVELLE",
+        "active": false,
+        "xPosition": 48,
+        "yPosition": 33
+    }
+], action) {
+    switch (action.type){
+        case UNIT_CLICKED:
+            console.log('UNIT_CLICKED');
+            return state;
+        default:
+            return state;
+    }
+}

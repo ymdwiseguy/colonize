@@ -7,6 +7,7 @@ import {
     VIEWPORT_SET_CANVAS_SIZE,
     CURSOR_GOTO,
     CURSOR_MOVE,
+    UNIT_CLICKED
 } from '../ActionTypes/ActionTypes.jsx'
 
 import fetch from 'isomorphic-fetch'
@@ -28,6 +29,14 @@ export function cursorMove(direction) {
 export function cursorGoto(xPosition, yPosition) {
     return {
         type: CURSOR_GOTO,
+        xPosition,
+        yPosition
+    }
+}
+
+export function unitClicked(xPosition, yPosition) {
+    return {
+        type: UNIT_CLICKED,
         xPosition,
         yPosition
     }

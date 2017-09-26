@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux'
 
-import Unit from '../../EditorComponents/Units/Unit.jsx';
+import Unit from './Unit.jsx';
 import Tile from './Tile.jsx';
 import Cursor from './Cursor.jsx';
 import * as actions from '../../Actions/Actions.jsx'
@@ -11,7 +11,8 @@ import * as actions from '../../Actions/Actions.jsx'
 
 const mapGameStateToProps = (state) => ({
     worldMap: state.worldMap.mapData,
-    viewPort: state.viewPort
+    viewPort: state.viewPort,
+    units: state.units
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -70,7 +71,7 @@ class WorldMap extends Component {
     }
 
     render() {
-        const {worldMap, viewPort} = this.props;
+        const {worldMap, viewPort, units} = this.props;
 
         if (worldMap === null) {
             return <div className="map-main-wrapper">&nbsp;</div>;
@@ -84,9 +85,9 @@ class WorldMap extends Component {
             });
         }
 
-        let units = '';
-        if (worldMap.units) {
-            units = worldMap.units.map((unit, i) => {
+        let renderUnits = '';
+        if (units) {
+            renderUnits = units.map((unit, i) => {
                 return <Unit unit={unit} key={i}/>
             });
         }
@@ -97,7 +98,7 @@ class WorldMap extends Component {
         return (
             <div className={classname}>
                 {tileList}
-                {units}
+                {renderUnits}
                 <Cursor/>
             </div>
         )

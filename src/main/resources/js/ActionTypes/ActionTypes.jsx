@@ -11,5 +11,8 @@ export const INVALIDATE_WORLD_MAP = 'INVALIDATE_WORLD_MAP';
 export const CURSOR_MOVE = 'CURSOR_MOVE';
 export const CURSOR_GOTO = 'CURSOR_GOTO';
 
+// Unit actions
+export const UNIT_CLICKED = 'UNIT_CLICKED';
+
 // Viewport actions
 export const VIEWPORT_SET_CANVAS_SIZE = 'VIEWPORT_SET_CANVAS_SIZE';
