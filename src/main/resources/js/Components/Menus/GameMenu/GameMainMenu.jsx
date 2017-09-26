@@ -2,7 +2,7 @@ import React from 'react';
 import {Provider, connect} from 'react-redux'
 
 import * as actions from '../../../Actions/Actions.jsx'
-import LinkListPopup from './LinkListPopup.jsx'
+import LinkListPopup from '../Popups/LinkListPopup.jsx'
 
 const entries = [{
     entryName: "Netherlands",
