@@ -21,7 +21,7 @@ class Unit extends Component {
 
     handleClickEvent() {
         const {unit} = this.props;
-        this.props.clickUnitAction(unit.xPosition, unit.yPosition);
+        this.props.clickUnitAction(unit.xPosition, unit.yPosition, unit.unitId);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -37,7 +37,6 @@ class Unit extends Component {
 
     render() {
         const {unit} = this.props;
-        console.log(unit);
 
         let className = 'unit unit__' + unit.unitType + ' unit__xpos-' + unit.xPosition + ' unit__ypos-' + unit.yPosition;
         let unitId = 'unit_' + unit.unitId;

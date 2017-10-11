@@ -34,11 +34,12 @@ export function cursorGoto(xPosition, yPosition) {
     }
 }
 
-export function unitClicked(xPosition, yPosition) {
+export function unitClicked(xPosition, yPosition, unitId) {
     return {
         type: UNIT_CLICKED,
         xPosition,
-        yPosition
+        yPosition,
+        unitId
     }
 }
 

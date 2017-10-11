@@ -2,6 +2,7 @@ import {
     RECEIVE_WORLD_MAP,
     CURSOR_MOVE,
     CURSOR_GOTO,
+    UNIT_CLICKED,
     VIEWPORT_SET_CANVAS_SIZE
 } from '../ActionTypes/ActionTypes.jsx';
 
@@ -30,8 +31,7 @@ export function viewPort(state = {
                 canvasHeight: action.canvasHeight
             });
 
-        case CURSOR_GOTO:
-
+        case UNIT_CLICKED:
             newCursorGotoX = action.xPosition;
             newCursorGotoY = action.yPosition;
             mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
@@ -40,6 +40,21 @@ export function viewPort(state = {
                 ...state,
                 cursorX: newCursorGotoX,
                 cursorY: newCursorGotoY,
+                cursorActive: false,
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
+            };
+
+        case CURSOR_GOTO:
+            newCursorGotoX = action.xPosition;
+            newCursorGotoY = action.yPosition;
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
+            return {
+                ...state,
+                cursorX: newCursorGotoX,
+                cursorY: newCursorGotoY,
+                cursorActive: true,
                 mapOffsetX: mapOffsetsGoto['xOffset'],
                 mapOffsetY: mapOffsetsGoto['yOffset']
             };
@@ -84,7 +99,7 @@ export function viewPort(state = {
             newCursorGotoX = 48;
             newCursorGotoY = 33;
 
-            let newState = {... state, mapWidth: action.mapData.width, mapHeight: action.mapData.height };
+            let newState = {...state, mapWidth: action.mapData.width, mapHeight: action.mapData.height};
             mapOffsetsGoto = getMapOffset(newState, newCursorGotoX, newCursorGotoY);
 
             return Object.assign({}, newState, {

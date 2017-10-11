@@ -55,7 +55,6 @@
         position: absolute;
         width: 100px;
         height: 100px;
-        border: 2px solid white;
 
         @for $i from 1 through 120 {
             &-x#{$i} {
@@ -72,6 +71,7 @@
         &--active {
             animation: cursorblink 600ms;
             animation-iteration-count: infinite;
+            border: 2px solid white;
         }
     }
 }

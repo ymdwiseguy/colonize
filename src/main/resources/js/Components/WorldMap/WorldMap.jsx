@@ -10,7 +10,7 @@ import * as actions from '../../Actions/Actions.jsx'
 
 
 const mapGameStateToProps = (state) => ({
-    worldMap: state.worldMap.mapData,
+    worldMap: state.worldMap,
     viewPort: state.viewPort,
     units: state.units
 });
@@ -73,26 +73,26 @@ class WorldMap extends Component {
     render() {
         const {worldMap, viewPort, units} = this.props;
 
-        if (worldMap === null) {
+        if (worldMap.mapData === null) {
             return <div className="map-main-wrapper">&nbsp;</div>;
         }
 
         let tileList;
-        if (worldMap.tiles) {
-            tileList = worldMap.tiles.map((tile, i) => {
+        if (worldMap.mapData.tiles) {
+            tileList = worldMap.mapData.tiles.map((tile, i) => {
                 let key = 'tile_' + tile.xCoordinate + '_' + tile.yCoordinate;
                 return <Tile tile={tile} key={key}/>
             });
         }
 
         let renderUnits = '';
-        if (units) {
-            renderUnits = units.map((unit, i) => {
+        if (worldMap.units) {
+            renderUnits = worldMap.units.map((unit, i) => {
                 return <Unit unit={unit} key={i}/>
             });
         }
 
-        let classname = 'map-main-wrapper map-main-wrapper--width-' + worldMap.width + ' ' +
+        let classname = 'map-main-wrapper map-main-wrapper--width-' + worldMap.mapData.width + ' ' +
             'map-main-wrapper--left-' + viewPort.mapOffsetX + ' ' +
             'map-main-wrapper--top-' + viewPort.mapOffsetY;
         return (

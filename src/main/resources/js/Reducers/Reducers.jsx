@@ -1,6 +1,7 @@
 import {
     GOTO_PAGE,
     CHOOSE_FACTION,
+    CURSOR_GOTO,
     REQUEST_WORLD_MAP,
     RECEIVE_WORLD_MAP,
     INVALIDATE_WORLD_MAP,
@@ -37,7 +38,9 @@ export function faction(state = null, action) {
 export function worldMap(state = {
     isFetching: false,
     didInvalidate: false,
-    mapData: {}
+    mapData: {},
+    units: unitsInitalState(),
+    whoIsActive: 0 // 0 == cursor, number x == unit with id x
 }, action) {
 
     switch (action.type) {
@@ -57,24 +60,47 @@ export function worldMap(state = {
                 mapData: action.mapData,
                 lastUpdated: action.receivedAt
             });
+        case CURSOR_GOTO:
+            return {
+                ...state,
+                whoIsActive: 0,
+                units: state.units.map((unit) => {
+                    if (unit.active) {
+                        return {
+                            ...unit,
+                            active: false
+                        }
+                    }
+                    return unit
+                })
+            };
+        case UNIT_CLICKED:
+            return {
+                ...state,
+                whoIsActive: action.unitId,
+                units: state.units.map((unit) => {
+                    if (unit.unitId === action.unitId) {
+                        return {
+                            ...unit,
+                            active: true
+                        }
+                    }
+                    return unit
+                })
+            };
         default:
             return state;
     }
 }
 
-export function units(state = [
-    {
-        "unitType": "KARAVELLE",
-        "active": false,
-        "xPosition": 48,
-        "yPosition": 33
-    }
-], action) {
-    switch (action.type){
-        case UNIT_CLICKED:
-            console.log('UNIT_CLICKED');
-            return state;
-        default:
-            return state;
-    }
+function unitsInitalState() {
+    return [
+        {
+            "unitType": "KARAVELLE",
+            "unitId": 1,
+            "active": false,
+            "xPosition": 48,
+            "yPosition": 33
+        }
+    ]
 }
