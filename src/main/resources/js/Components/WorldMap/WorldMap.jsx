@@ -16,7 +16,8 @@ const mapGameStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    keyPressAction: bindActionCreators(actions.cursorMove, dispatch),
+    keyPressCursorMove: bindActionCreators(actions.cursorMove, dispatch),
+    keyPressUnitMove: bindActionCreators(actions.unitMove, dispatch),
     viewPortUpdate: bindActionCreators(actions.viewPortChangeCanvasSize, dispatch)
 });
 
@@ -31,20 +32,38 @@ class WorldMap extends Component {
 
     handleKeyPress(event) {
 
-        switch (event.keyCode) {
-            case 37: // left
-                this.props.keyPressAction('LEFT');
-                break;
-            case 38: // up
-                this.props.keyPressAction('UP');
-                break;
-            case 39: // right
-                this.props.keyPressAction('RIGHT');
-                break;
-            case 40: // down
-                this.props.keyPressAction('DOWN');
-                break;
+        if(this.props.worldMap.whoIsActive === 0){
+            switch (event.keyCode) {
+                case 37: // left
+                    this.props.keyPressCursorMove('LEFT');
+                    break;
+                case 38: // up
+                    this.props.keyPressCursorMove('UP');
+                    break;
+                case 39: // right
+                    this.props.keyPressCursorMove('RIGHT');
+                    break;
+                case 40: // down
+                    this.props.keyPressCursorMove('DOWN');
+                    break;
+            }
+        }else{
+            switch (event.keyCode) {
+                case 37: // left
+                    this.props.keyPressUnitMove('LEFT', this.props.worldMap.whoIsActive);
+                    break;
+                case 38: // up
+                    this.props.keyPressUnitMove('UP', this.props.worldMap.whoIsActive);
+                    break;
+                case 39: // right
+                    this.props.keyPressUnitMove('RIGHT', this.props.worldMap.whoIsActive);
+                    break;
+                case 40: // down
+                    this.props.keyPressUnitMove('DOWN', this.props.worldMap.whoIsActive);
+                    break;
+            }
         }
+
 
     }
 

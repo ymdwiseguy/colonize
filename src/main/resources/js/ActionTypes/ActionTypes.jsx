@@ -13,6 +13,7 @@ export const CURSOR_GOTO = 'CURSOR_GOTO';
 
 // Unit actions
 export const UNIT_CLICKED = 'UNIT_CLICKED';
+export const UNIT_MOVE = 'UNIT_MOVE';
 
 // Viewport actions
 export const VIEWPORT_SET_CANVAS_SIZE = 'VIEWPORT_SET_CANVAS_SIZE';

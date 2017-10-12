@@ -7,6 +7,7 @@ import {
     VIEWPORT_SET_CANVAS_SIZE,
     CURSOR_GOTO,
     CURSOR_MOVE,
+    UNIT_MOVE,
     UNIT_CLICKED
 } from '../ActionTypes/ActionTypes.jsx'
 
@@ -31,6 +32,14 @@ export function cursorGoto(xPosition, yPosition) {
         type: CURSOR_GOTO,
         xPosition,
         yPosition
+    }
+}
+
+export function unitMove(direction, unitId) {
+    return {
+        type: UNIT_MOVE,
+        direction,
+        unitId
     }
 }
 

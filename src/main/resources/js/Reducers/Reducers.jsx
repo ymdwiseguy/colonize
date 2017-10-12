@@ -5,7 +5,8 @@ import {
     REQUEST_WORLD_MAP,
     RECEIVE_WORLD_MAP,
     INVALIDATE_WORLD_MAP,
-    UNIT_CLICKED
+    UNIT_CLICKED,
+    UNIT_MOVE
 } from '../ActionTypes/ActionTypes.jsx';
 
 export function screen(state = "START", action) {
@@ -84,8 +85,54 @@ export function worldMap(state = {
                             ...unit,
                             active: true
                         }
+                    } else {
+                        return {
+                            ...unit,
+                            active: false
+                        }
                     }
-                    return unit
+                })
+            };
+        case UNIT_MOVE:
+
+            const mapWidth = state.mapData.width || 0;
+            const mapHeight = state.mapData.height || 0;
+            return {
+                ...state,
+                units: state.units.map((unit) => {
+                    if (unit.unitId === action.unitId) {
+                        let newUnitGotoX = unit.xPosition;
+                        let newUnitGotoY = unit.yPosition;
+
+                        switch (action.direction) {
+                            case 'LEFT':
+                                if (newUnitGotoX > 1) {
+                                    newUnitGotoX = newUnitGotoX - 1;
+                                }
+                                break;
+                            case 'RIGHT':
+                                if (newUnitGotoX < mapWidth) {
+                                    newUnitGotoX = newUnitGotoX + 1;
+                                }
+                                break;
+                            case 'UP':
+                                if (newUnitGotoY > 1) {
+                                    newUnitGotoY = newUnitGotoY - 1;
+                                }
+                                break;
+                            case 'DOWN':
+                                if (newUnitGotoY < mapHeight) {
+                                    newUnitGotoY = newUnitGotoY + 1;
+                                }
+                                break;
+                        }
+                        return {
+                            ...unit,
+                            xPosition: newUnitGotoX,
+                            yPosition: newUnitGotoY
+                        }
+                    }
+                    return unit;
                 })
             };
         default:
@@ -100,6 +147,13 @@ function unitsInitalState() {
             "unitId": 1,
             "active": false,
             "xPosition": 48,
+            "yPosition": 33
+        },
+        {
+            "unitType": "KARAVELLE",
+            "unitId": 2,
+            "active": false,
+            "xPosition": 49,
             "yPosition": 33
         }
     ]
