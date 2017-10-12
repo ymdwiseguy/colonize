@@ -31,40 +31,30 @@ class WorldMap extends Component {
     }
 
     handleKeyPress(event) {
-
-        if(this.props.worldMap.whoIsActive === 0){
-            switch (event.keyCode) {
-                case 37: // left
-                    this.props.keyPressCursorMove('LEFT');
-                    break;
-                case 38: // up
-                    this.props.keyPressCursorMove('UP');
-                    break;
-                case 39: // right
-                    this.props.keyPressCursorMove('RIGHT');
-                    break;
-                case 40: // down
-                    this.props.keyPressCursorMove('DOWN');
-                    break;
-            }
-        }else{
-            switch (event.keyCode) {
-                case 37: // left
-                    this.props.keyPressUnitMove('LEFT', this.props.worldMap.whoIsActive);
-                    break;
-                case 38: // up
-                    this.props.keyPressUnitMove('UP', this.props.worldMap.whoIsActive);
-                    break;
-                case 39: // right
-                    this.props.keyPressUnitMove('RIGHT', this.props.worldMap.whoIsActive);
-                    break;
-                case 40: // down
-                    this.props.keyPressUnitMove('DOWN', this.props.worldMap.whoIsActive);
-                    break;
-            }
+        let direction = '';
+        switch (event.keyCode) {
+            case 37:
+                direction = 'LEFT';
+                break;
+            case 38:
+                direction = 'UP';
+                break;
+            case 39:
+                direction = 'RIGHT';
+                break;
+            case 40:
+                direction = 'DOWN';
+                break;
         }
 
+        if(direction !== ''){
+            if (this.props.worldMap.whoIsActive === 0) {
+                this.props.keyPressCursorMove(direction);
+            }else {
+                this.props.keyPressUnitMove(direction, this.props.worldMap.whoIsActive);
+            }
 
+        }
     }
 
     handleViewPortUpdate() {
