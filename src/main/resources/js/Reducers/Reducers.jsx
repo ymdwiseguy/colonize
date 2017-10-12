@@ -8,6 +8,7 @@ import {
     UNIT_CLICKED,
     UNIT_MOVE
 } from '../ActionTypes/ActionTypes.jsx';
+import {moveUnit} from '../GameLogic/UnitMovement.jsx';
 
 export function screen(state = "START", action) {
     switch (action.type) {
@@ -94,46 +95,9 @@ export function worldMap(state = {
                 })
             };
         case UNIT_MOVE:
-
-            const mapWidth = state.mapData.width || 0;
-            const mapHeight = state.mapData.height || 0;
             return {
                 ...state,
-                units: state.units.map((unit) => {
-                    if (unit.unitId === action.unitId) {
-                        let newUnitGotoX = unit.xPosition;
-                        let newUnitGotoY = unit.yPosition;
-
-                        switch (action.direction) {
-                            case 'LEFT':
-                                if (newUnitGotoX > 1) {
-                                    newUnitGotoX = newUnitGotoX - 1;
-                                }
-                                break;
-                            case 'RIGHT':
-                                if (newUnitGotoX < mapWidth) {
-                                    newUnitGotoX = newUnitGotoX + 1;
-                                }
-                                break;
-                            case 'UP':
-                                if (newUnitGotoY > 1) {
-                                    newUnitGotoY = newUnitGotoY - 1;
-                                }
-                                break;
-                            case 'DOWN':
-                                if (newUnitGotoY < mapHeight) {
-                                    newUnitGotoY = newUnitGotoY + 1;
-                                }
-                                break;
-                        }
-                        return {
-                            ...unit,
-                            xPosition: newUnitGotoX,
-                            yPosition: newUnitGotoY
-                        }
-                    }
-                    return unit;
-                })
+                units: moveUnit(action.unitId, state.units, state.mapData, action.direction)
             };
         default:
             return state;
@@ -158,3 +122,6 @@ function unitsInitalState() {
         }
     ]
 }
+
+
+
