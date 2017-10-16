@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
-    cursorActive: state.viewPort.cursorActive,
-    cursorX: state.viewPort.cursorX,
-    cursorY: state.viewPort.cursorY
+    cursorActive: state.worldMap.cursor.cursorActive,
+    cursorX: state.worldMap.cursor.cursorX,
+    cursorY: state.worldMap.cursor.cursorY
 });
 
 const Cursor = ({cursorActive, cursorX, cursorY}) => {

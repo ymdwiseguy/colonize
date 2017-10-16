@@ -1,13 +1,16 @@
 import {
-    GOTO_PAGE,
     CHOOSE_FACTION,
     CURSOR_GOTO,
-    REQUEST_WORLD_MAP,
-    RECEIVE_WORLD_MAP,
+    CURSOR_MOVE,
+    GOTO_PAGE,
     INVALIDATE_WORLD_MAP,
+    RECEIVE_WORLD_MAP,
+    REQUEST_WORLD_MAP,
     UNIT_CLICKED,
-    UNIT_MOVE
+    UNIT_MOVE,
+    VIEWPORT_SET_CANVAS_SIZE
 } from '../ActionTypes/ActionTypes.jsx';
+import {getMapOffset, outsideViewPort} from '../GameLogic/ViewPortCalc.jsx'
 import {moveUnit} from '../GameLogic/UnitMovement.jsx';
 
 export function screen(state = "START", action) {
@@ -38,12 +41,27 @@ export function faction(state = null, action) {
 }
 
 export function worldMap(state = {
-    isFetching: false,
+    cursor: {
+        cursorActive: false,
+        cursorX: 1,
+        cursorY: 1
+    },
     didInvalidate: false,
+    isFetching: false,
     mapData: {},
+    mapOffsetX: 0,
+    mapOffsetY: 0,
     units: unitsInitalState(),
-    whoIsActive: 0 // 0 == cursor, number x == unit with id x
+    viewPort: {
+        canvasWidth: 0,
+        canvasHeight: 0
+    },
+    whoIsActive: 1 // 0 == cursor, number x == unit with id x
 }, action) {
+
+    let newCursorGotoX;
+    let newCursorGotoY;
+    let mapOffsetsGoto;
 
     switch (action.type) {
         case INVALIDATE_WORLD_MAP:
@@ -56,15 +74,40 @@ export function worldMap(state = {
                 didInvalidate: false
             });
         case RECEIVE_WORLD_MAP:
-            return Object.assign({}, state, {
+
+            newCursorGotoX = 48;
+            newCursorGotoY = 33;
+
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+            return {
+                ...state,
                 isFetching: false,
                 didInvalidate: false,
                 mapData: action.mapData,
-                lastUpdated: action.receivedAt
-            });
+                lastUpdated: action.receivedAt,
+                cursor: {
+                    ...state.cursor,
+                    cursorX: newCursorGotoX,
+                    cursorY: newCursorGotoY
+                },
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
+            };
+
         case CURSOR_GOTO:
+            newCursorGotoX = action.xPosition;
+            newCursorGotoY = action.yPosition;
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
             return {
                 ...state,
+                cursor: {
+                    cursorX: newCursorGotoX,
+                    cursorY: newCursorGotoY,
+                    cursorActive: true
+                },
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset'],
                 whoIsActive: 0,
                 units: state.units.map((unit) => {
                     if (unit.active) {
@@ -77,8 +120,19 @@ export function worldMap(state = {
                 })
             };
         case UNIT_CLICKED:
+            newCursorGotoX = action.xPosition;
+            newCursorGotoY = action.yPosition;
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
             return {
                 ...state,
+                cursor: {
+                    cursorX: newCursorGotoX,
+                    cursorY: newCursorGotoY,
+                    cursorActive: false
+                },
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset'],
                 whoIsActive: action.unitId,
                 units: state.units.map((unit) => {
                     if (unit.unitId === action.unitId) {
@@ -94,10 +148,94 @@ export function worldMap(state = {
                     }
                 })
             };
+
         case UNIT_MOVE:
+            newCursorGotoX = state.cursor.cursorX;
+            newCursorGotoY = state.cursor.cursorY;
+
+            switch (action.direction) {
+                case 'LEFT':
+                    if (newCursorGotoX > 1) {
+                        newCursorGotoX = newCursorGotoX - 1;
+                    }
+                    break;
+                case 'RIGHT':
+                    if (newCursorGotoX < state.mapData.width) {
+                        newCursorGotoX = newCursorGotoX + 1;
+                    }
+                    break;
+                case 'UP':
+                    if (newCursorGotoY > 1) {
+                        newCursorGotoY = newCursorGotoY - 1;
+                    }
+                    break;
+                case 'DOWN':
+                    if (newCursorGotoY < state.mapData.height) {
+                        newCursorGotoY = newCursorGotoY + 1;
+                    }
+                    break;
+            }
+
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
             return {
                 ...state,
+                cursor: {
+                    ...state.cursor,
+                    cursorX: newCursorGotoX,
+                    cursorY: newCursorGotoY
+                },
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset'],
                 units: moveUnit(action.unitId, state.units, state.mapData, action.direction)
+            };
+
+        case CURSOR_MOVE:
+            newCursorGotoX = state.cursor.cursorX;
+            newCursorGotoY = state.cursor.cursorY;
+
+            switch (action.direction) {
+                case 'LEFT':
+                    if (newCursorGotoX > 1) {
+                        newCursorGotoX = newCursorGotoX - 1;
+                    }
+                    break;
+                case 'RIGHT':
+                    if (newCursorGotoX < state.mapData.width) {
+                        newCursorGotoX = newCursorGotoX + 1;
+                    }
+                    break;
+                case 'UP':
+                    if (newCursorGotoY > 1) {
+                        newCursorGotoY = newCursorGotoY - 1;
+                    }
+                    break;
+                case 'DOWN':
+                    if (newCursorGotoY < state.mapData.height) {
+                        newCursorGotoY = newCursorGotoY + 1;
+                    }
+                    break;
+            }
+
+            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+            return {
+                ...state,
+                cursor: {
+                    ...state.cursor,
+                    cursorX: newCursorGotoX,
+                    cursorY: newCursorGotoY
+                },
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
+            };
+
+
+        case VIEWPORT_SET_CANVAS_SIZE:
+            return {
+                ...state,
+                viewPort: {
+                    canvasWidth: action.canvasWidth,
+                    canvasHeight: action.canvasHeight
+                }
             };
         default:
             return state;
@@ -109,15 +247,8 @@ function unitsInitalState() {
         {
             "unitType": "KARAVELLE",
             "unitId": 1,
-            "active": false,
+            "active": true,
             "xPosition": 48,
-            "yPosition": 33
-        },
-        {
-            "unitType": "KARAVELLE",
-            "unitId": 2,
-            "active": false,
-            "xPosition": 49,
             "yPosition": 33
         }
     ]

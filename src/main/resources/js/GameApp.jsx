@@ -6,7 +6,6 @@ import {Provider, connect} from 'react-redux'
 import thunk from 'redux-thunk'
 
 import * as reducers from './Reducers/Reducers.jsx'
-import * as viewPortReducers from './Reducers/ViewPortReducers.jsx'
 
 import ChooseFactionPopup from './Components/Menus/Implementations/ChooseFactionPopup.jsx'
 import InitialPopup from './Components/Menus/Implementations/InitialPopup.jsx'
@@ -48,7 +47,7 @@ class MainFrameComponent extends Component {
 
 const MainFrame = connect(mapMainFrameStateToProps, null)(MainFrameComponent);
 
-const combinedReducers = combineReducers({...reducers, ...viewPortReducers});
+const combinedReducers = combineReducers({...reducers});
 const middleWare = applyMiddleware(thunk);
 
 const store = (

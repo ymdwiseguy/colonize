@@ -3,14 +3,14 @@ export function getMapOffset(state, cursorLeft, cursorTop) {
 
     const GRID_FACTOR = 100;
 
-    const canvasWidth = state.canvasWidth === 0 ? 0 : Math.floor(state.canvasWidth / GRID_FACTOR);
-    const canvasHeight = state.canvasHeight === 0 ? 0 : Math.floor(state.canvasHeight / GRID_FACTOR);
-    const mapWidth = state.mapWidth;
-    const mapHeight = state.mapHeight;
+    const canvasWidth = state.viewPort.canvasWidth === 0 ? 0 : Math.floor(state.viewPort.canvasWidth / GRID_FACTOR);
+    const canvasHeight = state.viewPort.canvasHeight === 0 ? 0 : Math.floor(state.viewPort.canvasHeight / GRID_FACTOR);
+    const mapWidth = state.mapData.width;
+    const mapHeight = state.mapData.height;
     let mapLeft = state.mapOffsetX;
     let mapTop = state.mapOffsetY;
 
-    if (cursorOutsideViewPort(canvasWidth, canvasHeight, mapLeft, mapTop, cursorLeft, cursorTop)) {
+    if (outsideViewPort(canvasWidth, canvasHeight, mapLeft, mapTop, cursorLeft, cursorTop)) {
         mapLeft = cursorLeft - canvasWidth / 2;
         mapLeft = limitHorizontally(mapLeft, mapWidth, canvasWidth);
         mapTop = cursorTop - canvasHeight / 2;
@@ -24,7 +24,7 @@ export function getMapOffset(state, cursorLeft, cursorTop) {
     return {'xOffset': state.mapOffsetX, 'yOffset': state.mapOffsetY};
 }
 
-function cursorOutsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop) {
+export function outsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursorLeft, cursorTop) {
     const PADDING = 2;
 
     const rightOutside = (frameWidth + mapLeft - PADDING < cursorLeft);

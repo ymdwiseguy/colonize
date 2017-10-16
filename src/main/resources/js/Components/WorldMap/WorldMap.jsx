@@ -11,7 +11,6 @@ import * as actions from '../../Actions/Actions.jsx'
 
 const mapGameStateToProps = (state) => ({
     worldMap: state.worldMap,
-    viewPort: state.viewPort,
     units: state.units
 });
 
@@ -80,7 +79,7 @@ class WorldMap extends Component {
     }
 
     render() {
-        const {worldMap, viewPort, units} = this.props;
+        const {worldMap, units} = this.props;
 
         if (worldMap.mapData === null) {
             return <div className="map-main-wrapper">&nbsp;</div>;
@@ -102,8 +101,8 @@ class WorldMap extends Component {
         }
 
         let classname = 'map-main-wrapper map-main-wrapper--width-' + worldMap.mapData.width + ' ' +
-            'map-main-wrapper--left-' + viewPort.mapOffsetX + ' ' +
-            'map-main-wrapper--top-' + viewPort.mapOffsetY;
+            'map-main-wrapper--left-' + worldMap.mapOffsetX + ' ' +
+            'map-main-wrapper--top-' + worldMap.mapOffsetY;
         return (
             <div className={classname}>
                 {tileList}
