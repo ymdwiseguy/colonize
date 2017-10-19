@@ -10,7 +10,7 @@ import {
     UNIT_MOVE,
     VIEWPORT_SET_CANVAS_SIZE
 } from '../ActionTypes/ActionTypes.jsx';
-import {getMapOffset, outsideViewPort} from '../GameLogic/ViewPortCalc.jsx'
+import {getMapOffset, getMapOffset2, reduceVisibleTiles} from '../GameLogic/ViewPortCalc.jsx'
 import {moveUnit} from '../GameLogic/UnitMovement.jsx';
 
 export function screen(state = "START", action) {
@@ -40,21 +40,22 @@ export function faction(state = null, action) {
     }
 }
 
+
 export function worldMap(state = {
     cursor: {
         cursorActive: false,
-        cursorX: 1,
-        cursorY: 1
+        cursorX: 48,
+        cursorY: 33
     },
     didInvalidate: false,
     isFetching: false,
     mapData: {},
-    mapOffsetX: 0,
-    mapOffsetY: 0,
     units: unitsInitalState(),
     viewPort: {
         canvasWidth: 0,
-        canvasHeight: 0
+        canvasHeight: 0,
+        mapOffsetX: 0,
+        mapOffsetY: 0
     },
     whoIsActive: 1 // 0 == cursor, number x == unit with id x
 }, action) {
@@ -62,42 +63,59 @@ export function worldMap(state = {
     let newCursorGotoX;
     let newCursorGotoY;
     let mapOffsetsGoto;
+    let viewPortUpdate;
 
     switch (action.type) {
+
+
         case INVALIDATE_WORLD_MAP:
             return Object.assign({}, state, {
                 didInvalidate: true
             });
+
+
         case REQUEST_WORLD_MAP:
             return Object.assign({}, state, {
                 isFetching: true,
                 didInvalidate: false
             });
+
+
         case RECEIVE_WORLD_MAP:
 
-            newCursorGotoX = 48;
-            newCursorGotoY = 33;
+            mapOffsetsGoto = getMapOffset2(state, state.cursor);
 
-            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
-            return {
-                ...state,
-                isFetching: false,
-                didInvalidate: false,
-                mapData: action.mapData,
-                lastUpdated: action.receivedAt,
-                cursor: {
-                    ...state.cursor,
-                    cursorX: newCursorGotoX,
-                    cursorY: newCursorGotoY
-                },
+            viewPortUpdate = {
+                ...state.viewPort,
                 mapOffsetX: mapOffsetsGoto['xOffset'],
                 mapOffsetY: mapOffsetsGoto['yOffset']
             };
 
+            return {
+                ...state,
+                cursor: cursorReducer(state.cursor, action),
+                didInvalidate: false,
+                isFetching: false,
+                lastUpdated: action.receivedAt,
+                mapData: {
+                    ...action.mapData,
+                    tiles: reduceVisibleTiles(action.mapData.tiles, viewPortUpdate, action)
+                },
+                viewPort: viewPortUpdate
+            };
+
+
         case CURSOR_GOTO:
+
             newCursorGotoX = action.xPosition;
             newCursorGotoY = action.yPosition;
             mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
+            viewPortUpdate = {
+                ...state.viewPort,
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
+            };
 
             return {
                 ...state,
@@ -106,23 +124,27 @@ export function worldMap(state = {
                     cursorY: newCursorGotoY,
                     cursorActive: true
                 },
-                mapOffsetX: mapOffsetsGoto['xOffset'],
-                mapOffsetY: mapOffsetsGoto['yOffset'],
-                whoIsActive: 0,
-                units: state.units.map((unit) => {
-                    if (unit.active) {
-                        return {
-                            ...unit,
-                            active: false
-                        }
-                    }
-                    return unit
-                })
+                mapData: {
+                    ...state.mapData,
+                    tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
+                },
+                units: deactivateAllUnits(state.units),
+                viewPort: viewPortUpdate,
+                whoIsActive: 0
             };
+
+
         case UNIT_CLICKED:
+
             newCursorGotoX = action.xPosition;
             newCursorGotoY = action.yPosition;
             mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
+            viewPortUpdate = {
+                ...state.viewPort,
+                mapOffsetX: mapOffsetsGoto['xOffset'],
+                mapOffsetY: mapOffsetsGoto['yOffset']
+            };
 
             return {
                 ...state,
@@ -131,9 +153,10 @@ export function worldMap(state = {
                     cursorY: newCursorGotoY,
                     cursorActive: false
                 },
-                mapOffsetX: mapOffsetsGoto['xOffset'],
-                mapOffsetY: mapOffsetsGoto['yOffset'],
-                whoIsActive: action.unitId,
+                mapData: {
+                    ...state.mapData,
+                    tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
+                },
                 units: state.units.map((unit) => {
                     if (unit.unitId === action.unitId) {
                         return {
@@ -146,96 +169,91 @@ export function worldMap(state = {
                             active: false
                         }
                     }
-                })
+                }),
+                viewPort: viewPortUpdate,
+                whoIsActive: action.unitId
             };
+
 
         case UNIT_MOVE:
-            newCursorGotoX = state.cursor.cursorX;
-            newCursorGotoY = state.cursor.cursorY;
 
-            switch (action.direction) {
-                case 'LEFT':
-                    if (newCursorGotoX > 1) {
-                        newCursorGotoX = newCursorGotoX - 1;
-                    }
-                    break;
-                case 'RIGHT':
-                    if (newCursorGotoX < state.mapData.width) {
-                        newCursorGotoX = newCursorGotoX + 1;
-                    }
-                    break;
-                case 'UP':
-                    if (newCursorGotoY > 1) {
-                        newCursorGotoY = newCursorGotoY - 1;
-                    }
-                    break;
-                case 'DOWN':
-                    if (newCursorGotoY < state.mapData.height) {
-                        newCursorGotoY = newCursorGotoY + 1;
-                    }
-                    break;
+            if (state.whoIsActive > 0) {
+                newCursorGotoY = moveVertically(action.direction, state.cursor.cursorY, state.mapData.height);
+                newCursorGotoX = moveHorizontally(action.direction, state.cursor.cursorX, state.mapData.width);
+                mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
+                viewPortUpdate = {
+                    ...state.viewPort,
+                    mapOffsetX: mapOffsetsGoto['xOffset'],
+                    mapOffsetY: mapOffsetsGoto['yOffset']
+                };
+
+                return {
+                    ...state,
+                    cursor: {
+                        ...state.cursor,
+                        cursorX: newCursorGotoX,
+                        cursorY: newCursorGotoY
+                    },
+                    mapData: {
+                        ...state.mapData,
+                        tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
+                    },
+                    units: moveUnit(action.unitId, state.units, state.mapData, action.direction),
+                    viewPort: viewPortUpdate
+                };
             }
+            return state;
 
-            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
-            return {
-                ...state,
-                cursor: {
-                    ...state.cursor,
-                    cursorX: newCursorGotoX,
-                    cursorY: newCursorGotoY
-                },
-                mapOffsetX: mapOffsetsGoto['xOffset'],
-                mapOffsetY: mapOffsetsGoto['yOffset'],
-                units: moveUnit(action.unitId, state.units, state.mapData, action.direction)
-            };
 
         case CURSOR_MOVE:
-            newCursorGotoX = state.cursor.cursorX;
-            newCursorGotoY = state.cursor.cursorY;
+            if (state.whoIsActive === 0) {
 
-            switch (action.direction) {
-                case 'LEFT':
-                    if (newCursorGotoX > 1) {
-                        newCursorGotoX = newCursorGotoX - 1;
-                    }
-                    break;
-                case 'RIGHT':
-                    if (newCursorGotoX < state.mapData.width) {
-                        newCursorGotoX = newCursorGotoX + 1;
-                    }
-                    break;
-                case 'UP':
-                    if (newCursorGotoY > 1) {
-                        newCursorGotoY = newCursorGotoY - 1;
-                    }
-                    break;
-                case 'DOWN':
-                    if (newCursorGotoY < state.mapData.height) {
-                        newCursorGotoY = newCursorGotoY + 1;
-                    }
-                    break;
+                newCursorGotoY = moveVertically(action.direction, state.cursor.cursorY, state.mapData.height);
+                newCursorGotoX = moveHorizontally(action.direction, state.cursor.cursorX, state.mapData.width);
+                mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
+                viewPortUpdate = {
+                    ...state.viewPort,
+                    mapOffsetX: mapOffsetsGoto['xOffset'],
+                    mapOffsetY: mapOffsetsGoto['yOffset']
+                };
+
+                return {
+                    ...state,
+                    cursor: {
+                        ...state.cursor,
+                        cursorX: newCursorGotoX,
+                        cursorY: newCursorGotoY
+                    },
+                    mapData: {
+                        ...state.mapData,
+                        tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
+                    },
+                    viewPort: viewPortUpdate
+                };
             }
-
-            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
-            return {
-                ...state,
-                cursor: {
-                    ...state.cursor,
-                    cursorX: newCursorGotoX,
-                    cursorY: newCursorGotoY
-                },
-                mapOffsetX: mapOffsetsGoto['xOffset'],
-                mapOffsetY: mapOffsetsGoto['yOffset']
-            };
+            return state;
 
 
         case VIEWPORT_SET_CANVAS_SIZE:
+            viewPortUpdate = {
+                ...state.viewPort,
+                canvasWidth: action.canvasWidth,
+                canvasHeight: action.canvasHeight
+            };
+
+            let mapUpdate = state.mapData;
+            if (state.mapData.tiles !== undefined && state.mapData.tiles.length > 0) {
+                mapUpdate = {
+                    ...state.mapData,
+                    tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
+                };
+            }
             return {
                 ...state,
-                viewPort: {
-                    canvasWidth: action.canvasWidth,
-                    canvasHeight: action.canvasHeight
-                }
+                mapData: mapUpdate,
+                viewPort: viewPortUpdate
             };
         default:
             return state;
@@ -255,4 +273,62 @@ function unitsInitalState() {
 }
 
 
+function moveHorizontally(direction, newCursorGotoX, limit) {
+    return moveInDirectionWithLimits(direction, newCursorGotoX, limit, 'LEFT', 'RIGHT');
+}
 
+function moveVertically(direction, newCursorGotoY, limit) {
+    return moveInDirectionWithLimits(direction, newCursorGotoY, limit, 'UP', 'DOWN');
+}
+
+function moveInDirectionWithLimits(direction, position, limit, dir1, dir2) {
+    switch (direction) {
+        case dir1:
+            if (position > 1) {
+                position = position - 1;
+            }
+            break;
+        case dir2:
+            if (position < limit) {
+                position = position + 1;
+            }
+            break;
+    }
+    return position;
+}
+
+
+function deactivateAllUnits(units) {
+    return units.map((unit) => {
+        if (unit.active) {
+            return {
+                ...unit,
+                active: false
+            }
+        }
+        return unit
+    })
+}
+
+function cursorReducer(state = {
+    cursorActive: false,
+    cursorX: 48,
+    cursorY: 33
+}, action) {
+
+    switch (action) {
+
+        case RECEIVE_WORLD_MAP:
+            newCursorGotoX = 48;
+            newCursorGotoY = 33;
+
+            return {
+                ...state,
+                cursorX: newCursorGotoX,
+                cursorY: newCursorGotoY
+            };
+        default:
+            return state;
+    }
+
+}

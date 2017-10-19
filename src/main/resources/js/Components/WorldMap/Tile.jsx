@@ -32,13 +32,30 @@ class Tile extends Component {
     }
 
     static tilesAreEqual(tile1, tile2) {
-        if (tile1.assets.forest !== tile2.assets.forest) { return false; }
-        if (tile1.assets.hill !== tile2.assets.hill) { return false; }
-        if (tile1.assets.river !== tile2.assets.river) { return false; }
-        if (tile1.tileId !== tile2.tileId) { return false; }
-        if (tile1.type !== tile2.type) { return false; }
-        if (tile1.worldMapId !== tile2.worldMapId) { return false; }
-        if (tile1.xCoordinate !== tile2.xCoordinate) { return false; }
+        if(tile1.visible !== tile2.visible){
+            return false;
+        }
+        if (tile1.assets.forest !== tile2.assets.forest) {
+            return false;
+        }
+        if (tile1.assets.hill !== tile2.assets.hill) {
+            return false;
+        }
+        if (tile1.assets.river !== tile2.assets.river) {
+            return false;
+        }
+        if (tile1.tileId !== tile2.tileId) {
+            return false;
+        }
+        if (tile1.type !== tile2.type) {
+            return false;
+        }
+        if (tile1.worldMapId !== tile2.worldMapId) {
+            return false;
+        }
+        if (tile1.xCoordinate !== tile2.xCoordinate) {
+            return false;
+        }
         return tile1.yCoordinate === tile2.yCoordinate;
     }
 
@@ -63,13 +80,16 @@ class Tile extends Component {
             }
         }
 
-        return (
-            <div className={className} onClick={this.handleClickEvent}>
-                {hill}
-                {forest}
-                {river}
-            </div>
-        )
+        if (tile.visible) {
+            return (
+                <div className={className} onClick={this.handleClickEvent}>
+                    {hill}
+                    {forest}
+                    {river}
+                </div>
+            );
+        }
+        return null;
     }
 
 }

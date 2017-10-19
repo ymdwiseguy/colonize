@@ -101,8 +101,8 @@ class WorldMap extends Component {
         }
 
         let classname = 'map-main-wrapper map-main-wrapper--width-' + worldMap.mapData.width + ' ' +
-            'map-main-wrapper--left-' + worldMap.mapOffsetX + ' ' +
-            'map-main-wrapper--top-' + worldMap.mapOffsetY;
+            'map-main-wrapper--left-' + worldMap.viewPort.mapOffsetX + ' ' +
+            'map-main-wrapper--top-' + worldMap.viewPort.mapOffsetY;
         return (
             <div className={classname}>
                 {tileList}
