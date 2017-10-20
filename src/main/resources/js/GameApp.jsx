@@ -5,7 +5,8 @@ import {createStore, combineReducers, applyMiddleware, bindActionCreators} from 
 import {Provider, connect} from 'react-redux'
 import thunk from 'redux-thunk'
 
-import * as reducers from './Reducers/Reducers.jsx'
+import {worldMap} from "./Reducers/Reducers.jsx";
+import {screen, faction} from "./Reducers/SimpleReducers.jsx";
 
 import ChooseFactionPopup from './Components/Menus/Implementations/ChooseFactionPopup.jsx'
 import InitialPopup from './Components/Menus/Implementations/InitialPopup.jsx'
@@ -47,7 +48,7 @@ class MainFrameComponent extends Component {
 
 const MainFrame = connect(mapMainFrameStateToProps, null)(MainFrameComponent);
 
-const combinedReducers = combineReducers({...reducers});
+const combinedReducers = combineReducers({screen, faction, worldMap});
 const middleWare = applyMiddleware(thunk);
 
 const store = (
