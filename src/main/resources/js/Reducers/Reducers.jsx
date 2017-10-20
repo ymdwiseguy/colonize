@@ -16,6 +16,7 @@ import {
     getMapOffsetByUnits,
     reduceVisibleTiles
 } from '../GameLogic/ViewPortCalc.jsx'
+import {cursor} from './CursorReducer.jsx';
 import {moveUnit} from '../GameLogic/UnitMovement.jsx';
 
 export function screen(state = "START", action) {
@@ -260,31 +261,6 @@ function unitsInitalState() {
 }
 
 
-function moveHorizontally(direction, newCursorGotoX, limit) {
-    return moveInDirectionWithLimits(direction, newCursorGotoX, limit, 'LEFT', 'RIGHT');
-}
-
-function moveVertically(direction, newCursorGotoY, limit) {
-    return moveInDirectionWithLimits(direction, newCursorGotoY, limit, 'UP', 'DOWN');
-}
-
-function moveInDirectionWithLimits(direction, position, limit, dir1, dir2) {
-    switch (direction) {
-        case dir1:
-            if (position > 1) {
-                position = position - 1;
-            }
-            break;
-        case dir2:
-            if (position < limit) {
-                position = position + 1;
-            }
-            break;
-    }
-    return position;
-}
-
-
 function deactivateAllUnits(units) {
     return units.map((unit) => {
         if (unit.active) {
@@ -297,57 +273,3 @@ function deactivateAllUnits(units) {
     })
 }
 
-function cursor(state = {
-    cursorActive: false,
-    cursorX: 48,
-    cursorY: 33
-}, action, mapData = null) {
-
-    let newCursorGotoX = 48;
-    let newCursorGotoY = 33;
-
-    switch (action.type) {
-
-        case RECEIVE_WORLD_MAP:
-
-            return {
-                ...state,
-                cursorX: newCursorGotoX,
-                cursorY: newCursorGotoY
-            };
-
-        case CURSOR_GOTO:
-
-            newCursorGotoX = action.xPosition;
-            newCursorGotoY = action.yPosition;
-
-            return {
-                ...state,
-                cursorX: newCursorGotoX,
-                cursorY: newCursorGotoY,
-                cursorActive: true
-            };
-
-        case CURSOR_MOVE:
-
-            newCursorGotoY = moveVertically(action.direction, state.cursorY, mapData.height);
-            newCursorGotoX = moveHorizontally(action.direction, state.cursorX, mapData.width);
-
-            return {
-                ...state,
-                cursorX: newCursorGotoX,
-                cursorY: newCursorGotoY
-            };
-
-        case UNIT_CLICKED:
-
-            return {
-                ...state,
-                cursorActive: false
-            };
-
-        default:
-            return state;
-    }
-
-}
