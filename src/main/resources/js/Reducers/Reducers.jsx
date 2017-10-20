@@ -3,9 +3,7 @@ import {
     CURSOR_GOTO,
     CURSOR_MOVE,
     GOTO_PAGE,
-    INVALIDATE_WORLD_MAP,
     RECEIVE_WORLD_MAP,
-    REQUEST_WORLD_MAP,
     UNIT_CLICKED,
     UNIT_MOVE,
     VIEWPORT_SET_CANVAS_SIZE
@@ -17,6 +15,7 @@ import {
     reduceVisibleTiles
 } from '../GameLogic/ViewPortCalc.jsx'
 import {cursor} from './CursorReducer.jsx';
+import {didInvalidate, isFetching, whoIsActive} from './SimpleReducers.jsx';
 import {moveUnit} from '../GameLogic/UnitMovement.jsx';
 
 export function screen(state = "START", action) {
@@ -73,20 +72,6 @@ export function worldMap(state = {
 
     switch (action.type) {
 
-
-        case INVALIDATE_WORLD_MAP:
-            return Object.assign({}, state, {
-                didInvalidate: true
-            });
-
-
-        case REQUEST_WORLD_MAP:
-            return Object.assign({}, state, {
-                isFetching: true,
-                didInvalidate: false
-            });
-
-
         case RECEIVE_WORLD_MAP:
 
             mapOffsetsGoto = getMapOffsetByCursor(state, state.cursor);
@@ -100,8 +85,8 @@ export function worldMap(state = {
             return {
                 ...state,
                 cursor: cursor(state.cursor, action),
-                didInvalidate: false,
-                isFetching: false,
+                didInvalidate: didInvalidate(state.didInvalidate, action),
+                isFetching: isFetching(state.isFetching, action),
                 lastUpdated: action.receivedAt,
                 mapData: {
                     ...action.mapData,
@@ -132,7 +117,7 @@ export function worldMap(state = {
                 },
                 units: deactivateAllUnits(state.units),
                 viewPort: viewPortUpdate,
-                whoIsActive: 0
+                whoIsActive: whoIsActive(state.whoIsActive, action)
             };
 
 
@@ -169,7 +154,7 @@ export function worldMap(state = {
                     }
                 }),
                 viewPort: viewPortUpdate,
-                whoIsActive: action.unitId
+                whoIsActive: whoIsActive(state.whoIsActive, action)
             };
 
 
@@ -243,10 +228,26 @@ export function worldMap(state = {
                 mapData: mapUpdate,
                 viewPort: viewPortUpdate
             };
+
         default:
-            return state;
+            return {
+                ...state,
+                cursor: cursor(state.cursor, action),
+                didInvalidate: didInvalidate(state.didInvalidate, action),
+                isFetching: isFetching(state.isFetching, action),
+                mapData: {},
+                units: unitsInitalState(),
+                viewPort: {
+                    canvasWidth: 0,
+                    canvasHeight: 0,
+                    mapOffsetX: 0,
+                    mapOffsetY: 0
+                },
+                whoIsActive: whoIsActive(state.whoIsActive, action)
+            };
     }
 }
+
 
 function unitsInitalState() {
     return [
