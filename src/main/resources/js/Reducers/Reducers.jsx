@@ -10,7 +10,12 @@ import {
     UNIT_MOVE,
     VIEWPORT_SET_CANVAS_SIZE
 } from '../ActionTypes/ActionTypes.jsx';
-import {getMapOffset, getMapOffset2, reduceVisibleTiles} from '../GameLogic/ViewPortCalc.jsx'
+import {
+    getMapOffset,
+    getMapOffsetByCursor,
+    getMapOffsetByUnits,
+    reduceVisibleTiles
+} from '../GameLogic/ViewPortCalc.jsx'
 import {moveUnit} from '../GameLogic/UnitMovement.jsx';
 
 export function screen(state = "START", action) {
@@ -83,7 +88,7 @@ export function worldMap(state = {
 
         case RECEIVE_WORLD_MAP:
 
-            mapOffsetsGoto = getMapOffset2(state, state.cursor);
+            mapOffsetsGoto = getMapOffsetByCursor(state, state.cursor);
 
             viewPortUpdate = {
                 ...state.viewPort,
@@ -93,7 +98,7 @@ export function worldMap(state = {
 
             return {
                 ...state,
-                cursor: cursorReducer(state.cursor, action),
+                cursor: cursor(state.cursor, action),
                 didInvalidate: false,
                 isFetching: false,
                 lastUpdated: action.receivedAt,
@@ -119,11 +124,7 @@ export function worldMap(state = {
 
             return {
                 ...state,
-                cursor: {
-                    cursorX: newCursorGotoX,
-                    cursorY: newCursorGotoY,
-                    cursorActive: true
-                },
+                cursor: cursor(state.cursor, action),
                 mapData: {
                     ...state.mapData,
                     tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
@@ -148,11 +149,7 @@ export function worldMap(state = {
 
             return {
                 ...state,
-                cursor: {
-                    cursorX: newCursorGotoX,
-                    cursorY: newCursorGotoY,
-                    cursorActive: false
-                },
+                cursor: cursor(state.cursor, action),
                 mapData: {
                     ...state.mapData,
                     tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
@@ -178,9 +175,9 @@ export function worldMap(state = {
         case UNIT_MOVE:
 
             if (state.whoIsActive > 0) {
-                newCursorGotoY = moveVertically(action.direction, state.cursor.cursorY, state.mapData.height);
-                newCursorGotoX = moveHorizontally(action.direction, state.cursor.cursorX, state.mapData.width);
-                mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+
+                const movedUnit = moveUnit(action.unitId, state.units, state.mapData, action.direction);
+                mapOffsetsGoto = getMapOffsetByUnits(state, movedUnit);
 
                 viewPortUpdate = {
                     ...state.viewPort,
@@ -190,16 +187,11 @@ export function worldMap(state = {
 
                 return {
                     ...state,
-                    cursor: {
-                        ...state.cursor,
-                        cursorX: newCursorGotoX,
-                        cursorY: newCursorGotoY
-                    },
                     mapData: {
                         ...state.mapData,
                         tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
                     },
-                    units: moveUnit(action.unitId, state.units, state.mapData, action.direction),
+                    units: movedUnit,
                     viewPort: viewPortUpdate
                 };
             }
@@ -209,9 +201,8 @@ export function worldMap(state = {
         case CURSOR_MOVE:
             if (state.whoIsActive === 0) {
 
-                newCursorGotoY = moveVertically(action.direction, state.cursor.cursorY, state.mapData.height);
-                newCursorGotoX = moveHorizontally(action.direction, state.cursor.cursorX, state.mapData.width);
-                mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+                const movedCursor = cursor(state.cursor, action, state.mapData);
+                mapOffsetsGoto = getMapOffsetByCursor(state, movedCursor);
 
                 viewPortUpdate = {
                     ...state.viewPort,
@@ -221,11 +212,7 @@ export function worldMap(state = {
 
                 return {
                     ...state,
-                    cursor: {
-                        ...state.cursor,
-                        cursorX: newCursorGotoX,
-                        cursorY: newCursorGotoY
-                    },
+                    cursor: movedCursor,
                     mapData: {
                         ...state.mapData,
                         tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
@@ -310,23 +297,55 @@ function deactivateAllUnits(units) {
     })
 }
 
-function cursorReducer(state = {
+function cursor(state = {
     cursorActive: false,
     cursorX: 48,
     cursorY: 33
-}, action) {
+}, action, mapData = null) {
 
-    switch (action) {
+    let newCursorGotoX = 48;
+    let newCursorGotoY = 33;
+
+    switch (action.type) {
 
         case RECEIVE_WORLD_MAP:
-            newCursorGotoX = 48;
-            newCursorGotoY = 33;
 
             return {
                 ...state,
                 cursorX: newCursorGotoX,
                 cursorY: newCursorGotoY
             };
+
+        case CURSOR_GOTO:
+
+            newCursorGotoX = action.xPosition;
+            newCursorGotoY = action.yPosition;
+
+            return {
+                ...state,
+                cursorX: newCursorGotoX,
+                cursorY: newCursorGotoY,
+                cursorActive: true
+            };
+
+        case CURSOR_MOVE:
+
+            newCursorGotoY = moveVertically(action.direction, state.cursorY, mapData.height);
+            newCursorGotoX = moveHorizontally(action.direction, state.cursorX, mapData.width);
+
+            return {
+                ...state,
+                cursorX: newCursorGotoX,
+                cursorY: newCursorGotoY
+            };
+
+        case UNIT_CLICKED:
+
+            return {
+                ...state,
+                cursorActive: false
+            };
+
         default:
             return state;
     }
