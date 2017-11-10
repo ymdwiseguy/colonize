@@ -5,6 +5,8 @@ import {createStore, combineReducers, applyMiddleware, bindActionCreators} from 
 import {Provider, connect} from 'react-redux'
 import thunk from 'redux-thunk'
 
+import '../layout.css';
+
 import {worldMap} from "./Reducers/Reducers.jsx";
 import {screen, faction} from "./Reducers/SimpleReducers.jsx";
 

@@ -13,10 +13,10 @@ import {
     reduceVisibleTiles
 } from '../GameLogic/ViewPortCalc.jsx'
 import {cursor} from './CursorReducer.jsx';
-import {didInvalidate, isFetching, whoIsActive} from './SimpleReducers.jsx';
+import {mapData} from './MapDataReducer.jsx';
+import {units, unitsInitialState} from './UnitsReducer.jsx';
+import {didInvalidate, lastUpdated, isFetching, whoIsActive} from './SimpleReducers.jsx';
 import {moveUnit} from '../GameLogic/UnitMovement.jsx';
-
-
 
 
 export function worldMap(state = {
@@ -28,7 +28,7 @@ export function worldMap(state = {
     didInvalidate: false,
     isFetching: false,
     mapData: {},
-    units: unitsInitalState(),
+    units: unitsInitialState,
     viewPort: {
         canvasWidth: 0,
         canvasHeight: 0,
@@ -60,7 +60,7 @@ export function worldMap(state = {
                 cursor: cursor(state.cursor, action),
                 didInvalidate: didInvalidate(state.didInvalidate, action),
                 isFetching: isFetching(state.isFetching, action),
-                lastUpdated: action.receivedAt,
+                lastUpdated: lastUpdated(state.lastUpdated, action),
                 mapData: {
                     ...action.mapData,
                     tiles: reduceVisibleTiles(action.mapData.tiles, viewPortUpdate, action)
@@ -88,7 +88,7 @@ export function worldMap(state = {
                     ...state.mapData,
                     tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
                 },
-                units: deactivateAllUnits(state.units),
+                units: units(state.units, action),
                 viewPort: viewPortUpdate,
                 whoIsActive: whoIsActive(state.whoIsActive, action)
             };
@@ -113,19 +113,7 @@ export function worldMap(state = {
                     ...state.mapData,
                     tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
                 },
-                units: state.units.map((unit) => {
-                    if (unit.unitId === action.unitId) {
-                        return {
-                            ...unit,
-                            active: true
-                        }
-                    } else {
-                        return {
-                            ...unit,
-                            active: false
-                        }
-                    }
-                }),
+                units: units(state.units, action),
                 viewPort: viewPortUpdate,
                 whoIsActive: whoIsActive(state.whoIsActive, action)
             };
@@ -208,8 +196,9 @@ export function worldMap(state = {
                 cursor: cursor(state.cursor, action),
                 didInvalidate: didInvalidate(state.didInvalidate, action),
                 isFetching: isFetching(state.isFetching, action),
+                lastUpdated: lastUpdated(state.lastUpdated, action),
                 mapData: {},
-                units: unitsInitalState(),
+                units: units(state.units, action),
                 viewPort: {
                     canvasWidth: 0,
                     canvasHeight: 0,
@@ -222,28 +211,4 @@ export function worldMap(state = {
 }
 
 
-function unitsInitalState() {
-    return [
-        {
-            "unitType": "KARAVELLE",
-            "unitId": 1,
-            "active": true,
-            "xPosition": 48,
-            "yPosition": 33
-        }
-    ]
-}
-
-
-function deactivateAllUnits(units) {
-    return units.map((unit) => {
-        if (unit.active) {
-            return {
-                ...unit,
-                active: false
-            }
-        }
-        return unit
-    })
-}
 

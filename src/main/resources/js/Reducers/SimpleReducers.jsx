@@ -50,6 +50,17 @@ export function whoIsActive(state = 1, action) {
     }
 }
 
+export function lastUpdated(state = 0, action) {
+    switch (action.type){
+
+        case RECEIVE_WORLD_MAP:
+            return action.receivedAt;
+
+        default:
+            return state;
+    }
+}
+
 export function screen(state = "START", action) {
     switch (action.type) {
         case GOTO_PAGE:
@@ -57,7 +68,7 @@ export function screen(state = "START", action) {
         case CHOOSE_FACTION:
             return 'GAME';
         default:
-            return state
+            return state;
     }
 }
 

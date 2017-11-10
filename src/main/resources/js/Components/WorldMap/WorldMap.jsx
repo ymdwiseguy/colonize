@@ -46,10 +46,10 @@ class WorldMap extends Component {
                 break;
         }
 
-        if(direction !== ''){
+        if (direction !== '') {
             if (this.props.worldMap.whoIsActive === 0) {
                 this.props.keyPressCursorMove(direction);
-            }else {
+            } else {
                 this.props.keyPressUnitMove(direction, this.props.worldMap.whoIsActive);
             }
 
@@ -61,9 +61,9 @@ class WorldMap extends Component {
     }
 
     getViewPortValues() {
-        let mapFrame = $('.map-outer-wrapper');
-        let frameWidth = parseInt(mapFrame.css('width'));
-        let frameHeight = parseInt(mapFrame.css('height'));
+        let mapFrame = document.getElementsByClassName('map-outer-wrapper');
+        let frameWidth = parseInt(WorldMap.getCssValue(mapFrame[0], 'width'));
+        let frameHeight = parseInt(WorldMap.getCssValue(mapFrame[0], 'height'));
         this.props.viewPortUpdate(frameWidth, frameHeight);
     }
 
@@ -94,7 +94,7 @@ class WorldMap extends Component {
         }
 
         let renderUnits = '';
-        if (worldMap.units) {
+        if (worldMap && worldMap.units && worldMap.units.length > 0) {
             renderUnits = worldMap.units.map((unit, i) => {
                 return <Unit unit={unit} key={i}/>
             });
@@ -110,6 +110,11 @@ class WorldMap extends Component {
                 <Cursor/>
             </div>
         )
+    }
+
+    static getCssValue(element, property) {
+        const elementStyles = window.getComputedStyle(element);
+        return elementStyles.getPropertyValue(property);
     }
 }
 

@@ -104,10 +104,15 @@ export function fetchMap(worldMap) {
     return function (dispatch) {
         dispatch(requestMap(worldMap));
 
-        return fetch(`http://localhost:9090/maps/${worldMap}`)
-            .then(response => response.json())
-            .then(json =>
-                dispatch(receiveMap(worldMap, json))
+        return fetch(`http://localhost:8080/maps/${worldMap}`)
+            .then(response => {
+                console.log(response);
+                return response.json();
+            })
+            .then(json => {
+                    console.log(json);
+                    return dispatch(receiveMap(worldMap, json))
+                }
             )
 
         // TODO: catch any error in the network call.

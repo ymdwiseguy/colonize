@@ -11,10 +11,14 @@
         "url": "https://github.com/ymdwiseguy/colonize.git"
     },
     "dependencies": {
-        "babel-polyfill": "^6.23.0",
-        "es6-promise": "^4.1.0",
+        "babel-polyfill": "^6.26.0",
+        "css-loader": "^0.28.7",
+        "es6-promise": "^4.1.1",
+        "express": "^4.16.2",
+        "extract-text-webpack-plugin": "^3.0.1",
+        "html-webpack-plugin": "^2.30.1",
         "isomorphic-fetch": "^2.2.1",
-        "normalize.css": "^4.2.0",
+        "normalize.css": "^7.0.0",
         "prop-types": "^15.5.8",
         "react": "^15.3.2",
         "react-dom": "^15.3.2",
@@ -25,15 +29,16 @@
         "redux-thunk": "^2.2.0"
     },
     "devDependencies": {
-        "babel-core": "^6.18.2",
-        "babel-loader": "^6.2.7",
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
         "babel-preset-es2015": "^6.18.0",
         "babel-preset-react": "^6.16.0",
         "babel-preset-stage-3": "^6.24.1",
-        "concurrently": "^2.2.0",
-        "node-sass": "^4.5.2",
-        "nodemon": "^1.10.2",
-        "webpack": "^1.13.3"
+        "concurrently": "^3.5.0",
+        "node-sass": "^4.5.3",
+        "nodemon": "^1.12.1",
+        "webpack": "^3.8.1",
+        "webpack-dev-server": "^2.9.3"
     },
     "babel": {
         "presets": [
@@ -52,7 +57,9 @@
         "copy:assets": "yarn copy:images",
         "watch:css": "nodemon -e scss -x 'yarn css:dev'",
         "watch:js": "webpack --watch -d",
-        "dev": "yarn clean:static && yarn copy:assets && concurrently --kill-others 'yarn watch:css' 'yarn watch:js'",
+        "dev-old": "yarn clean:static && yarn copy:assets && concurrently --kill-others 'yarn watch:css' 'yarn watch:js'",
+        "dev": "webpack-dev-server",
+        "api": "node src/main/resources/js/Server",
         "build:dev": "yarn clean:static && yarn copy:assets && yarn css:dev && yarn js:dev",
         "build:prod": "yarn clean:static && yarn copy:assets && yarn css:prod && yarn js:prod",
         "start": "yarn dev"
