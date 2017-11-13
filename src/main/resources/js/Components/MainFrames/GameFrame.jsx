@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import FileSubmenu from '../Menus/Implementations/FileSubmenu.jsx'
 import WorldMap from '../../Components/WorldMap/WorldMap.jsx';
-
+import SideBar from '../Menus/SideBar/SideBar.jsx';
 
 const mapGameStateToProps = (state) => ({
     worldMap: state.worldMap.mapData
@@ -21,9 +21,7 @@ const Game = ({worldMap}) => {
                 <WorldMap/>
             </div>
             <div className="sidebar">
-                <div className="sidebar--inner">
-                    <h2 className="sidebar__header">Sidebar</h2>
-                </div>
+                <SideBar />
             </div>
         </div>
     );
