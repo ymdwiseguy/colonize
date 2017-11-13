@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-
 const mapGameStateToProps = (state) => ({
     units: state.worldMap.units
 });
@@ -18,11 +17,7 @@ const UnitInfo = ({units}) => {
     return (
         <div className="unit-info">
             <p>
-                <span>X: {activeUnit.xPosition} </span>
-                <span>Y: {activeUnit.yPosition} </span>
-            </p>
-            <p>
-                <span>{activeUnit.unitType} ({activeUnit.unitId})</span>
+                <span>Unit type: {activeUnit.unitType}<br/>Unit ID: {activeUnit.unitId}</span>
             </p>
         </div>
     );

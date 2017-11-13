@@ -106,11 +106,9 @@ export function fetchMap(worldMap) {
 
         return fetch(`http://localhost:8080/maps/${worldMap}`)
             .then(response => {
-                console.log(response);
                 return response.json();
             })
             .then(json => {
-                    console.log(json);
                     return dispatch(receiveMap(worldMap, json))
                 }
             )

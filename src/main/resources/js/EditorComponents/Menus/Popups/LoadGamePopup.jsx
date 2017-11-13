@@ -7,8 +7,6 @@ const LoadGamePopup = ({popupMenu, onClickFrame}) => {
         return null;
     }
 
-    console.log(JSON.stringify(popupMenu));
-
     let menuentries = popupMenu.entries.map((entry, i) => {
         return <MenuEntry
             entry={entry}

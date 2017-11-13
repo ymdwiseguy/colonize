@@ -95,7 +95,6 @@ export function outsideViewPort(frameWidth, frameHeight, mapLeft, mapTop, cursor
 }
 
 export function reduceVisibleTiles(tiles, viewPort, action) {
-    console.log(action.type);
     const visibility = visibleTiles(viewPort);
     return tiles.map((tile) => {
         if (tileVisible(tile, visibility)) {

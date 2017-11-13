@@ -24,7 +24,6 @@ export function units(state = unitsInitialState, action) {
     switch (action.type) {
 
         case CURSOR_GOTO:
-            console.log(state);
             return deactivateAllUnits(state);
 
         case UNIT_CLICKED:
