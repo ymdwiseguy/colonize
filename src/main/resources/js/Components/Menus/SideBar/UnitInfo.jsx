@@ -17,7 +17,11 @@ const UnitInfo = ({units}) => {
     return (
         <div className="unit-info">
             <p>
-                <span>Unit type: {activeUnit.unitType}<br/>Unit ID: {activeUnit.unitId}</span>
+                <span>
+                    Unit type: {activeUnit.unitType}<br/>
+                    Faction: {activeUnit.faction}<br/>
+                    Unit ID: {activeUnit.unitId}
+                </span>
             </p>
         </div>
     );

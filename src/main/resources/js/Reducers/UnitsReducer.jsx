@@ -6,17 +6,30 @@ import {
 export const unitsInitialState = [
     {
         "unitType": "KARAVELLE",
+        "faction" : "England",
         "unitId": 1,
         "active": true,
         "xPosition": 48,
-        "yPosition": 33
+        "yPosition": 33,
+        "containingUnits": []
     },
     {
         "unitType": "KARAVELLE",
+        "faction" : "Netherlands",
         "unitId": 2,
         "active": false,
         "xPosition": 49,
-        "yPosition": 33
+        "yPosition": 33,
+        "containingUnits": []
+    },
+    {
+        "unitType": "KARAVELLE",
+        "faction" : "Netherlands",
+        "unitId": 3,
+        "active": false,
+        "xPosition": 48,
+        "yPosition": 32,
+        "containingUnits": []
     }
 ];
 
