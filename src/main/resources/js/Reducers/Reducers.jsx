@@ -43,171 +43,77 @@ export function worldMap(state = {
     let mapOffsetsGoto;
     let viewPortUpdate;
 
-    switch (action.type) {
-
-        case RECEIVE_WORLD_MAP:
-
-            mapOffsetsGoto = getMapOffsetByCursor(state, state.cursor);
-
-            viewPortUpdate = {
-                ...state.viewPort,
-                mapOffsetX: mapOffsetsGoto['xOffset'],
-                mapOffsetY: mapOffsetsGoto['yOffset']
-            };
-
-            return {
-                ...state,
-                cursor: cursor(state.cursor, action),
-                didInvalidate: didInvalidate(state.didInvalidate, action),
-                isFetching: isFetching(state.isFetching, action),
-                lastUpdated: lastUpdated(state.lastUpdated, action),
-                mapData: {
-                    ...action.mapData,
-                    tiles: reduceVisibleTiles(action.mapData.tiles, viewPortUpdate, action)
-                },
-                viewPort: viewPortUpdate
-            };
+    let returnMapData = state.mapData;
+    let returnViewPort = state.viewPort;
+    let returnCursor = cursor(state.cursor, action);
+    let returnUnits = units(state.units, action);
 
 
-        case CURSOR_GOTO:
+    if (action.type === RECEIVE_WORLD_MAP) {
+        mapOffsetsGoto = getMapOffsetByCursor(state, state.cursor);
 
-            newCursorGotoX = action.xPosition;
-            newCursorGotoY = action.yPosition;
-            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
-
-            viewPortUpdate = {
-                ...state.viewPort,
-                mapOffsetX: mapOffsetsGoto['xOffset'],
-                mapOffsetY: mapOffsetsGoto['yOffset']
-            };
-
-            return {
-                ...state,
-                cursor: cursor(state.cursor, action),
-                mapData: {
-                    ...state.mapData,
-                    tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
-                },
-                units: units(state.units, action),
-                viewPort: viewPortUpdate,
-                whoIsActive: whoIsActive(state.whoIsActive, action)
-            };
-
-
-        case UNIT_CLICKED:
-
-            newCursorGotoX = action.xPosition;
-            newCursorGotoY = action.yPosition;
-            mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
-
-            viewPortUpdate = {
-                ...state.viewPort,
-                mapOffsetX: mapOffsetsGoto['xOffset'],
-                mapOffsetY: mapOffsetsGoto['yOffset']
-            };
-
-            return {
-                ...state,
-                cursor: cursor(state.cursor, action),
-                mapData: {
-                    ...state.mapData,
-                    tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
-                },
-                units: units(state.units, action),
-                viewPort: viewPortUpdate,
-                whoIsActive: whoIsActive(state.whoIsActive, action)
-            };
-
-
-        case UNIT_MOVE:
-
-            if (state.whoIsActive > 0) {
-
-                const movedUnit = moveUnit(action.unitId, state.units, state.mapData, action.direction);
-                mapOffsetsGoto = getMapOffsetByUnits(state, movedUnit);
-
-                viewPortUpdate = {
-                    ...state.viewPort,
-                    mapOffsetX: mapOffsetsGoto['xOffset'],
-                    mapOffsetY: mapOffsetsGoto['yOffset']
-                };
-
-                return {
-                    ...state,
-                    mapData: {
-                        ...state.mapData,
-                        tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
-                    },
-                    units: movedUnit,
-                    viewPort: viewPortUpdate
-                };
-            }
-            return state;
-
-
-        case CURSOR_MOVE:
-            if (state.whoIsActive === 0) {
-
-                const movedCursor = cursor(state.cursor, action, state.mapData);
-                mapOffsetsGoto = getMapOffsetByCursor(state, movedCursor);
-
-                viewPortUpdate = {
-                    ...state.viewPort,
-                    mapOffsetX: mapOffsetsGoto['xOffset'],
-                    mapOffsetY: mapOffsetsGoto['yOffset']
-                };
-
-                return {
-                    ...state,
-                    cursor: movedCursor,
-                    mapData: {
-                        ...state.mapData,
-                        tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
-                    },
-                    viewPort: viewPortUpdate
-                };
-            }
-            return state;
-
-
-        case VIEWPORT_SET_CANVAS_SIZE:
-            viewPortUpdate = {
-                ...state.viewPort,
-                canvasWidth: action.canvasWidth,
-                canvasHeight: action.canvasHeight
-            };
-
-            let mapUpdate = state.mapData;
-            if (state.mapData.tiles !== undefined && state.mapData.tiles.length > 0) {
-                mapUpdate = {
-                    ...state.mapData,
-                    tiles: reduceVisibleTiles(state.mapData.tiles, viewPortUpdate, action)
-                };
-            }
-            return {
-                ...state,
-                mapData: mapUpdate,
-                viewPort: viewPortUpdate
-            };
-
-        default:
-            return {
-                ...state,
-                cursor: cursor(state.cursor, action),
-                didInvalidate: didInvalidate(state.didInvalidate, action),
-                isFetching: isFetching(state.isFetching, action),
-                lastUpdated: lastUpdated(state.lastUpdated, action),
-                mapData: {},
-                units: units(state.units, action),
-                viewPort: {
-                    canvasWidth: 0,
-                    canvasHeight: 0,
-                    mapOffsetX: 0,
-                    mapOffsetY: 0
-                },
-                whoIsActive: whoIsActive(state.whoIsActive, action)
-            };
+        returnViewPort = {
+            ...state.viewPort,
+            mapOffsetX: mapOffsetsGoto['xOffset'],
+            mapOffsetY: mapOffsetsGoto['yOffset']
+        };
     }
+
+    if (action.type === CURSOR_GOTO || action.type === UNIT_CLICKED) {
+        newCursorGotoX = action.xPosition;
+        newCursorGotoY = action.yPosition;
+        mapOffsetsGoto = getMapOffset(state, newCursorGotoX, newCursorGotoY);
+        returnViewPort = {
+            ...state.viewPort,
+            mapOffsetX: mapOffsetsGoto['xOffset'],
+            mapOffsetY: mapOffsetsGoto['yOffset']
+        };
+    }
+
+
+    if (action.type === UNIT_MOVE && state.whoIsActive > 0) {
+        const movedUnit = moveUnit(action.unitId, state.units, state.mapData, action.direction);
+        mapOffsetsGoto = getMapOffsetByUnits(state, movedUnit);
+        returnViewPort = {
+            ...state.viewPort,
+            mapOffsetX: mapOffsetsGoto['xOffset'],
+            mapOffsetY: mapOffsetsGoto['yOffset']
+        };
+        returnUnits = movedUnit;
+    }
+
+    if (action.type === CURSOR_MOVE && state.whoIsActive === 0) {
+        const movedCursor = cursor(state.cursor, action, state.mapData);
+        mapOffsetsGoto = getMapOffsetByCursor(state, movedCursor);
+        returnViewPort = {
+            ...state.viewPort,
+            mapOffsetX: mapOffsetsGoto['xOffset'],
+            mapOffsetY: mapOffsetsGoto['yOffset']
+        };
+        returnCursor = movedCursor;
+    }
+
+    if (action.type === VIEWPORT_SET_CANVAS_SIZE) {
+        returnViewPort = {
+            ...state.viewPort,
+            canvasWidth: action.canvasWidth,
+            canvasHeight: action.canvasHeight
+        };
+    }
+
+    returnMapData = mapData(state.mapData, action, returnViewPort);
+
+    return {
+        ...state,
+        cursor: returnCursor,
+        didInvalidate: didInvalidate(state.didInvalidate, action),
+        isFetching: isFetching(state.isFetching, action),
+        lastUpdated: lastUpdated(state.lastUpdated, action),
+        mapData: returnMapData,
+        units: returnUnits,
+        viewPort: returnViewPort,
+        whoIsActive: whoIsActive(state.whoIsActive, action)
+    };
 }
 
 
