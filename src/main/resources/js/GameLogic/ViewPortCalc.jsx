@@ -1,66 +1,19 @@
 
-export function getMapOffset(state, cursorLeft, cursorTop) {
-
-    const GRID_FACTOR = 100;
-
-    const canvasWidth = state.viewPort.canvasWidth === 0 ? 0 : Math.floor(state.viewPort.canvasWidth / GRID_FACTOR);
-    const canvasHeight = state.viewPort.canvasHeight === 0 ? 0 : Math.floor(state.viewPort.canvasHeight / GRID_FACTOR);
-    const mapWidth = state.mapData.width;
-    const mapHeight = state.mapData.height;
-    let mapLeft = state.viewPort.mapOffsetX;
-    let mapTop = state.viewPort.mapOffsetY;
-
-    if (outsideViewPort(canvasWidth, canvasHeight, mapLeft, mapTop, cursorLeft, cursorTop)) {
-        mapLeft = cursorLeft - canvasWidth / 2;
-        mapLeft = limitHorizontally(mapLeft, mapWidth, canvasWidth);
-        mapTop = cursorTop - canvasHeight / 2;
-        mapTop = limitVertically(mapTop, mapHeight, canvasHeight);
-
-        return {
-            'xOffset': (mapLeft === 0 ? 0 : Math.floor(mapLeft)),
-            'yOffset': (mapTop === 0 ? 0 : Math.floor(mapTop))
-        };
-    }
-    return {'xOffset': state.viewPort.mapOffsetX, 'yOffset': state.viewPort.mapOffsetY};
-}
-export function getMapOffsetByCursor(state, cursor) {
-
-    const GRID_FACTOR = 100;
-    const cursorLeft = cursor.cursorX;
-    const cursorTop = cursor.cursorY;
-
-    const canvasWidth = state.viewPort.canvasWidth === 0 ? 0 : Math.floor(state.viewPort.canvasWidth / GRID_FACTOR);
-    const canvasHeight = state.viewPort.canvasHeight === 0 ? 0 : Math.floor(state.viewPort.canvasHeight / GRID_FACTOR);
-    const mapWidth = state.mapData.width;
-    const mapHeight = state.mapData.height;
-    let mapLeft = state.viewPort.mapOffsetX;
-    let mapTop = state.viewPort.mapOffsetY;
-
-    if (outsideViewPort(canvasWidth, canvasHeight, mapLeft, mapTop, cursorLeft, cursorTop)) {
-        mapLeft = cursorLeft - canvasWidth / 2;
-        mapLeft = limitHorizontally(mapLeft, mapWidth, canvasWidth);
-        mapTop = cursorTop - canvasHeight / 2;
-        mapTop = limitVertically(mapTop, mapHeight, canvasHeight);
-
-        return {
-            'xOffset': (mapLeft === 0 ? 0 : Math.floor(mapLeft)),
-            'yOffset': (mapTop === 0 ? 0 : Math.floor(mapTop))
-        };
-    }
-    return {'xOffset': state.viewPort.mapOffsetX, 'yOffset': state.viewPort.mapOffsetY};
-}
 export function getMapOffsetByUnits(state, units) {
-
-    const GRID_FACTOR = 100;
     let cursorLeft = 0;
     let cursorTop = 0;
-
     units.map(unit => {
         if(unit.active){
             cursorLeft = unit.xPosition;
             cursorTop = unit.yPosition;
         }
     });
+    return getMapOffset(state, cursorLeft, cursorTop);
+}
+
+export function getMapOffset(state, cursorLeft, cursorTop) {
+
+    const GRID_FACTOR = 100;
 
     const canvasWidth = state.viewPort.canvasWidth === 0 ? 0 : Math.floor(state.viewPort.canvasWidth / GRID_FACTOR);
     const canvasHeight = state.viewPort.canvasHeight === 0 ? 0 : Math.floor(state.viewPort.canvasHeight / GRID_FACTOR);
