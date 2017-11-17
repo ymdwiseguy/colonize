@@ -6,7 +6,7 @@ export function moveUnit(unitId, units, mapData, direction) {
             const from = [unit.xPosition, unit.yPosition];
 
             let to = getDestinationByDirection(from, direction);
-            to = tryMoving(from, to, mapData, units);
+            to = tryMoving(from, to, mapData, units, unit);
 
             return {
                 ...unit,
@@ -46,7 +46,7 @@ function getDestinationByDirection(from, direction) {
 }
 
 
-function tryMoving(from, to, mapData, units) {
+function tryMoving(from, to, mapData, units, unit) {
 
     const mapWidth = mapData.width || 0;
     const mapHeight = mapData.height || 0;
@@ -62,7 +62,7 @@ function tryMoving(from, to, mapData, units) {
     if (!moved(from, to)) {
         return from;
     }
-    to = checkUnitCollision(from, to, units);
+    to = checkUnitCollision(from, to, units, unit);
 
     return to;
 }
@@ -110,18 +110,18 @@ function checkTerrainCollision(from, to, mapData) {
 }
 
 
-function checkUnitCollision(from, to, units) {
+function checkUnitCollision(from, to, units, unit) {
     let x = to[0];
     let y = to[1];
-    let unitsAtDestination = 0;
+    let enemyUnitsAtDestination = 0;
 
-    units.map((unit) => {
-        if (unit.xPosition === x && unit.yPosition === y) {
-            unitsAtDestination++;
+    units.map((otherUnit) => {
+        if (otherUnit.xPosition === x && otherUnit.yPosition === y && otherUnit.faction !== unit.faction) {
+            enemyUnitsAtDestination++;
         }
     });
 
-    if (unitsAtDestination > 0) {
+    if (enemyUnitsAtDestination > 0) {
         return from;
     } else {
         return to;
