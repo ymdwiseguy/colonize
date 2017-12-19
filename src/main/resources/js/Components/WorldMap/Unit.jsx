@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import {bindActionCreators} from 'redux'
 import * as actions from '../../Actions/Actions.jsx'
+import {factions} from "../../Reducers/SimpleReducers.jsx";
 
 const mapStateToProps = (state, ownProps) => {
     return {ownProps}
@@ -29,16 +30,25 @@ class Unit extends Component {
     }
 
     static unitsAreEqual(unit1, unit2) {
-        if (unit1.unitType !== unit2.unitType) { return false; }
-        if (unit1.active !== unit2.active) { return false; }
-        if (unit1.xPosition !== unit2.xPosition) { return false; }
+        if (unit1.unitType !== unit2.unitType) {
+            return false;
+        }
+        if (unit1.active !== unit2.active) {
+            return false;
+        }
+        if (unit1.xPosition !== unit2.xPosition) {
+            return false;
+        }
         return unit1.yPosition === unit2.yPosition;
     }
 
     render() {
         const {unit} = this.props;
 
-        let className = 'unit unit__' + unit.unitType + ' unit__xpos-' + unit.xPosition + ' unit__ypos-' + unit.yPosition;
+        let className = 'unit unit__' + unit.unitType + ' unit__xpos-' + unit.xPosition + ' unit__ypos-' + unit.yPosition + ' unit__faction';
+        if (factions.includes(unit.faction)) {
+            className += ' unit__faction--' + unit.faction
+        }
         let unitId = 'unit_' + unit.unitId;
 
         if (unit.active) {

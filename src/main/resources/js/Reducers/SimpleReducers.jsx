@@ -72,7 +72,7 @@ export function screen(state = "START", action) {
     }
 }
 
-const factions = ['Netherlands', 'France', 'Spain', 'England'];
+export const factions = ['Netherlands', 'France', 'Spain', 'England'];
 
 export function faction(state = null, action) {
     switch (action.type) {

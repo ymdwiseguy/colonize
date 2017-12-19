@@ -4250,8 +4250,37 @@ section > h2 {
   z-index: 5;
 }
 
+.unit__faction {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 3px solid #fff;
+}
+
+.unit__faction--Netherlands {
+  background-color: rgba(255, 100, 0, 0.3);
+  border-color: rgba(255, 100, 0, 0.8);
+}
+
+.unit__faction--England {
+  background-color: rgba(255, 0, 0, 0.3);
+  border-color: rgba(255, 0, 0, 0.8);
+}
+
+.unit__faction--Spain {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-color: rgba(255, 255, 0, 0.8);
+}
+
+.unit__faction--France {
+  background-color: rgba(0, 0, 255, 0.3);
+  border-color: rgba(0, 0, 255, 0.8);
+}
+
 .unit__KARAVELLE {
   background-image: url("/assets/img/karavelle.svg");
+}
+
+.unit__SOLDIER {
+  background-image: url("/assets/img/unit_soldier_specialist.png");
 }
 
 .unit__xpos-1 {

@@ -31,8 +31,34 @@
     width: 100px;
     z-index: 5;
 
+    &__faction {
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 3px solid #fff;
+
+        &--Netherlands {
+            background-color: rgba(255, 100, 0, 0.3);
+            border-color: rgba(255, 100, 0, 0.8);
+        }
+        &--England {
+            background-color: rgba(255, 0, 0, 0.3);
+            border-color: rgba(255, 0, 0, 0.8);
+        }
+        &--Spain {
+            background-color: rgba(255, 255, 0, 0.3);
+            border-color: rgba(255, 255, 0, 0.8);
+        }
+        &--France {
+            background-color: rgba(0, 0, 255, 0.3);
+            border-color: rgba(0, 0, 255, 0.8);
+        }
+    }
+
     &__KARAVELLE {
         background-image: url("/assets/img/karavelle.svg");
+    }
+
+    &__SOLDIER {
+        background-image: url("/assets/img/unit_soldier_specialist.png");
     }
 
     $xposition: __xpos !default;

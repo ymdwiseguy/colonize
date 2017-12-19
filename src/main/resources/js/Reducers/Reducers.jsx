@@ -23,8 +23,8 @@ import {viewPort} from './ViewPortReducer.jsx';
 export function worldMap(state = {
     cursor: {
         cursorActive: false,
-        cursorX: 48,
-        cursorY: 33
+        cursorX: 46,
+        cursorY: 34
     },
     didInvalidate: false,
     isFetching: false,
