@@ -12,3 +12,4 @@ target
 node_modules/
 /src/main/resources/static/assets/
 yarn.lock
+yarn-error.log
