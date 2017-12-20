@@ -20,7 +20,7 @@ export function moveUnit(unitId, units, mapData, direction) {
 }
 
 
-function getDestinationByDirection(from, direction) {
+export function getDestinationByDirection(from, direction) {
     let coords = {
         x: from.x,
         y: from.y
@@ -71,12 +71,11 @@ function tryMoving(from, to, mapData, units, unit) {
 }
 
 
-function moved(from, to) {
+export function moved(from, to) {
     return (from.x !== to.x || from.y !== to.y);
 }
 
-
-function checkMapBoundaries(coords, mapWidth, mapHeight) {
+export function checkMapBoundaries(coords, mapWidth, mapHeight) {
     if (coords.x > mapWidth) {
         coords.x = mapWidth;
     }
@@ -87,7 +86,7 @@ function checkMapBoundaries(coords, mapWidth, mapHeight) {
 }
 
 
-function checkTerrainCollision(from, to, mapData, unit) {
+export function checkTerrainCollision(from, to, mapData, unit) {
     let tileType = '';
     mapData.tiles.map((tile) => {
         if (tile.xCoordinate === to.x && tile.yCoordinate === to.y) {
@@ -101,11 +100,13 @@ function checkTerrainCollision(from, to, mapData, unit) {
 }
 
 
-function checkUnitCollision(from, to, units, unit) {
+export function checkUnitCollision(from, to, units, unit) {
     let enemyUnitsAtDestination = 0;
 
     units.map((otherUnit) => {
-        if (otherUnit.xPosition === to.x && otherUnit.yPosition === to.y && otherUnit.faction !== unit.faction) {
+        if (otherUnit.xPosition === to.x
+            && otherUnit.yPosition === to.y
+            && otherUnit.faction !== unit.faction) {
             enemyUnitsAtDestination++;
         }
     });
@@ -118,7 +119,7 @@ function checkUnitCollision(from, to, units, unit) {
 }
 
 
-function unitFitsTerrain(unitType, tileType) {
+export function unitFitsTerrain(unitType, tileType) {
     const waterUnit = (unitType === 'KARAVELLE');
     const waterTile = (tileType === 'OCEAN_SHALLOW' || tileType === 'OCEAN_DEEP');
     return waterUnit === waterTile;

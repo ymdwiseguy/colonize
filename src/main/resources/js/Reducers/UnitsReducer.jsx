@@ -5,40 +5,40 @@ import {
 
 export const unitsInitialState = [
     {
-        "unitType": "KARAVELLE",
-        "faction" : "Netherlands",
-        "unitId": 1,
-        "active": true,
-        "xPosition": 48,
-        "yPosition": 33,
-        "containingUnits": []
+        unitType: "KARAVELLE",
+        faction : "Netherlands",
+        unitId: 1,
+        active: true,
+        xPosition: 48,
+        yPosition: 33,
+        containingUnits: []
     },
     {
-        "unitType": "KARAVELLE",
-        "faction" : "Netherlands",
-        "unitId": 2,
-        "active": false,
-        "xPosition": 49,
-        "yPosition": 33,
-        "containingUnits": []
+        unitType: "KARAVELLE",
+        faction : "Netherlands",
+        unitId: 2,
+        active: false,
+        xPosition: 49,
+        yPosition: 33,
+        containingUnits: []
     },
     {
-        "unitType": "KARAVELLE",
-        "faction" : "Netherlands",
-        "unitId": 3,
-        "active": false,
-        "xPosition": 47,
-        "yPosition": 34,
-        "containingUnits": []
+        unitType: "KARAVELLE",
+        faction : "Netherlands",
+        unitId: 3,
+        active: false,
+        xPosition: 47,
+        yPosition: 34,
+        containingUnits: []
     },
     {
-        "unitType": "SOLDIER",
-        "faction" : "Netherlands",
-        "unitId": 101,
-        "active": false,
-        "xPosition": 46,
-        "yPosition": 34,
-        "containingUnits": []
+        unitType: "SOLDIER",
+        faction : "Netherlands",
+        unitId: 101,
+        active: false,
+        xPosition: 46,
+        yPosition: 34,
+        containingUnits: []
     }
 ];
 
