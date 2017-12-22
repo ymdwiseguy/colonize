@@ -2,14 +2,15 @@ import test from 'ava';
 import {
     checkMapBoundaries,
     checkUnitCollision,
+    checkTerrainCollision,
     getDestinationByDirection,
     moved,
+    moveUnit,
+    tryMoving,
     unitFitsTerrain
 } from './UnitMovement.jsx'
 import * as tileTypes from '../Components/WorldMap/TileTypes.jsx';
 import {factions} from '../Reducers/SimpleReducers.jsx'
-import {checkTerrainCollision} from "./UnitMovement";
-import {mapData} from "../Reducers/MapDataReducer";
 
 
 // --- moved(from, to)
@@ -48,6 +49,7 @@ function unitFitsTerrainMacro(t, unitType, terrainType, expected) {
 }
 
 unitFitsTerrainMacro.title = (providedTitle, unitType, terrainType, expected) => `${providedTitle} ${unitType}/${terrainType}`.trim();
+
 test('sea unit fits sea', unitFitsTerrainMacro, 'KARAVELLE', tileTypes.OCEAN_SHALLOW, true);
 test('sea unit fits sea', unitFitsTerrainMacro, 'KARAVELLE', tileTypes.OCEAN_DEEP, true);
 test('sea unit does not fit land', unitFitsTerrainMacro, 'KARAVELLE', tileTypes.LAND_ARCTIC, false);
@@ -109,7 +111,7 @@ test(
 );
 
 test(
-    'unit collision: units of the same faction stack',
+    'unit collision: units of different factions dont stack',
     unitCollisionMacro, factions[1], {x: 10, y: 10}
 );
 
@@ -118,9 +120,11 @@ test(
 function aWaterTile(x = 1, y = 1) {
     return aTile(x, y, tileTypes.OCEAN_SHALLOW)
 }
+
 function aLandTile(x = 1, y = 1) {
     return aTile(x, y, tileTypes.LAND_PLAINS)
 }
+
 function aTile(x = 1, y = 1, type = tileTypes.OCEAN_SHALLOW) {
     return {
         xCoordinate: x,
@@ -128,6 +132,7 @@ function aTile(x = 1, y = 1, type = tileTypes.OCEAN_SHALLOW) {
         type: type
     }
 }
+
 function terrainCollisionMacro(t, destinedTile, expected) {
     const mapData = {
         worldMapId: null,
@@ -145,5 +150,85 @@ function terrainCollisionMacro(t, destinedTile, expected) {
         expected
     )
 }
-test('unit can move on destined terrain', terrainCollisionMacro, aWaterTile(2,1), {x:2,y:1});
-test('unit can not move on destined terrain', terrainCollisionMacro, aLandTile(2,1), {x:1,y:1});
+
+test('unit can move on destined terrain', terrainCollisionMacro, aWaterTile(2, 1), {x: 2, y: 1});
+test('unit can not move on destined terrain', terrainCollisionMacro, aLandTile(2, 1), {x: 1, y: 1});
+
+
+// --- tryMoving(from, to, mapData, units, unit)
+function setupForTryMovingTest(t, from, to, expected) {
+    const mapData = {
+        worldMapId: null,
+        title: "Title",
+        worldMapName: "some_map",
+        tiles: [
+            aWaterTile(1, 1),
+            aWaterTile(1, 2),
+            aLandTile(2, 1),
+            aWaterTile(2, 2)
+        ],
+        width: 2,
+        height: 2
+    };
+    const unit = aUnit(1, true, factions[0], 1, 1);
+    const units = [
+        unit,
+        aUnit(2, false, factions[1], 2, 2)
+    ];
+
+    t.deepEqual(
+        tryMoving(from, to, mapData, units, unit),
+        expected
+    );
+}
+
+test(
+    'try moving within proper parameters is successful',
+    setupForTryMovingTest, {x: 2, y: 1}, {x: 1, y: 1}, {x: 1, y: 1}
+);
+
+test(
+    'try moving out of map boundaries fails',
+    setupForTryMovingTest, {x: 2, y: 1}, {x: 3, y: 1}, {x: 2, y: 1}
+);
+
+test(
+    'try moving on unpassable terrain fails',
+    setupForTryMovingTest, {x: 2, y: 1}, {x: 2, y: 1}, {x: 2, y: 1}
+);
+
+test(
+    'try moving over enemy unit fails',
+    setupForTryMovingTest, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 1}
+);
+
+
+// --- function moveUnit(unitId, units, mapData, direction)
+test('moving a unit by id one step to the right', t => {
+
+    let mapData = {
+        worldMapId: null,
+        title: "Title",
+        worldMapName: "some_map",
+        tiles: [
+            aWaterTile(1, 1),
+            aWaterTile(1, 2),
+            aWaterTile(2, 1),
+            aWaterTile(2, 2)
+        ],
+        width: 2,
+        height: 2
+    };
+    let units = [
+        aUnit(1, true, factions[0], 1, 1)
+    ];
+
+
+    let result = moveUnit(1, units, mapData, 'RIGHT');
+
+    t.deepEqual(
+        result,
+        [aUnit(1, true, factions[0], 2, 1)]
+    );
+
+});

@@ -47,8 +47,7 @@ export function getDestinationByDirection(from, direction) {
     return coords;
 }
 
-
-function tryMoving(from, to, mapData, units, unit) {
+export function tryMoving(from, to, mapData, units, unit) {
     const mapWidth = mapData.width || 0;
     const mapHeight = mapData.height || 0;
 
@@ -70,7 +69,6 @@ function tryMoving(from, to, mapData, units, unit) {
     return to;
 }
 
-
 export function moved(from, to) {
     return (from.x !== to.x || from.y !== to.y);
 }
@@ -85,7 +83,6 @@ export function checkMapBoundaries(coords, mapWidth, mapHeight) {
     return coords;
 }
 
-
 export function checkTerrainCollision(from, to, mapData, unit) {
     let tileType = '';
     mapData.tiles.map((tile) => {
@@ -98,7 +95,6 @@ export function checkTerrainCollision(from, to, mapData, unit) {
     }
     return to;
 }
-
 
 export function checkUnitCollision(from, to, units, unit) {
     let enemyUnitsAtDestination = 0;
@@ -117,7 +113,6 @@ export function checkUnitCollision(from, to, units, unit) {
         return to;
     }
 }
-
 
 export function unitFitsTerrain(unitType, tileType) {
     const waterUnit = (unitType === 'KARAVELLE');
