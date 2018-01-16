@@ -47,26 +47,48 @@ export function getDestinationByDirection(from, direction) {
     return coords;
 }
 
-export function tryMoving(from, to, mapData, units, unit) {
+export function tryMoving(from, aimedDestiny, mapData, units, unit) {
+
     const mapWidth = mapData.width || 0;
     const mapHeight = mapData.height || 0;
+    let to = aimedDestiny;
 
+    if (!moved(from, aimedDestiny)) {
+        return from;
+    }
+
+    to = checkMapBoundaries(aimedDestiny, mapWidth, mapHeight);
     if (!moved(from, to)) {
         return from;
     }
 
-    to = checkMapBoundaries(to, mapWidth, mapHeight);
-    if (!moved(from, to)) {
-        return from;
-    }
 
-    to = checkTerrainCollision(from, to, mapData, unit);
+    to = checkTerrainCollision(from, aimedDestiny, mapData, unit);
     if (!moved(from, to)) {
-        return from;
+        to = tryToEnterOtherUnit(from, aimedDestiny, units, unit)
+    } else {
+        to = checkUnitCollision(from, aimedDestiny, units, unit);
     }
-    to = checkUnitCollision(from, to, units, unit);
 
     return to;
+}
+
+export function tryToEnterOtherUnit(from, to, units, unit) {
+
+    let availableCapacity = 0;
+
+    units.map((otherUnit) => {
+        if (otherUnit.xPosition === to.x
+            && otherUnit.yPosition === to.y
+            && otherUnit.faction === unit.faction) {
+            availableCapacity += otherUnit.capacity;
+        }
+    });
+
+    if (availableCapacity > 0) {
+        return to;
+    }
+    return from;
 }
 
 export function moved(from, to) {

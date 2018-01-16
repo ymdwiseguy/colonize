@@ -232,3 +232,50 @@ test('moving a unit by id one step to the right', t => {
     );
 
 });
+
+
+
+// --- function moveUnit(unitId, units, mapData, direction)
+test('moving a land unit onto a water unit', t => {
+
+    let mapData = {
+        worldMapId: null,
+        title: "Title",
+        worldMapName: "some_map",
+        tiles: [
+            aLandTile(1, 1),
+            aWaterTile(1, 2),
+            aWaterTile(2, 1),
+            aWaterTile(2, 2)
+        ],
+        width: 2,
+        height: 2
+    };
+
+    let units = [
+        {
+            unitType: "KARAVELLE",
+            faction: factions[0],
+            unitId: 1,
+            active: false,
+            xPosition: 2,
+            yPosition: 1,
+            capacity: 2,
+            containingUnits: []
+        },{
+            unitType: "SOLDIER",
+            faction: factions[0],
+            unitId: 2,
+            active: true,
+            xPosition: 1,
+            yPosition: 1,
+            capacity: 0,
+            containingUnits: []
+        }
+    ];
+
+    let result = moveUnit(2, units, mapData, 'RIGHT');
+
+    t.is(result[1].xPosition, 2);
+
+});

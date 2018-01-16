@@ -11,6 +11,7 @@ export const unitsInitialState = [
         active: true,
         xPosition: 48,
         yPosition: 33,
+        capacity: 2,
         containingUnits: []
     },
     {
@@ -20,6 +21,7 @@ export const unitsInitialState = [
         active: false,
         xPosition: 49,
         yPosition: 33,
+        capacity: 2,
         containingUnits: []
     },
     {
@@ -29,6 +31,7 @@ export const unitsInitialState = [
         active: false,
         xPosition: 47,
         yPosition: 34,
+        capacity: 2,
         containingUnits: []
     },
     {
@@ -38,6 +41,7 @@ export const unitsInitialState = [
         active: false,
         xPosition: 46,
         yPosition: 34,
+        capacity: 0,
         containingUnits: []
     }
 ];
